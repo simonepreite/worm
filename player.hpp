@@ -6,7 +6,7 @@
 class player {
 protected:
 	/* informazioni utente */
-	char nome[MAXNOME];
+	char name[MAXNOME];
 	int id;
 	int x;
 	int y;	
@@ -16,7 +16,7 @@ public:
 		x = 0;
 		y = 0;
 		id = id_user;
-		strcpy(nome, player);
+		strcpy(name, player);
 	}
 	
 
