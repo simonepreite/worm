@@ -1,16 +1,24 @@
 #ifndef PLAYER_HPP_
 #define PLAYER_HPP_
+
+#define MAXNOME 8
+
 class player {
 protected:
-	/* coordinate della mappa */
-	string nome;
+	/* informazioni utente */
+	char name[MAXNOME];
+	int id;
 	int x;
-	int y;
-	/* puntatori alle direzioni */
-	
+	int y;	
 
 public:
-
+	player(int id_user, char player[]){
+		x = 0;
+		y = 0;
+		id = id_user;
+		strcpy(name, player);
+	}
+	
 
 };
 #endif

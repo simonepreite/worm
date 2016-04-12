@@ -9,4 +9,4 @@ worms: $(OBJECTS)
 
 
 worms.o: worms.cpp $(HEAD_FILE)
-	$(CC) $(FLAG_CC) $(SRC_DIR)pcb.o $(SRC_DIR)pcb.c
+	$(CC) worms.o worms.c
