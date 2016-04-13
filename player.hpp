@@ -21,6 +21,9 @@ public:
 		id = id_user;
 		strcpy(name, player);
 	}
+	char* print_name(){
+		return name;
+	}
 
 };
 
@@ -31,5 +34,5 @@ struct user_list{
 
 typedef user_list* ptr_user;
 
-extern int enqueue_player(struct user_list *tail, char name[], int id);
+extern ptr_user enqueue_player(ptr_user tail, char name[], int id);
 #endif
