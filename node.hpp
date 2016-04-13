@@ -33,20 +33,20 @@ public:
 		return y;
 	}
 
-	node n(){
-		return nord;
+	void n(node *p){
+		nord = p;
 	} 
 
-	node s(){
-		return sud;
+	void s(node *p){
+		sud = p;
 	} 
 
-	node e(){
-		return east;
+	void e(node *p){
+		east = p;
 	} 
 
-	node w(){
-		return west;
+	void w(node *p){
+		west = p;
 	} 
 
 	void dig {
@@ -57,11 +57,11 @@ public:
 		digged = false;
 	}
 
-}node;
+};
 
 struct maps{
 	node place;
-	maps *next;
+	struct maps *next;
 }maps;
 
 #endif
