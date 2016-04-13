@@ -24,6 +24,9 @@ public:
 	int print_id(){
 		return id;
 	}
+	void print_name(){
+		std::cout << name;
+	}
 
 };
 
@@ -34,5 +37,4 @@ struct user_list{
 
 typedef user_list* ptr_user;
 
-extern ptr_user enqueue_player(ptr_user tail, char name[], int id);
 #endif

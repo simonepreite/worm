@@ -1,58 +1,30 @@
-#include <string.h>
-#include <iostream>
-#include "node.hpp"
-#include "player.hpp"
+#include "header.hpp"
+
 using namespace std;
 
-void  print_list(ptr_user tail){
-	ptr_user tmp = NULL;
-	cout << "print\n";
-	if(tail==NULL) cout << "lista vuota\n";
-	else{
-		for(ptr_user scan = tail->next; tmp!=tail; tmp = scan, scan = scan->next){
-			cout << "scan: " << scan << endl;
-			cout << "id giocatore " << scan->user.print_id() << endl;
-		}
-	}
-//return 1;
-}
 int main(){
-	int i, num_players;
+	int i, num_players, primo;
+	ptr_user scan;
 	char name_player[MAXNOME];
 	ptr_user tail = NULL;
-	cout << "inserire numero di giocatori: \n";
-	cin >> num_players;
-	for(i=0; i<num_players; i++){
-		cout << "nome_giocatore (max 8 caratteri): \n";
-		cin >> name_player; // inserire controllo lunghezza
+	std::cout << "inserire numero di giocatori: \n";
+	std::cin >> num_players;
+	num_players = num_players;
+	for(i=0; i < num_players; i++){
+		std::cout << "nome_giocatore (max 8 caratteri): \n";
+		std::cin >> name_player; // inserire controllo lunghezza
 		tail = enqueue_player(tail, name_player, i); // inizializza lista dei giocatori
-		cout << tail << endl;
-		//cout << "id giocatore " << tail->user.print_id() << endl;
+		std::cout << tail << endl;
 		}
 	print_list(tail);
-
+	primo = random(num_players - 1);
+	std::cout << "il primo ad iniziare è il giocatore numero: ";
+	std::cout << primo << "\n";
+	scan = tail->next;
+	for(i = 0; i < primo; i++){
+		scan = scan->next;
+	}
+	std::cout << "di nome: ";
+	scan->user.print_name();
 	return 1;
-}
-
-ptr_user enqueue_player(ptr_user tail, char name[], int id){
-	ptr_user tmp;
-	cout << "init enqueue\n";
-	if(tail == NULL) {
-		cout << "primo elemento\n";
-		tail = new user_list;
-		tail->next = tail;
-		tail->user.set(id, name);
-	} else {
-		cout << "altri elementi\n";
-		tmp = new user_list;
-		tmp->next = tail->next;
-		tail->next = tmp;
-		tail = tmp;
-		tmp->user.set(id, name);
-	}	
-	cout << "l'ultimo giocatore inserito: ";
-	cout << tail;
-	cout << "\n";
-
-return tail;
 }
