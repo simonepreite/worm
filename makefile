@@ -9,3 +9,6 @@ all: worms
 
 worms: worms.cpp $(HEAD_FILE)
 	$(CC) $(FLAG_CC) worms worms.cpp
+
+clean:
+	rm -rf worms

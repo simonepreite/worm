@@ -27,8 +27,9 @@ public:
 struct user_list{
 	player user;
 	struct user_list *next;
+};
 
-}user_list;
+typedef user_list* ptr_user;
 
 extern int enqueue_player(struct user_list *tail, char name[], int id);
 #endif

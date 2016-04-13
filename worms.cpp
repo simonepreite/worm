@@ -22,14 +22,14 @@ int main(){
 }
 
 int enqueue_player(struct user_list *tail, char name[], int id){
-	struct user_list *tmp;
+	ptr_user tmp;
 
 	if(tail == NULL) {
-		tail = new struct user_list;
+		tail = new user_list;
 		tail->next = tail;
 		tail->user.set(id, name);
 	} else {
-		tmp = new struct user_list;
+		tmp = new user_list;
 		tail->next = tmp;
 		tmp->next = tail;
 		tail = tmp;

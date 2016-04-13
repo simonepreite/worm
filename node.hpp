@@ -60,8 +60,11 @@ public:
 };
 
 struct maps{
-	node place();
+	node place;
 	struct maps *next;
-}maps;
+};
+
+typedef maps* ptr_maps;
+
 
 #endif
