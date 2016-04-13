@@ -57,6 +57,11 @@ public:
 		digged = false;
 	}
 
-};
+}node;
+
+struct maps{
+	node place;
+	maps *next;
+}maps;
 
 #endif

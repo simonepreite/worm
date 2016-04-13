@@ -20,5 +20,11 @@ public:
 	}
 	
 
-};
+}player;
+
+struct user_list{
+	player user;
+	users *next;
+
+}user_list;
 #endif
