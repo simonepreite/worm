@@ -4,15 +4,18 @@
 #include "player.hpp"
 using namespace std;
 
-/*int  print_list(ptr_user tail){
+int  print_list(ptr_user tail){
 	ptr_user tmp = NULL;
 	cout << "print\n";
 	if(tail==NULL) cout << "lista vuota\n";
 	else{
-		for(ptr_user scan = tail; tmp!=scan; scan = scan->next,  tmp = tail) cout << tmp->user.print_name();
+		for(ptr_user scan = tail->next; tmp!=scan; scan = scan->next,  tmp = tail){
+			cout << "scan: " << scan << endl;
+			cout << "id giocatore " << scan->user.print_id() << endl;
+		}
 	}
 return 1;
-}*/
+}
 int main(){
 	int i, num_players;
 	char name_player[MAXNOME];
@@ -24,9 +27,9 @@ int main(){
 		cin >> name_player; // inserire controllo lunghezza
 		tail = enqueue_player(tail, name_player, i); // inizializza lista dei giocatori
 		cout << tail << endl;
-		tail->user.print_name();
+		//cout << "id giocatore " << tail->user.print_id() << endl;
 		}
-	//print_list(tail);
+	print_list(tail);
 
 	return 1;
 }

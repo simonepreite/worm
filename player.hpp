@@ -21,8 +21,8 @@ public:
 		id = id_user;
 		strcpy(name, player);
 	}
-	char* print_name(){
-		return name;
+	int print_id(){
+		return id;
 	}
 
 };
