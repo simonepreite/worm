@@ -23,7 +23,7 @@ public:
 };
 
 struct user_list{
-	player user;
+	player user();
 	struct user_list *next;
 
 }user_list;

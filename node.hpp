@@ -49,18 +49,18 @@ public:
 		west = p;
 	} 
 
-	void dig {
+	void dig() {
 		digged = true;
 	}
 
-	void reactivate {
+	void reactivate(){
 		digged = false;
 	}
 
 };
 
 struct maps{
-	node place;
+	node place();
 	struct maps *next;
 }maps;
 
