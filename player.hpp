@@ -17,7 +17,7 @@ public:
 		y = 0;
 		id = 0;
 	}
-	set(int id, char player[]){
+	void set(int id_user, char player[]){
 		id = id_user;
 		strcpy(name, player);
 	}
