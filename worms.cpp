@@ -9,7 +9,7 @@ int  print_list(ptr_user tail){
 	cout << "print\n";
 	if(tail==NULL) cout << "lista vuota\n";
 	else{
-		for(ptr_user scan = tail->next; tmp!=scan; scan = scan->next,  tmp = tail){
+		for(ptr_user scan = tail->next; tmp!=tail; tmp = scan, scan = scan->next){
 			cout << "scan: " << scan << endl;
 			cout << "id giocatore " << scan->user.print_id() << endl;
 		}
@@ -45,8 +45,8 @@ ptr_user enqueue_player(ptr_user tail, char name[], int id){
 	} else {
 		cout << "altri elementi\n";
 		tmp = new user_list;
+		tmp->next = tail->next;
 		tail->next = tmp;
-		tmp->next = tail;
 		tail = tmp;
 		tmp->user.set(id, name);
 	}	
