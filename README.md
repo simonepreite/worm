@@ -11,6 +11,8 @@
 #                                                                     #    
 #######################################################################
 #######################################################################
+#                                                                     #
+#  AUTHORS:                                                           #
 #                                                                     #  
 #  Gabriele Orazi             gabriele.orazi@studio.unibo.it          #                
 #  Michelangelo Monoriti      michelangel.monoriti@studio.unibo.it    #                       
