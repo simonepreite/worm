@@ -4,7 +4,7 @@
 #include "player.hpp"
 using namespace std;
 
-int  print_list(ptr_user tail){
+void  print_list(ptr_user tail){
 	ptr_user tmp = NULL;
 	cout << "print\n";
 	if(tail==NULL) cout << "lista vuota\n";
@@ -14,7 +14,7 @@ int  print_list(ptr_user tail){
 			cout << "id giocatore " << scan->user.print_id() << endl;
 		}
 	}
-return 1;
+//return 1;
 }
 int main(){
 	int i, num_players;
