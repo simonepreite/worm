@@ -35,3 +35,9 @@ int random(int n){
 	x = (rand() % n);
 	return x;
 }
+
+void kill(){
+	//da implementare, devo eliminare un giocatore dalla lista circolare
+	//non so tramite che parametro arrivare al giocatore da eliminare. Inoltre ci serve anche il puntatore del giocatore precedente nella lista per poterlo cancellare.
+	//Mi sa che a run-time avremo bisogno di due puntatori in grado di scorrere la lista
+}
