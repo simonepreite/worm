@@ -4,5 +4,6 @@
 extern ptr_user enqueue_player(ptr_user tail, char name[], int id);
 extern void print_list(ptr_user tail);
 extern int random(int n);
+extern void kill(ptr_user tail, int id);
 
 #endif

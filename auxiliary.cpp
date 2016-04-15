@@ -2,7 +2,7 @@
 
 ptr_user enqueue_player(ptr_user tail, char name[], int id){
 	ptr_user tmp;
-	if(tail == NULL) {
+	if(tail == NULL){
 		tail = new user_list;
 		tail->next = tail;
 		tail->user.set(id, name);
@@ -13,16 +13,18 @@ ptr_user enqueue_player(ptr_user tail, char name[], int id){
 		tail = tmp;
 		tmp->user.set(id, name);
 	}	
-return tail;
+	return tail;
 }
 
 void print_list(ptr_user tail){
 	ptr_user tmp = NULL;
-	if(tail==NULL) std::cout << "lista vuota\n";
+	if(tail==NULL) { std::cout << "lista vuota\n";}
 	else{
+		int app = tail->user.print_id() -1;
 		for(ptr_user scan = tail->next; tmp!=tail; tmp = scan, scan = scan->next){
-			std::cout << "scan: " << scan << "\n";
-			std::cout << "id giocatore " << scan->user.print_id() << "\n";
+			//std::cout << "scan: " << scan << "\n";
+			std::cout << "id: " << scan->user.print_id() << "	nome: ";
+			//std::cout << "id giocatore " << scan->user.print_id() << "\n";
 			scan->user.print_name();
 			std::cout << "\n";
 		}
@@ -36,8 +38,17 @@ int random(int n){
 	return x;
 }
 
-void kill(){
-	//da implementare, devo eliminare un giocatore dalla lista circolare
-	//non so tramite che parametro arrivare al giocatore da eliminare. Inoltre ci serve anche il puntatore del giocatore precedente nella lista per poterlo cancellare.
-	//Mi sa che a run-time avremo bisogno di due puntatori in grado di scorrere la lista
+void kill(ptr_user tail, int id){
+//utilizzo tail_copy in modo da lasciare inalterato il turno
+	ptr_user tmp, tail_copy;
+	tail_copy = tail;
+//mi posiziono sull'elemento precedente all'elemento da eliminare
+	while (tail_copy->next->user.print_id() != id){
+		tail_copy = tail_copy->next;
+	}
+
+//eliminazione dell'elemento in questiione
+	tmp = tail_copy->next;
+	tail_copy->next = tmp->next;
+	delete tmp;
 }
