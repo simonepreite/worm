@@ -42,9 +42,21 @@ int main(){
 		std::cout << "non puoi giocare da solo!";
 		return 0;
 	}
+	tail=tmp;
 	std::cout << "la prima mossa è di ";
 	scan->user.print_name();
 	std::cout << "\n\n";
 
+	for(i = 0; i < 3; i++){//loop turni
+		foreach(tail, scan, tmp){
+		std::cout << "id: " << scan->user.print_id() << "	nome: ";
+		scan->user.print_name();
+		std::cout << "\n";
+		std::cout << "posizione: (" << scan->user.lan() << ", " << scan->user.lon() << ")" << "\n";
+		std::cout << "pointer cur_pos: " << scan->user.cur_pos() << "\n";
+		std::cout << "\n";
+		}
+		std::cout << "fine turno: " << i+1 << "\n";
+	}
 	return 1;
 }

@@ -1,6 +1,10 @@
 #ifndef MACROS_HPP_
 #define MACROS_HPP_
 
+#define MAXNOME 8
+
+#define MAXTURNI 20
+
 #define foreach(tail, scan, tmp)\
 tmp = NULL;\
 if(tail != NULL)\

@@ -1,8 +1,6 @@
 #ifndef PLAYER_HPP_
 #define PLAYER_HPP_
 
-#define MAXNOME 8
-
 class player {
 protected:
 	/* informazioni utente */
