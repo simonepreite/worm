@@ -3,7 +3,7 @@ CC = g++
 #flag compiler
 FLAG_CC = -o
 #header
-HEAD_FILE = header.hpp player.hpp node.hpp auxiliary.hpp 
+HEAD_FILE = header.hpp player.hpp node.hpp auxiliary.hpp macros.hpp
 #source
 SOURCE_FILE = worms.cpp auxiliary.cpp
 

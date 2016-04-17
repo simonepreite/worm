@@ -3,7 +3,7 @@
 
 #define MAXNOME 8
 
-#define MAXTURNI 20
+#define MAXTURNI 19
 
 #define foreach(tail, scan, tmp)\
 tmp = NULL;\

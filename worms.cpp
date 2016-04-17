@@ -3,7 +3,7 @@
 using namespace std;
 
 int main(){
-	int i, num_players, primo;
+	int i, num_players, primo, n;
 	char name_player[MAXNOME];
 	ptr_user tail = NULL;
 	ptr_user scan = NULL;
@@ -42,12 +42,13 @@ int main(){
 		std::cout << "non puoi giocare da solo!";
 		return 0;
 	}
-	tail=tmp;
+	tail = tmp;
+	tmp = NULL;
 	std::cout << "la prima mossa è di ";
 	scan->user.print_name();
 	std::cout << "\n\n";
-
-	for(i = 3; i >= 0; i--){//loop turni
+	n = 1;
+	for(i = MAXTURNI; i >= 0; i--){//loop turni
 		foreach(tail, scan, tmp){
 		std::cout << "id: " << scan->user.print_id() << "	nome: ";
 		scan->user.print_name();
@@ -59,7 +60,8 @@ int main(){
 		if(i <= 5){
 			std::cout << "ATTENZIONE MANCANO  " << i << "  TURNI ALLA CONCLUSIONE!!" << "\n";
 		}
-		std::cout << "fine turno: " << i+1 << "\n";
+		std::cout << "fine turno: " << n << "\n\n";
+		n++;
 	}
 	return 1;
 }
