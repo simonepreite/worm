@@ -16,21 +16,6 @@ ptr_user enqueue_player(ptr_user tail, char name[], int id){
 	return tail;
 }
 
-void print_list(ptr_user tail){
-	ptr_user tmp = NULL;
-	if(tail==NULL) { std::cout << "lista vuota\n";}
-	else{
-		int app = tail->user.print_id() -1;
-		for(ptr_user scan = tail->next; tmp!=tail; tmp = scan, scan = scan->next){
-			//std::cout << "scan: " << scan << "\n";
-			std::cout << "id: " << scan->user.print_id() << "	nome: ";
-			//std::cout << "id giocatore " << scan->user.print_id() << "\n";
-			scan->user.print_name();
-			std::cout << "\n";
-		}
-	}
-}
-
 int random(int n){
 	int x=0;
 	srand(time(0));
