@@ -37,8 +37,3 @@ void kill(ptr_user tail, int id){
 	tail_copy->next = tmp->next;
 	delete tmp;
 }
-
-void creat_node(int ){
-
-
-}
