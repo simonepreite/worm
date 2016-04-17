@@ -3,6 +3,7 @@
 
 #include <string.h>
 #include <iostream>
+#include <iomanip>
 #include <ctime>
 #include <cstdlib>
 #include "macros.hpp"
