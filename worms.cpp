@@ -10,15 +10,18 @@ int main(){
 	ptr_user tmp = NULL;
 	std::cout << "Inserire numero di giocatori (almeno 2 giocatori): \n";
 	std::cin >> num_players;	//inserire il controllo che vengano inseriti soltanto numeri
-	num_players = num_players;
+	//num_players = num_players;
 	for(i=0; i < num_players; i++){
 		std::cout << "nome_giocatore " << i+1 << "(max 8 caratteri): \n";
-		std::cin >> name_player; // inserire controllo lunghezza
+		do{
+			std::cin >> name_player; // inserire controllo lunghezza
+		}while(strlen(name_player)>8);
+		std::cout << "lunghezza stringa: " << strlen(name_player) << "\n";
 		tail = enqueue_player(tail, name_player, i); // inizializza lista dei giocatori
-		std::cout << tail << endl;
+		std::cout << tail << "\n";
 	}
 
-	foreach(tail, scan){
+	foreach(tail, scan, tmp){
 		std::cout << "id: " << scan->user.print_id() << "	nome: ";
 		scan->user.print_name();
 		std::cout << "\n";
@@ -31,7 +34,7 @@ int main(){
 	/*while(tail->user.print_id() != primo) {
 		tail = tail->next;
 	}*/
-	foreach(tail, scan){
+	foreach(tail, scan, tmp){
 		if(scan->user.print_id() == primo) break;
 	}
 	std::cout << "la prima mossa è di ";
