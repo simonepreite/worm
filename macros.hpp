@@ -5,9 +5,9 @@
 
 #define MAXTURNI 19
 
-#define foreach(tail, scan, tmp)\
-tmp = NULL;\
-if(tail != NULL)\
-for (scan = tail->next; tmp!=tail; tmp = scan, scan = scan->next)
+#define foreach(macros_tail, macros_scan, macros_tmp)\
+macros_tmp = NULL;\
+if(macros_tail != NULL)\
+for (macros_scan = macros_tail->next; macros_tmp!=macros_tail; macros_tmp = macros_scan, macros_scan = macros_scan->next)
 
 #endif

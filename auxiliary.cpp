@@ -16,6 +16,12 @@ ptr_user enqueue_player(ptr_user tail, char name[], int id, ptr_maps p){
 	return tail;
 }
 
+ptr_maps enqueue_map(ptr_maps tail, ptr_maps p){
+		p->next = tail->next;
+		tail->next = p;
+		tail = p;
+	return tail;
+}
 int random(int n){
 	int x=0;
 	srand(time(0));
