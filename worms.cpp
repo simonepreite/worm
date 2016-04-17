@@ -45,8 +45,12 @@ int main(){
 		std::cout << "non puoi giocare da solo!";
 		return 0;
 	}
-	tail = tmp;
+	// il problema del BUG è in uqesto punto
+	std::cout << "tail:  " << tail << " scan:  " << scan << "  tmp: " << tmp << "\n";
+	if(num_players > 2) tail = tmp; 
 	tmp = NULL;
+	std::cout << "tail:  " << tail << " scan:  " << scan << "  tmp: " << tmp << "\n";
+
 	std::cout << "la prima mossa è di ";
 	scan->user.print_name();
 	std::cout << "\n\n";
@@ -60,7 +64,7 @@ int main(){
 		std::cout << "pointer cur_pos: " << scan->user.cur_pos() << "\n";
 		std::cout << "\n";
 		do{
-			std::cout << "scegli azione: \n" << "1 - muovi \n" << "2 - stampa mappa \n";
+			std::cout << "scegli azione: \n" << "1 - muovi \n" << "2 - stampa mappa \n\n";
 			std::cin >> scelta;
 		}while(scelta != 1 && scelta != 2);
 		if(scelta == 1) std::cout << "muovi da implementare con attacco eventuale\n";

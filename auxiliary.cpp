@@ -22,6 +22,7 @@ ptr_maps enqueue_map(ptr_maps tail, ptr_maps p){
 		tail = p;
 	return tail;
 }
+
 int random(int n){
 	int x=0;
 	srand(time(0));
