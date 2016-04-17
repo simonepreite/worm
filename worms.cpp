@@ -31,7 +31,6 @@ int main(){
 		std::cout << "pointer cur_pos: " << scan->user.cur_pos() << "\n";
 		std::cout << "\n";
 	}
-	std::cout << "\n\n";
 	if(num_players > 1){
 		//estrazione del primo giocatore
 		primo = random(num_players - 1);
@@ -40,17 +39,14 @@ int main(){
 		foreach(tail, scan, tmp){
 			if(scan->user.print_id() == primo) break;
 		}
+		if(primo == 0) tmp = tail;	// BUG risolto ma sembra una patch migliorabile
+
 	}
 	else{
 		std::cout << "non puoi giocare da solo!";
 		return 0;
 	}
-	// il problema del BUG è in uqesto punto
-	std::cout << "tail:  " << tail << " scan:  " << scan << "  tmp: " << tmp << "\n";
-	if(num_players > 2) tail = tmp; 
-	tmp = NULL;
-	std::cout << "tail:  " << tail << " scan:  " << scan << "  tmp: " << tmp << "\n";
-
+	tail = tmp; 
 	std::cout << "la prima mossa è di ";
 	scan->user.print_name();
 	std::cout << "\n\n";
@@ -64,13 +60,13 @@ int main(){
 		std::cout << "pointer cur_pos: " << scan->user.cur_pos() << "\n";
 		std::cout << "\n";
 		do{
-			std::cout << "scegli azione: \n" << "1 - muovi \n" << "2 - stampa mappa \n\n";
+			std::cout << "scegli azione: \n" << "1 - muovi \n" << "2 - stampa mappa \n";
 			std::cin >> scelta;
 		}while(scelta != 1 && scelta != 2);
 		if(scelta == 1) std::cout << "muovi da implementare con attacco eventuale\n";
 		else if(scelta == 2){
 			foreach(map_tail, scan_map, tmp_map) 
-				std::cout << "(" << scan_map->place.read_x() << ", " << scan_map->place.read_y() << ")\n";
+				std::cout << "\n(" << scan_map->place.read_x() << ", " << scan_map->place.read_y() << ")\n\n";
 		}
 		}
 		if(i <= 5){
