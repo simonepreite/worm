@@ -15,20 +15,20 @@ int main(){
 	for(i=0; i < num_players; i++){
 		std::cout << "nome_giocatore " << i+1 << "(max 8 caratteri): \n";
   		std::cin >> setw(MAXNOME) >> name_player;
-		std::cout << "lunghezza stringa: " << strlen(name_player) << "\n";
 		tail = enqueue_player(tail, name_player, i, first); // inizializza lista dei giocatori
-		std::cout << tail << "\n";
 		cin.clear();
 		cin.ignore(1000,'\n');
 	}
-
+	std::cout << "\n\n";
 	foreach(tail, scan, tmp){
 		std::cout << "id: " << scan->user.print_id() << "	nome: ";
 		scan->user.print_name();
 		std::cout << "\n";
 		std::cout << "posizione: (" << scan->user.lan() << ", " << scan->user.lon() << ")" << "\n";
 		std::cout << "pointer cur_pos: " << scan->user.cur_pos() << "\n";
+		std::cout << "\n";
 	}
+	std::cout << "\n\n";
 	if(num_players > 1){
 		//estrazione del primo giocatore
 		primo = random(num_players - 1);
