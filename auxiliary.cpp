@@ -1,17 +1,17 @@
 #include "header.hpp"
 
-ptr_user enqueue_player(ptr_user tail, char name[], int id){
+ptr_user enqueue_player(ptr_user tail, char name[], int id, ptr_maps p){
 	ptr_user tmp;
 	if(tail == NULL){
 		tail = new user_list;
 		tail->next = tail;
-		tail->user.set(id, name);
+		tail->user.set(id, name, p);
 	} else {
 		tmp = new user_list;
 		tmp->next = tail->next;
 		tail->next = tmp;
 		tail = tmp;
-		tmp->user.set(id, name);
+		tmp->user.set(id, name, p);
 	}	
 	return tail;
 }
@@ -36,4 +36,9 @@ void kill(ptr_user tail, int id){
 	tmp = tail_copy->next;
 	tail_copy->next = tmp->next;
 	delete tmp;
+}
+
+void creat_node(int ){
+
+
 }

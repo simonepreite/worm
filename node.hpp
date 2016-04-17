@@ -15,14 +15,16 @@ protected:
 	bool digged;
 
 public:
-	node(int lat, int lon) {
-		x = lat;
-		y = lon;
+	node() {
 		nord = NULL;
 		sud = NULL;
 		west = NULL;
 		east = NULL;
 		digged = false;
+	}
+	void set(int lat, int lon){
+		x = lat;
+		y = lon;
 	}
 
 	int read_x() {

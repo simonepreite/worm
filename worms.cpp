@@ -8,13 +8,15 @@ int main(){
 	ptr_user tail = NULL;
 	ptr_user scan = NULL;
 	ptr_user tmp = NULL;
+	ptr_maps first = new maps;
+	first->place.set(0,0);
 	std::cout << "Inserire numero di giocatori (almeno 2 giocatori): \n";
 	std::cin >> num_players;	//inserire il controllo che vengano inseriti soltanto numeri
 	for(i=0; i < num_players; i++){
 		std::cout << "nome_giocatore " << i+1 << "(max 8 caratteri): \n";
   		std::cin >> setw(MAXNOME) >> name_player;
 		std::cout << "lunghezza stringa: " << strlen(name_player) << "\n";
-		tail = enqueue_player(tail, name_player, i); // inizializza lista dei giocatori
+		tail = enqueue_player(tail, name_player, i, first); // inizializza lista dei giocatori
 		std::cout << tail << "\n";
 		cin.clear();
 		cin.ignore(1000,'\n');
@@ -24,6 +26,8 @@ int main(){
 		std::cout << "id: " << scan->user.print_id() << "	nome: ";
 		scan->user.print_name();
 		std::cout << "\n";
+		std::cout << "posizione: (" << scan->user.lan() << ", " << scan->user.lon() << ")" << "\n";
+		std::cout << "pointer cur_pos: " << scan->user.cur_pos() << "\n";
 	}
 	//estrazione del primo giocatore
 	primo = random(num_players - 1);

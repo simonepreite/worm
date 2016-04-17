@@ -10,7 +10,8 @@ protected:
 	int id;
 	int x;
 	int y;
-	int worms;	
+	int worms;
+	ptr_maps cur;
 
 public:
 	player(){
@@ -20,9 +21,10 @@ public:
 		worms = 0;
 	}
 
-	void set(int id_user, char player[]){
+	void set(int id_user, char player[], ptr_maps place){
 		id = id_user;
 		strcpy(name, player);
+		cur = place;
 	}
 
 	int print_id(){
@@ -50,6 +52,18 @@ public:
 			//victory
 			p.decrease_worms(worms);
 		}
+	}
+
+	int lan(){
+		return x;
+	}
+
+	int lon(){
+		return y;
+	}
+
+	ptr_maps cur_pos(){
+		return cur;
 	}
 
 };
