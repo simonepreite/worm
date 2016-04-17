@@ -29,12 +29,18 @@ int main(){
 		std::cout << "posizione: (" << scan->user.lan() << ", " << scan->user.lon() << ")" << "\n";
 		std::cout << "pointer cur_pos: " << scan->user.cur_pos() << "\n";
 	}
-	//estrazione del primo giocatore
-	primo = random(num_players - 1);
-	std::cout << "numero estratto: " << primo << "\n";
-	//posizionamento della tail su quel giocatore con scan
-	foreach(tail, scan, tmp){
-		if(scan->user.print_id() == primo) break;
+	if(num_players > 1){
+		//estrazione del primo giocatore
+		primo = random(num_players - 1);
+		std::cout << "numero estratto: " << primo << "\n";
+		//posizionamento della tail su quel giocatore con scan
+		foreach(tail, scan, tmp){
+			if(scan->user.print_id() == primo) break;
+		}
+	}
+	else{
+		std::cout << "non puoi giocare da solo!";
+		return 0;
 	}
 	std::cout << "la prima mossa è di ";
 	scan->user.print_name();
