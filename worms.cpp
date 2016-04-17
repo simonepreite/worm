@@ -47,7 +47,7 @@ int main(){
 	scan->user.print_name();
 	std::cout << "\n\n";
 
-	for(i = 0; i < 3; i++){//loop turni
+	for(i = 3; i >= 0; i--){//loop turni
 		foreach(tail, scan, tmp){
 		std::cout << "id: " << scan->user.print_id() << "	nome: ";
 		scan->user.print_name();
@@ -55,6 +55,9 @@ int main(){
 		std::cout << "posizione: (" << scan->user.lan() << ", " << scan->user.lon() << ")" << "\n";
 		std::cout << "pointer cur_pos: " << scan->user.cur_pos() << "\n";
 		std::cout << "\n";
+		}
+		if(i <= 5){
+			std::cout << "ATTENZIONE MANCANO  " << i << "  TURNI ALLA CONCLUSIONE!!" << "\n";
 		}
 		std::cout << "fine turno: " << i+1 << "\n";
 	}
