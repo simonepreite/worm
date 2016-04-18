@@ -32,12 +32,17 @@ ptr_maps set_new_node(int x_offset, int y_offset, ptr_maps tail, ptr_maps cur_po
 			tmp->place.s(&scan->place);
 			scan->place.n(&tmp->place);
 		}
-		else if(scan->place.read_x() == tmp->place.read_x()+1 && scan->place.read_y() == tmp->place.read_y()){
+		if(scan->place.read_x() == tmp->place.read_x() && scan->place.read_y() == tmp->place.read_y()+1){
+			//c'è un nodo a nord
+			tmp->place.n(&scan->place);
+			scan->place.s(&tmp->place);
+		}
+		if(scan->place.read_x() == tmp->place.read_x()+1 && scan->place.read_y() == tmp->place.read_y()){
 			//c'è un nodo a est
 			tmp->place.e(&scan->place);
 			scan->place.w(&tmp->place);
 		}
-		else if(scan->place.read_x() == tmp->place.read_x()-1 && scan->place.read_y() == tmp->place.read_y()){
+		if(scan->place.read_x() == tmp->place.read_x()-1 && scan->place.read_y() == tmp->place.read_y()){
 			//c'è un nodo a ovest
 			tmp->place.w(&scan->place);
 			scan->place.e(&tmp->place);
