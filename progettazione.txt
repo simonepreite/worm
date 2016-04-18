@@ -41,6 +41,8 @@ REALIZZATO:
 	- inserimento dei giocatori,
 	- creazione lista di giocatori,
 	- scelta del primo giocatore con funzione random,
+	- loop turni,
+	- stampa mappa,
 	
 DA FARE:
 
@@ -51,7 +53,5 @@ DA FARE:
 
 MIGLIORABILI:
 
-	- la print list può diventare una foreach magari
-	  macro da poter utilizzare genericamente in tutto
-	  il programma,
-	- controllo sul numero di caratteri del nome inserito dai player
+	- le varie azioni giocatore possono essere implementate nel loop dei turni
+	  tramite un costrutto di switch-case,

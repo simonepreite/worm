@@ -65,7 +65,13 @@ int main(){
 			std::cout << "scegli azione: \n" << "1 - muovi \n" << "2 - stampa mappa \n";
 			std::cin >> scelta;
 		}while(scelta != 1 && scelta != 2);
-		if(scelta == 1) std::cout << "muovi da implementare con attacco eventuale e creazione nodi \n";
+		if(scelta == 1) {
+			//situazioni
+			//scelta della direzione
+			//controllo se la casella esiste ed è occupata implica attacco
+			//se non è occupata implica spostamento con check della casella se scavabile o no e scava all'occorrenza
+			//se il nodo non esesite ciene creato avviene lo spostamento e viene scavato
+		}
 		else if(scelta == 2){
 			foreach(map_tail, scan_map, tmp_map) 
 				std::cout << "\n(" << scan_map->place.read_x() << ", " << scan_map->place.read_y() << ")\n\n";
