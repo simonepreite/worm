@@ -10,7 +10,7 @@ int main(){
 	ptr_user tmp = NULL;
 	ptr_maps tmp_map = NULL;
 	ptr_maps scan_map = NULL;
-	ptr_maps map_tail = new maps;
+	ptr_maps map_tail = new maps();
 	map_tail->place.set(0,0);
 	enqueue_map(map_tail, map_tail);
 	//map_tail->next = map_tail;
@@ -33,6 +33,7 @@ int main(){
 		std::cout << "this:  " << scan << "  next:  " << scan->next;
 		std::cout << "\n";
 	}
+	std::cout << "\n";
 	if(num_players > 1){
 		//estrazione del primo giocatore
 		primo = random(num_players - 1);
@@ -55,6 +56,7 @@ int main(){
 	n = 1;
 	for(i = MAXTURNI; i >= 0; i--){//loop turni
 		int scelta = 0;
+		char dir;
 		foreach(tail, scan, tmp){
 		std::cout << "è il turno di: "; scan->user.print_name();
 		std::cout << "\n";
@@ -66,7 +68,10 @@ int main(){
 			std::cout << "scegli azione: \n" << "1 - muovi \n" << "2 - stampa mappa \n";
 			std::cin >> scelta;
 		}while(scelta != 1 && scelta != 2);
-		if(scelta == 1) {
+		if(scelta == 1) {//servono solo a provare che la new_node funziona 
+			std::cout << "inserisci direzione:  ";
+			std::cin >> dir;
+			new_node(map_tail, scan->user.cur_pos(), dir);
 			//situazioni
 			//scelta della direzione
 			//controllo se la casella esiste ed è occupata implica attacco
@@ -75,8 +80,9 @@ int main(){
 		}
 		else if(scelta == 2){
 			foreach(map_tail, scan_map, tmp_map) 
-				std::cout << "\n(" << scan_map->place.read_x() << ", " << scan_map->place.read_y() << ")\n\n";
+				std::cout << "\n(" << scan_map->place.read_x() << ", " << scan_map->place.read_y() << ")";
 		}
+		std::cout << "\n";
 		}
 		if(i <= 5){
 			std::cout << "ATTENZIONE MANCANO  " << i << "  TURNI ALLA CONCLUSIONE!!" << "\n";

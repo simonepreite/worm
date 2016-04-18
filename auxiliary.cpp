@@ -15,16 +15,51 @@ ptr_user enqueue_player(ptr_user tail, char name[], int id, ptr_maps p){
 	}	
 	return tail;
 }
-//direzione n: nord, s: sud, e: est, w: ovest
+/*  direzione n: nord, s: sud, e: est, w: ovest questa funzione viene
+	chiamata solo se ci si è accertati che il nodo non esiste
+*/
 ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione){
-	switch(direzione){
-		case(n):
-		case(s):
-		case(e):
-		case(w):
+	int x, y;
+	ptr_maps tmp;
+	switch (direzione){
+		case 's' : 
+			x = cur_pos->place.read_x();
+			y = cur_pos->place.read_y();
+			tmp = new maps();
+			tmp->place.set(x-1, y);
+			tmp->place.n(&cur_pos->place);
+			cur_pos->place.s(&tmp->place);
+ 			enqueue_map(tail, tmp);
+			break;
+		case 'e' :
+			x = cur_pos->place.read_x();
+			y = cur_pos->place.read_y();
+			tmp = new maps();
+			tmp->place.set(x, y-1);
+			tmp->place.w(&cur_pos->place);
+			cur_pos->place.e(&tmp->place);
+			enqueue_map(tail, tmp);
+			break;
+		case 'w' :
+			x = cur_pos->place.read_x();
+			y = cur_pos->place.read_y();
+			tmp = new maps();
+			tmp->place.set(x, y+1);
+			tmp->place.e(&cur_pos->place);
+			cur_pos->place.w(&tmp->place);
+			enqueue_map(tail, tmp);
+			break;
+		default ://va a nord
+			x = cur_pos->place.read_x();
+			y = cur_pos->place.read_y();
+			tmp = new maps();
+			tmp->place.set(x+1, y);
+			tmp->place.s(&cur_pos->place);
+			cur_pos->place.n(&tmp->place);
+			enqueue_map(tail, tmp);
+			break;
 	}
-
-
+	return tmp;
 }
 
 ptr_maps enqueue_map(ptr_maps tail, ptr_maps p){
