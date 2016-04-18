@@ -71,8 +71,8 @@ ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione, ptr_user cur_
  				}
  				else if(scan->place.read_x() == tmp->place.read_x() && scan->place.read_y() == tmp->place.read_y()-1){
  					//c'è un nodo a sud
- 					tmp->place.w(&scan->place);
- 					scan->place.e(&tmp->place);
+ 					tmp->place.s(&scan->place);
+ 					scan->place.n(&tmp->place);
  				}
  			}
 			break;
