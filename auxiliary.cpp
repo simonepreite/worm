@@ -59,16 +59,28 @@ ptr_maps set_new_node(int x_offset, int y_offset, ptr_maps tail, ptr_maps cur_po
 ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione, ptr_user cur_player){
 	switch (direzione){
 		case 's' : 
-			tail = set_new_node(0, -1, tail, cur_pos, cur_player);
+			if(cur_pos->place.ptr_s() != NULL){
+				cur_player->user.set_pos(cur_pos->place.read_x() + 0, cur_pos->place.read_y() - 1, (maps*)cur_pos->place.ptr_s());
+			}
+			else tail = set_new_node(0, -1, tail, cur_pos, cur_player);
 			break;
 		case 'e' :
-			tail = set_new_node(1, 0, tail, cur_pos, cur_player);
+			if(cur_pos->place.ptr_e() != NULL){
+				cur_player->user.set_pos(cur_pos->place.read_x() + 1, cur_pos->place.read_y() + 0, (maps*)cur_pos->place.ptr_e());
+			}
+			else tail = set_new_node(1, 0, tail, cur_pos, cur_player);
 			break;
 		case 'w' :
-			tail = set_new_node(-1, 0, tail, cur_pos, cur_player);
+			if(cur_pos->place.ptr_w() != NULL){
+				cur_player->user.set_pos(cur_pos->place.read_x() - 1, cur_pos->place.read_y() + 0, (maps*)cur_pos->place.ptr_w());
+			}
+			else tail = set_new_node(-1, 0, tail, cur_pos, cur_player);
 			break;
 		default ://va a nord
-			tail = set_new_node(0, 1, tail, cur_pos, cur_player);
+			if(cur_pos->place.ptr_n() != NULL){
+				cur_player->user.set_pos(cur_pos->place.read_x() + 0, cur_pos->place.read_y() + 1, (maps*)cur_pos->place.ptr_n());
+			}
+			else tail = set_new_node(0, 1, tail, cur_pos, cur_player);
 			break;
 	}
 	return tail;
