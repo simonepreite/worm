@@ -71,7 +71,7 @@ int main(){
 		if(scelta == 1) {//servono solo a provare che la new_node funziona 
 			std::cout << "inserisci direzione:  ";
 			std::cin >> dir;
-			new_node(map_tail, scan->user.cur_pos(), dir);
+			map_tail = new_node(map_tail, scan->user.cur_pos(), dir);
 			//situazioni
 			//scelta della direzione
 			//controllo se la casella esiste ed è occupata implica attacco
@@ -79,8 +79,11 @@ int main(){
 			//se il nodo non esesite ciene creato avviene lo spostamento e viene scavato
 		}
 		else if(scelta == 2){
-			foreach(map_tail, scan_map, tmp_map) 
+			foreach(map_tail, scan_map, tmp_map) {
 				std::cout << "\n(" << scan_map->place.read_x() << ", " << scan_map->place.read_y() << ")";
+				std::cout << "this:  " << scan_map << "  next:  " << scan_map->next;
+			}
+			std::cout << "\n";
 		}
 		std::cout << "\n";
 		}

@@ -29,7 +29,7 @@ ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione){
 			tmp->place.set(x-1, y);
 			tmp->place.n(&cur_pos->place);
 			cur_pos->place.s(&tmp->place);
- 			enqueue_map(tail, tmp);
+ 			tail = enqueue_map(tail, tmp);
 			break;
 		case 'e' :
 			x = cur_pos->place.read_x();
@@ -38,7 +38,7 @@ ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione){
 			tmp->place.set(x, y-1);
 			tmp->place.w(&cur_pos->place);
 			cur_pos->place.e(&tmp->place);
-			enqueue_map(tail, tmp);
+			tail = enqueue_map(tail, tmp);
 			break;
 		case 'w' :
 			x = cur_pos->place.read_x();
@@ -47,7 +47,7 @@ ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione){
 			tmp->place.set(x, y+1);
 			tmp->place.e(&cur_pos->place);
 			cur_pos->place.w(&tmp->place);
-			enqueue_map(tail, tmp);
+			tail = enqueue_map(tail, tmp);
 			break;
 		default ://va a nord
 			x = cur_pos->place.read_x();
@@ -56,10 +56,10 @@ ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione){
 			tmp->place.set(x+1, y);
 			tmp->place.s(&cur_pos->place);
 			cur_pos->place.n(&tmp->place);
-			enqueue_map(tail, tmp);
+			tail = enqueue_map(tail, tmp);
 			break;
 	}
-	return tmp;
+	return tail;
 }
 
 ptr_maps enqueue_map(ptr_maps tail, ptr_maps p){
