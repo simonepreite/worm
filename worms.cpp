@@ -29,6 +29,7 @@ int main(){
 		std::cout << "\n";
 		std::cout << "posizione: (" << scan->user.lan() << ", " << scan->user.lon() << ")" << "\n";
 		std::cout << "pointer cur_pos: " << scan->user.cur_pos() << "\n";
+		std::cout << "this:  " << scan << "  next:  " << scan->next;
 		std::cout << "\n";
 	}
 	if(num_players > 1){
@@ -58,6 +59,7 @@ int main(){
 		std::cout << "\n";
 		std::cout << "posizione: (" << scan->user.lan() << ", " << scan->user.lon() << ")" << "\n";
 		std::cout << "pointer cur_pos: " << scan->user.cur_pos() << "\n";
+		std::cout << "this:  " << scan << "  next:  " << scan->next;
 		std::cout << "\n";
 		do{
 			std::cout << "scegli azione: \n" << "1 - muovi \n" << "2 - stampa mappa \n";
