@@ -22,28 +22,30 @@ ptr_maps set_new_node(int x_offset, int y_offset, ptr_maps tail, ptr_maps cur_po
 	ptr_maps tmp, scan, tmp2;
 	tmp = new maps();
 	tmp->place.set(x + x_offset, y + y_offset);
-	tmp->place.n(&cur_pos->place);
-	cur_pos->place.s(&tmp->place);
 	tail = enqueue_map(tail, tmp);
 	cur_player->user.set_pos(x + x_offset, y + y_offset, tmp);
 	foreach(tail, scan, tmp2){
 		if(scan->place.read_x() == tmp->place.read_x() && scan->place.read_y() == tmp->place.read_y()-1){
 			//c'è un nodo a sud
+			std::cout << "sud\n";
 			tmp->place.s(&scan->place);
 			scan->place.n(&tmp->place);
 		}
 		if(scan->place.read_x() == tmp->place.read_x() && scan->place.read_y() == tmp->place.read_y()+1){
 			//c'è un nodo a nord
+			std::cout << "nord\n";
 			tmp->place.n(&scan->place);
 			scan->place.s(&tmp->place);
 		}
 		if(scan->place.read_x() == tmp->place.read_x()+1 && scan->place.read_y() == tmp->place.read_y()){
 			//c'è un nodo a est
+            std::cout << "est\n";
 			tmp->place.e(&scan->place);
 			scan->place.w(&tmp->place);
 		}
 		if(scan->place.read_x() == tmp->place.read_x()-1 && scan->place.read_y() == tmp->place.read_y()){
 			//c'è un nodo a ovest
+            std::cout << "ovest\n";
 			tmp->place.w(&scan->place);
 			scan->place.e(&tmp->place);
 		}
