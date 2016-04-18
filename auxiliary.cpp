@@ -16,9 +16,10 @@ ptr_user enqueue_player(ptr_user tail, char name[], int id, ptr_maps p){
 	return tail;
 }
 
-void set_new_node(int x_offset, int y_offset){
-	x = cur_pos->place.read_x();
-	y = cur_pos->place.read_y();
+void set_new_node(int x_offset, int y_offset, ptr_maps tail, ptr_maps cur_pos, ptr_user cur_player){
+	int x = cur_pos->place.read_x();
+	int y = cur_pos->place.read_y();
+	ptr_maps tmp, scan, tmp2;
 	tmp = new maps();
 	tmp->place.set(x + x_offset, y + y_offset);
 	tmp->place.n(&cur_pos->place);
@@ -48,20 +49,18 @@ void set_new_node(int x_offset, int y_offset){
 	chiamata solo se ci si è accertati che il nodo non esiste
 */
 ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione, ptr_user cur_player){
-	int x, y;
-	ptr_maps tmp, scan, tmp2;
 	switch (direzione){
 		case 's' : 
-			set_new_node(0, -1);
+			set_new_node(0, -1, tail, cur_pos, cur_player);
 			break;
 		case 'e' :
-			set_new_node(1, 0);
+			set_new_node(1, 0, tail, cur_pos, cur_player);
 			break;
 		case 'w' :
-			set_new_node(-1, 0);
+			set_new_node(-1, 0, tail, cur_pos, cur_player);
 			break;
 		default ://va a nord
-			set_new_node(0, 1);
+			set_new_node(0, 1, tail, cur_pos, cur_player);
 			break;
 	}
 	return tail;
