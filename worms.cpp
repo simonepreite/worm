@@ -12,7 +12,8 @@ int main(){
 	ptr_maps scan_map = NULL;
 	ptr_maps map_tail = new maps;
 	map_tail->place.set(0,0);
-	map_tail->next = map_tail;
+	enqueue_map(map_tail, map_tail);
+	//map_tail->next = map_tail;
 	std::cout << "Inserire numero di giocatori (almeno 2 giocatori): \n";
 	std::cin >> num_players;	//inserire il controllo che vengano inseriti soltanto numeri
 	for(i=0; i < num_players; i++){

@@ -15,6 +15,17 @@ ptr_user enqueue_player(ptr_user tail, char name[], int id, ptr_maps p){
 	}	
 	return tail;
 }
+//direzione n: nord, s: sud, e: est, w: ovest
+ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione){
+	switch(direzione){
+		case(n):
+		case(s):
+		case(e):
+		case(w):
+	}
+
+
+}
 
 ptr_maps enqueue_map(ptr_maps tail, ptr_maps p){
 		p->next = tail->next;
