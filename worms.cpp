@@ -46,11 +46,11 @@ int main(){
 
 	}
 	else{
-		std::cout << "non puoi giocare da solo!";
+		std::cout << "Non puoi giocare da solo!\n";
 		return 0;
 	}
 	tail = tmp; 
-	std::cout << "la prima mossa è di ";
+	std::cout << "La prima mossa è di ";
 	scan->user.print_name();
 	std::cout << "\n\n";
 	n = 1;
@@ -60,7 +60,7 @@ int main(){
 		foreach(tail, scan, tmp){
 		std::cout << "è il turno di: "; scan->user.print_name();
 		std::cout << "\n";
-		std::cout << "posizione: (" << scan->user.lan() << ", " << scan->user.lon() << ")" << "\n";
+		std::cout << "Posizione: (" << scan->user.lan() << ", " << scan->user.lon() << ")" << "\n";
 		std::cout << "pointer cur_pos: " << scan->user.cur_pos() << "\n";
 		std::cout << "this:  " << scan << "  next:  " << scan->next;
 		std::cout << "\n";
@@ -76,7 +76,7 @@ int main(){
 			//scelta della direzione
 			//controllo se la casella esiste ed è occupata implica attacco
 			//se non è occupata implica spostamento con check della casella se scavabile o no e scava all'occorrenza
-			//se il nodo non esesite ciene creato avviene lo spostamento e viene scavato
+			//se il nodo non esesite viene creato avviene lo spostamento e viene scavato
 		}
 		else if(scelta == 2){
 			foreach(map_tail, scan_map, tmp_map) {

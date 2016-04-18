@@ -15,6 +15,35 @@ ptr_user enqueue_player(ptr_user tail, char name[], int id, ptr_maps p){
 	}	
 	return tail;
 }
+
+void set_new_node(int x_offset, int y_offset){
+	x = cur_pos->place.read_x();
+	y = cur_pos->place.read_y();
+	tmp = new maps();
+	tmp->place.set(x + x_offset, y + y_offset);
+	tmp->place.n(&cur_pos->place);
+	cur_pos->place.s(&tmp->place);
+	tail = enqueue_map(tail, tmp);
+	cur_player->user.set_pos(x + x_offset, y + y_offset, tmp);
+	foreach(tail, scan, tmp2){
+		if(scan->place.read_x() == tmp->place.read_x() && scan->place.read_y() == tmp->place.read_y()-1){
+			//c'è un nodo a sud
+			tmp->place.s(&scan->place);
+			scan->place.n(&tmp->place);
+		}
+		else if(scan->place.read_x() == tmp->place.read_x()+1 && scan->place.read_y() == tmp->place.read_y()){
+			//c'è un nodo a est
+			tmp->place.e(&scan->place);
+			scan->place.w(&tmp->place);
+		}
+		else if(scan->place.read_x() == tmp->place.read_x()-1 && scan->place.read_y() == tmp->place.read_y()){
+			//c'è un nodo a ovest
+			tmp->place.w(&scan->place);
+			scan->place.e(&tmp->place);
+		}
+	}
+}
+
 /*  direzione n: nord, s: sud, e: est, w: ovest questa funzione viene
 	chiamata solo se ci si è accertati che il nodo non esiste
 */
@@ -23,112 +52,16 @@ ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione, ptr_user cur_
 	ptr_maps tmp, scan, tmp2;
 	switch (direzione){
 		case 's' : 
-			x = cur_pos->place.read_x();
-			y = cur_pos->place.read_y();
-			tmp = new maps();
-			tmp->place.set(x, y-1);
-			tmp->place.n(&cur_pos->place);
-			cur_pos->place.s(&tmp->place);
- 			tail = enqueue_map(tail, tmp);
- 			cur_player->user.set_pos(x, y-1, tmp);
- 			foreach(tail, scan, tmp2){
- 				if(scan->place.read_x() == tmp->place.read_x() && scan->place.read_y() == tmp->place.read_y()-1){
- 					//c'è un nodo a sud
- 					tmp->place.s(&scan->place);
- 					scan->place.n(&tmp->place);
- 				}
- 				else if(scan->place.read_x() == tmp->place.read_x()+1 && scan->place.read_y() == tmp->place.read_y()){
- 					//c'è un nodo a est
- 					tmp->place.e(&scan->place);
- 					scan->place.w(&tmp->place);
- 				}
- 				else if(scan->place.read_x() == tmp->place.read_x()-1 && scan->place.read_y() == tmp->place.read_y()){
- 					//c'è un nodo a ovest
- 					tmp->place.w(&scan->place);
- 					scan->place.e(&tmp->place);
- 				}
- 			}
+			set_new_node(0, -1);
 			break;
 		case 'e' :
-			x = cur_pos->place.read_x();
-			y = cur_pos->place.read_y();
-			tmp = new maps();
-			tmp->place.set(x+1, y);
-			tmp->place.w(&cur_pos->place);
-			cur_pos->place.e(&tmp->place);
-			tail = enqueue_map(tail, tmp);
-			cur_player->user.set_pos(x+1, y, tmp);
-			foreach(tail, scan, tmp2){
- 				if(scan->place.read_x() == (tmp->place.read_x()) && scan->place.read_y() == tmp->place.read_y()+1){
- 					//c'è un nodo a nord
- 					tmp->place.n(&scan->place);
- 					scan->place.s(&tmp->place);
- 				}
- 				else if(scan->place.read_x() == tmp->place.read_x()+1 && scan->place.read_y() == tmp->place.read_y()){
- 					//c'è un nodo a est
- 					tmp->place.e(&scan->place);
- 					scan->place.w(&tmp->place);
- 				}
- 				else if(scan->place.read_x() == tmp->place.read_x() && scan->place.read_y() == tmp->place.read_y()-1){
- 					//c'è un nodo a sud
- 					tmp->place.s(&scan->place);
- 					scan->place.n(&tmp->place);
- 				}
- 			}
+			set_new_node(1, 0);
 			break;
 		case 'w' :
-			x = cur_pos->place.read_x();
-			y = cur_pos->place.read_y();
-			tmp = new maps();
-			tmp->place.set(x-1, y);
-			tmp->place.e(&cur_pos->place);
-			cur_pos->place.w(&tmp->place);
-			tail = enqueue_map(tail, tmp);
-			cur_player->user.set_pos(x-1, y, tmp);
-			foreach(tail, scan, tmp2){
- 				if(scan->place.read_x() == (tmp->place.read_x()) && scan->place.read_y() == tmp->place.read_y()+1){
- 					//c'è un nodo a nord
- 					tmp->place.n(&scan->place);
- 					scan->place.s(&tmp->place);
- 				}
- 				else if(scan->place.read_x() == tmp->place.read_x()-1 && scan->place.read_y() == tmp->place.read_y()){
- 					//c'è un nodo a ovest
- 					tmp->place.w(&scan->place);
- 					scan->place.e(&tmp->place);
- 				}
- 				else if(scan->place.read_x() == tmp->place.read_x() && scan->place.read_y() == tmp->place.read_y()-1){
- 					//c'è un nodo a sud
- 					tmp->place.s(&scan->place);
- 					scan->place.n(&tmp->place);
- 				}
- 			}
+			set_new_node(-1, 0);
 			break;
 		default ://va a nord
-			x = cur_pos->place.read_x();
-			y = cur_pos->place.read_y();
-			tmp = new maps();
-			tmp->place.set(x, y+1);
-			tmp->place.s(&cur_pos->place);
-			cur_pos->place.n(&tmp->place);
-			tail = enqueue_map(tail, tmp);
-			cur_player->user.set_pos(x, y+1, tmp);
-			foreach(tail, scan, tmp2){
- 				if(scan->place.read_x() == (tmp->place.read_x()) && scan->place.read_y() == tmp->place.read_y()+1){
- 					//c'è un nodo a nord
- 					tmp->place.n(&scan->place);
- 					scan->place.s(&tmp->place);
- 				}
- 				else if(scan->place.read_x() == tmp->place.read_x()+1 && scan->place.read_y() == tmp->place.read_y()){
- 					//c'è un nodo a est
- 					tmp->place.e(&scan->place);
- 					scan->place.w(&tmp->place);
- 				}
- 				else if(scan->place.read_x() == tmp->place.read_x()-1 && scan->place.read_y() == tmp->place.read_y()){
- 					//c'è un nodo a ovest
- 					tmp->place.w(&scan->place);
- 					scan->place.e(&tmp->place);
- 				}
- 			}
+			set_new_node(0, 1);
 			break;
 	}
 	return tail;
