@@ -35,6 +35,22 @@ public:
 		return y;
 	}
 
+	node* ptr_n(){
+		return nord;
+	} 
+
+	node* ptr_s(){
+		return sud;
+	} 
+
+	node* ptr_e(){
+		return east;
+	} 
+
+	node* ptr_w(){
+		return west;
+	} 
+
 	void n(node *p){
 		nord = p;
 	} 

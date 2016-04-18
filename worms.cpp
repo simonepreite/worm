@@ -82,6 +82,10 @@ int main(){
 			foreach(map_tail, scan_map, tmp_map) {
 				std::cout << "\n(" << scan_map->place.read_x() << ", " << scan_map->place.read_y() << ")";
 				std::cout << "this:  " << scan_map << "  next:  " << scan_map->next;
+				std::cout << "  nord: " << scan_map->place.ptr_n();
+				std::cout << "  sud: " << scan_map->place.ptr_s(); 
+				std::cout << "  est: " << scan_map->place.ptr_e(); 
+				std::cout << "  west: " << scan_map->place.ptr_w(); 
 			}
 			std::cout << "\n";
 		}

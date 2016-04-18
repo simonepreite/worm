@@ -52,7 +52,7 @@ ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione){
 			x = cur_pos->place.read_x();
 			y = cur_pos->place.read_y();
 			tmp = new maps();
-			tmp->place.set(x-1, y);
+			tmp->place.set(x+1, y);
 			tmp->place.w(&cur_pos->place);
 			cur_pos->place.e(&tmp->place);
 			tail = enqueue_map(tail, tmp);
@@ -78,7 +78,7 @@ ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione){
 			x = cur_pos->place.read_x();
 			y = cur_pos->place.read_y();
 			tmp = new maps();
-			tmp->place.set(x+1, y);
+			tmp->place.set(x-1, y);
 			tmp->place.e(&cur_pos->place);
 			cur_pos->place.w(&tmp->place);
 			tail = enqueue_map(tail, tmp);
@@ -88,7 +88,7 @@ ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione){
  					tmp->place.n(&scan->place);
  					scan->place.s(&tmp->place);
  				}
- 				else if(scan->place.read_x() == tmp->place.read_x()+1 && scan->place.read_y() == tmp->place.read_y()){
+ 				else if(scan->place.read_x() == tmp->place.read_x()-1 && scan->place.read_y() == tmp->place.read_y()){
  					//c'è un nodo a ovest
  					tmp->place.w(&scan->place);
  					scan->place.e(&tmp->place);
