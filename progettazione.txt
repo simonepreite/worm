@@ -55,3 +55,8 @@ MIGLIORABILI:
 
 	- le varie azioni giocatore possono essere implementate nel loop dei turni
 	  tramite un costrutto di switch-case,
+	- forse per i nodi non è necessario usare la lista:
+		pro:
+			è più comoda per stampare la mappa
+		contro:
+			struttura di dati in più e aumento complessità codice
