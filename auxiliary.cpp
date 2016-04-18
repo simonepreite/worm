@@ -18,7 +18,7 @@ ptr_user enqueue_player(ptr_user tail, char name[], int id, ptr_maps p){
 /*  direzione n: nord, s: sud, e: est, w: ovest questa funzione viene
 	chiamata solo se ci si è accertati che il nodo non esiste
 */
-ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione){
+ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione, ptr_user cur_player){
 	int x, y;
 	ptr_maps tmp, scan, tmp2;
 	switch (direzione){
@@ -30,6 +30,7 @@ ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione){
 			tmp->place.n(&cur_pos->place);
 			cur_pos->place.s(&tmp->place);
  			tail = enqueue_map(tail, tmp);
+ 			cur_player->user.set_pos(x, y-1, tmp);
  			foreach(tail, scan, tmp2){
  				if(scan->place.read_x() == tmp->place.read_x() && scan->place.read_y() == tmp->place.read_y()-1){
  					//c'è un nodo a sud
@@ -56,6 +57,7 @@ ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione){
 			tmp->place.w(&cur_pos->place);
 			cur_pos->place.e(&tmp->place);
 			tail = enqueue_map(tail, tmp);
+			cur_player->user.set_pos(x+1, y, tmp);
 			foreach(tail, scan, tmp2){
  				if(scan->place.read_x() == (tmp->place.read_x()) && scan->place.read_y() == tmp->place.read_y()+1){
  					//c'è un nodo a nord
@@ -82,6 +84,7 @@ ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione){
 			tmp->place.e(&cur_pos->place);
 			cur_pos->place.w(&tmp->place);
 			tail = enqueue_map(tail, tmp);
+			cur_player->user.set_pos(x-1, y, tmp);
 			foreach(tail, scan, tmp2){
  				if(scan->place.read_x() == (tmp->place.read_x()) && scan->place.read_y() == tmp->place.read_y()+1){
  					//c'è un nodo a nord
@@ -108,6 +111,7 @@ ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione){
 			tmp->place.s(&cur_pos->place);
 			cur_pos->place.n(&tmp->place);
 			tail = enqueue_map(tail, tmp);
+			cur_player->user.set_pos(x, y+1, tmp);
 			foreach(tail, scan, tmp2){
  				if(scan->place.read_x() == (tmp->place.read_x()) && scan->place.read_y() == tmp->place.read_y()+1){
  					//c'è un nodo a nord

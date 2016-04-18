@@ -71,7 +71,7 @@ int main(){
 		if(scelta == 1) {//servono solo a provare che la new_node funziona 
 			std::cout << "inserisci direzione:  ";
 			std::cin >> dir;
-			map_tail = new_node(map_tail, scan->user.cur_pos(), dir);
+			map_tail = new_node(map_tail, scan->user.cur_pos(), dir, scan);
 			//situazioni
 			//scelta della direzione
 			//controllo se la casella esiste ed è occupata implica attacco

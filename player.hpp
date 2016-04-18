@@ -25,6 +25,12 @@ public:
 		cur = place;
 	}
 
+	void set_pos(int lat, int lon, ptr_maps pos){
+		x = lat;
+		y = lon;
+		cur = pos; 
+	}
+
 	int print_id(){
 		return id;
 	}
