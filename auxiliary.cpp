@@ -24,6 +24,12 @@ ptr_maps set_new_node(int x_offset, int y_offset, ptr_maps tail, ptr_maps cur_po
 	tmp->place.set(x + x_offset, y + y_offset);
 	tail = enqueue_map(tail, tmp);
 	cur_player->user.set_pos(x + x_offset, y + y_offset, tmp);
+	tmp->place.set_wih(cur_player);
+
+	cur_player->user.increase_worms(random(MAX_WORMS));
+	tmp->place.dig();
+
+	//RICOLLEGAMENTO NODI ADIACENTI A QUELLO APPENA CREATO
 	foreach(tail, scan, tmp2){
 		if(scan->place.read_x() == tmp->place.read_x() && scan->place.read_y() == tmp->place.read_y()-1){
 			//c'è un nodo a sud
@@ -56,11 +62,23 @@ ptr_maps set_new_node(int x_offset, int y_offset, ptr_maps tail, ptr_maps cur_po
 /*  direzione n: nord, s: sud, e: est, w: ovest questa funzione viene
 	chiamata solo se ci si è accertati che il nodo non esiste
 */
-ptr_maps new_node(ptr_maps tail, ptr_maps cur_pos, char direzione, ptr_user cur_player){
+ptr_maps move(ptr_maps tail, ptr_maps cur_pos, char direzione, ptr_user cur_player){
+	ptr_maps app = (ptr_maps)cur_pos->place.ptr_s();
 	switch (direzione){
 		case 's' : 
 			if(cur_pos->place.ptr_s() != NULL){
-				cur_player->user.set_pos(cur_pos->place.read_x() + 0, cur_pos->place.read_y() - 1, (maps*)cur_pos->place.ptr_s());
+				if (app->place.busy()) {
+					// ATTACCO
+					std::cout << "\n FASE DI ATTACCO \n";
+					cur_player->user.attack((player*)app->place.busy());
+				}
+				else {
+					// MI MUOVO
+					std::cout << "\n FASE DI MOVIMENTO \n";
+					cur_player->user.set_pos(cur_pos->place.read_x() + 0, cur_pos->place.read_y() - 1, (maps*)cur_pos->place.ptr_s());
+					cur_pos->place.set_wih(NULL);
+					app->place.set_wih(cur_player);
+				}
 			}
 			else tail = set_new_node(0, -1, tail, cur_pos, cur_player);
 			break;

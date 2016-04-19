@@ -62,6 +62,7 @@ int main(){
 		std::cout << "\n";
 		std::cout << "Posizione: (" << scan->user.lan() << ", " << scan->user.lon() << ")" << "\n";
 		std::cout << "pointer cur_pos: " << scan->user.cur_pos() << "\n";
+		std::cout << "vermi: " << scan->user.n_worms() << "\n";
 		std::cout << "this:  " << scan << "  next:  " << scan->next;
 		std::cout << "\n";
 		do{
@@ -71,7 +72,7 @@ int main(){
 		if(scelta == 1) {//servono solo a provare che la new_node funziona 
 			std::cout << "inserisci direzione:  ";
 			std::cin >> dir;
-			map_tail = new_node(map_tail, scan->user.cur_pos(), dir, scan);
+			map_tail = move(map_tail, scan->user.cur_pos(), dir, scan);
 			//situazioni
 			//scelta della direzione
 			//controllo se la casella esiste ed è occupata implica attacco

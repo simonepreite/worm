@@ -12,7 +12,9 @@ protected:
 	node *west;
 	node *east;
 	/* true = nodo scavato */
-	bool digged;
+	bool dug;
+	//puntatore al player che occupa il nodo. Se a NULL il nodo è libero
+	void *who_is_here;
 
 public:
 	node() {
@@ -20,7 +22,7 @@ public:
 		sud = NULL;
 		west = NULL;
 		east = NULL;
-		digged = false;
+		dug = false;
 	}
 	void set(int lat, int lon){
 		x = lat;
@@ -68,11 +70,23 @@ public:
 	} 
 
 	void dig() {
-		digged = true;
+		dug = true;
 	}
 
 	void reactivate(){
-		digged = false;
+		dug = false;
+	}
+
+	bool is_dug() {
+		return dug;
+	}
+
+	void* busy() {
+		return who_is_here;
+	}
+
+	void set_wih(void *p) {
+		who_is_here = p;
 	}
 
 };
@@ -83,6 +97,5 @@ struct maps{
 };
 
 typedef maps* ptr_maps;
-
 
 #endif

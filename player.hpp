@@ -47,14 +47,18 @@ public:
 		worms = worms - n;
 	}
 
-	void attack(player p){
-		if (p.n_worms() > worms){
+	void increase_worms(int n){
+		worms = worms + n;
+	}
+
+	void attack(player *p){
+		if (p->n_worms() > worms){
 			//defeat
-			worms = worms - p.n_worms();
+			worms = worms - p->n_worms();
 		}
 		else {
 			//victory
-			p.decrease_worms(worms);
+			p->decrease_worms(worms);
 		}
 	}
 
@@ -78,5 +82,6 @@ struct user_list{
 };
 
 typedef user_list* ptr_user;
+
 
 #endif
