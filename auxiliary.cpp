@@ -26,6 +26,7 @@ ptr_maps set_new_node(int x_offset, int y_offset, ptr_maps tail, ptr_maps cur_po
 	cur_player->user.set_pos(x + x_offset, y + y_offset, tmp);
 	tmp->place.set_wih(cur_player);
 
+	//scavo il nuovo nodo dove si sta spostando il giocatore
 	cur_player->user.increase_worms(random(MAX_WORMS));
 	tmp->place.dig();
 
@@ -63,40 +64,91 @@ ptr_maps set_new_node(int x_offset, int y_offset, ptr_maps tail, ptr_maps cur_po
 	chiamata solo se ci si è accertati che il nodo non esiste
 */
 ptr_maps move(ptr_maps tail, ptr_maps cur_pos, char direzione, ptr_user cur_player){
-	ptr_maps app = (ptr_maps)cur_pos->place.ptr_s();
+	ptr_maps app;
 	switch (direzione){
 		case 's' : 
+			app = (ptr_maps)cur_pos->place.ptr_s();
 			if(cur_pos->place.ptr_s() != NULL){
 				if (app->place.busy()) {
 					// ATTACCO
-					std::cout << "\n FASE DI ATTACCO \n";
 					cur_player->user.attack((player*)app->place.busy());
 				}
 				else {
 					// MI MUOVO
-					std::cout << "\n FASE DI MOVIMENTO \n";
 					cur_player->user.set_pos(cur_pos->place.read_x() + 0, cur_pos->place.read_y() - 1, (maps*)cur_pos->place.ptr_s());
 					cur_pos->place.set_wih(NULL);
 					app->place.set_wih(cur_player);
+					//la vecchia cur_pos non mi serve, assegno la nuova
+					cur_pos = app;
+					//se il nodo in cui mi sto spostando non è ancora scavato lo scavo e aggiungo vermi al giocatore
+					if (!cur_pos->place.is_dug()) {
+						cur_player->user.increase_worms(random(MAX_WORMS));
+						cur_pos->place.dig();
+					}
 				}
 			}
 			else tail = set_new_node(0, -1, tail, cur_pos, cur_player);
 			break;
 		case 'e' :
+			app = (ptr_maps)cur_pos->place.ptr_e();
 			if(cur_pos->place.ptr_e() != NULL){
-				cur_player->user.set_pos(cur_pos->place.read_x() + 1, cur_pos->place.read_y() + 0, (maps*)cur_pos->place.ptr_e());
+				if (app->place.busy()) {
+					// ATTACCO
+					cur_player->user.attack((player*)app->place.busy());
+				}
+				else {
+					// MI MUOVO
+					cur_player->user.set_pos(cur_pos->place.read_x() + 1, cur_pos->place.read_y() + 0, (maps*)cur_pos->place.ptr_e());
+					cur_pos->place.set_wih(NULL);
+					app->place.set_wih(cur_player);
+					cur_pos = app;
+					if (!cur_pos->place.is_dug()) {
+						cur_player->user.increase_worms(random(MAX_WORMS));
+						cur_pos->place.dig();
+					}
+				}
 			}
 			else tail = set_new_node(1, 0, tail, cur_pos, cur_player);
 			break;
 		case 'w' :
+			app = (ptr_maps)cur_pos->place.ptr_w();
 			if(cur_pos->place.ptr_w() != NULL){
-				cur_player->user.set_pos(cur_pos->place.read_x() - 1, cur_pos->place.read_y() + 0, (maps*)cur_pos->place.ptr_w());
+				if (app->place.busy()) {
+					// ATTACCO
+					cur_player->user.attack((player*)app->place.busy());
+				}
+				else {
+					// MI MUOVO
+					cur_player->user.set_pos(cur_pos->place.read_x() - 1, cur_pos->place.read_y() + 0, (maps*)cur_pos->place.ptr_w());
+					cur_pos->place.set_wih(NULL);
+					app->place.set_wih(cur_player);
+					cur_pos = app;
+					if (!cur_pos->place.is_dug()) {
+						cur_player->user.increase_worms(random(MAX_WORMS));
+						cur_pos->place.dig();
+					}
+				}
 			}
 			else tail = set_new_node(-1, 0, tail, cur_pos, cur_player);
 			break;
 		default ://va a nord
+			app = (ptr_maps)cur_pos->place.ptr_n();
 			if(cur_pos->place.ptr_n() != NULL){
-				cur_player->user.set_pos(cur_pos->place.read_x() + 0, cur_pos->place.read_y() + 1, (maps*)cur_pos->place.ptr_n());
+				if (app->place.busy()) {
+					// ATTACCO
+					cur_player->user.attack((player*)app->place.busy());
+				}
+				else {
+					// MI MUOVO
+					cur_player->user.set_pos(cur_pos->place.read_x() + 0, cur_pos->place.read_y() + 1, (maps*)cur_pos->place.ptr_n());
+					cur_pos->place.set_wih(NULL);
+					app->place.set_wih(cur_player);
+					cur_pos = app;
+					if (!cur_pos->place.is_dug()) {
+						cur_player->user.increase_worms(random(MAX_WORMS));
+						cur_pos->place.dig();
+					}
+				}
 			}
 			else tail = set_new_node(0, 1, tail, cur_pos, cur_player);
 			break;
