@@ -1,11 +1,41 @@
 #include "header.hpp"
 
 node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x, int y){
+	player* p;
+	node* scan;
+	node* tmp;
+	int found = 0;
+	int spostato = 0;
 	if(app != NULL){
 		if (app->busy()) {
 			// ATTACCO
-			std::cout << "\n FASE DI ATTACCO \n";
-			cur_player->attack((player*)app->busy());
+			if(cur_player->n_worms() <= p->n_worms()){
+				while(spostato != 1){
+					int x_offset = random(20);
+					int y_offset = random(20);
+					foreach(tail, scan, tmp){
+						if((scan->read_x() == (x_offset + x)) && (scan->read_y() == (y_offset + y))){
+							if(scan->busy() == NULL){
+								cur_player->set_pos(cur_pos->read_x() + x_offset, cur_pos->read_y() + y_offset, scan);
+								cur_pos->set_wih(NULL);
+								scan->set_wih(cur_player);
+								cur_pos = scan;
+								spostato = 1;
+							}
+							found = 1;
+							break;
+						}
+					}
+					if(!found){
+						tail = set_new_node(x_offset, y_offset, tail, cur_pos, cur_player);	
+						spostato = 1;
+					}
+				}
+			}
+			else{
+				std::cout << "\n FASE DI ATTACCO \n";
+				cur_player->attack((player*)app->busy());
+			}
 		}
 		else {
 			// MI MUOVO
