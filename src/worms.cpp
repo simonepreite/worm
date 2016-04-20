@@ -83,7 +83,9 @@ int main(){
 				node* appoggio = NULL;
 				int print_x = 0; 
 				int print_y = 0;
-				std::cout << "\n(" << scan_map->read_x() << ", " << scan_map->read_y() << ")";
+				std::cout << "\n(" << scan_map->read_x() << ", " << scan_map->read_y() << ")" << " occuped: "; 
+				if((player*)scan_map->busy()!=NULL) ((player*)scan_map->busy())->print_name();
+				else std::cout << 0;
 				if((appoggio = scan_map->ptr_n())!=NULL){
 					print_x = appoggio->read_x();
 					print_y = appoggio->read_y();
