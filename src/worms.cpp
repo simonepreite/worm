@@ -5,19 +5,18 @@ using namespace std;
 int main(){
 	int i, num_players, primo, n;
 	char name_player[MAXNOME];
-	ptr_user tail = NULL;
-	ptr_user scan = NULL;
-	ptr_user tmp = NULL;
-	ptr_maps tmp_map = NULL;
-	ptr_maps scan_map = NULL;
-	ptr_maps map_tail = new maps();
-	map_tail->place.set(0,0);
+	player* tail = NULL;
+	player* scan = NULL;
+	player* tmp = NULL;
+	node* tmp_map = NULL;
+	node* scan_map = NULL;
+	node* map_tail = new node();
+	map_tail->set(0,0);
 	enqueue_map(map_tail, map_tail);
-	//map_tail->next = map_tail;
 	std::cout << "Inserire numero di giocatori (almeno 2 giocatori): \n";
 	std::cin >> num_players;	//inserire il controllo che vengano inseriti soltanto numeri
-	for(i=0; i < num_players; i++){
-		std::cout << "nome_giocatore " << i+1 << "(max 8 caratteri): \n";
+	for(i = 0; i < num_players; i++){
+		std::cout << "nome_giocatore " << i + 1 << "(max 8 caratteri): \n";
   		std::cin >> setw(MAXNOME) >> name_player;
 		tail = enqueue_player(tail, name_player, i, map_tail); // inizializza lista dei giocatori
 		cin.clear();
@@ -25,11 +24,11 @@ int main(){
 	}
 	std::cout << "\n\n";
 	foreach(tail, scan, tmp){
-		std::cout << "id: " << scan->user.print_id() << "	nome: ";
-		scan->user.print_name();
+		std::cout << "id: " << scan->print_id() << "	nome: ";
+		scan->print_name();
 		std::cout << "\n";
-		std::cout << "posizione: (" << scan->user.lan() << ", " << scan->user.lon() << ")" << "\n";
-		std::cout << "pointer cur_pos: " << scan->user.cur_pos() << "\n";
+		std::cout << "posizione: (" << scan->lan() << ", " << scan->lon() << ")" << "\n";
+		std::cout << "pointer cur_pos: " << scan->cur_pos() << "\n";
 		std::cout << "this:  " << scan << "  next:  " << scan->next;
 		std::cout << "\n";
 	}
@@ -40,7 +39,7 @@ int main(){
 		std::cout << "numero estratto: " << primo << "\n";
 		//posizionamento della tail su quel giocatore con scan
 		foreach(tail, scan, tmp){
-			if(scan->user.print_id() == primo) break;
+			if(scan->print_id() == primo) break;
 		}
 		if(primo == 0) tmp = tail;	// BUG risolto ma sembra una patch migliorabile
 
@@ -51,18 +50,18 @@ int main(){
 	}
 	tail = tmp; 
 	std::cout << "La prima mossa è di ";
-	scan->user.print_name();
+	scan->print_name();
 	std::cout << "\n\n";
 	n = 1;
 	for(i = MAXTURNI; i >= 0; i--){//loop turni
 		int scelta = 0;
 		char dir;
 		foreach(tail, scan, tmp){
-		std::cout << "è il turno di: "; scan->user.print_name();
+		std::cout << "è il turno di: "; scan->print_name();
 		std::cout << "\n";
-		std::cout << "Posizione: (" << scan->user.lan() << ", " << scan->user.lon() << ")" << "\n";
-		std::cout << "pointer cur_pos: " << scan->user.cur_pos() << "\n";
-		std::cout << "vermi: " << scan->user.n_worms() << "\n";
+		std::cout << "Posizione: (" << scan->lan() << ", " << scan->lon() << ")" << "\n";
+		std::cout << "pointer cur_pos: " << scan->cur_pos() << "\n";
+		std::cout << "vermi: " << scan->n_worms() << "\n";
 		std::cout << "this:  " << scan << "  next:  " << scan->next;
 		std::cout << "\n";
 		do{
@@ -72,7 +71,7 @@ int main(){
 		if(scelta == 1) {//servono solo a provare che la new_node funziona 
 			std::cout << "inserisci direzione:  ";
 			std::cin >> dir;
-			map_tail = move(map_tail, scan->user.cur_pos(), dir, scan);
+			map_tail = move(map_tail, scan->cur_pos(), dir, scan);
 			//situazioni
 			//scelta della direzione
 			//controllo se la casella esiste ed è occupata implica attacco
@@ -81,12 +80,12 @@ int main(){
 		}
 		else if(scelta == 2){
 			foreach(map_tail, scan_map, tmp_map) {
-				std::cout << "\n(" << scan_map->place.read_x() << ", " << scan_map->place.read_y() << ")";
+				std::cout << "\n(" << scan_map->read_x() << ", " << scan_map->read_y() << ")";
 				std::cout << "this:  " << scan_map << "  next:  " << scan_map->next;
-				std::cout << "  nord: " << scan_map->place.ptr_n();
-				std::cout << "  sud: " << scan_map->place.ptr_s(); 
-				std::cout << "  est: " << scan_map->place.ptr_e(); 
-				std::cout << "  west: " << scan_map->place.ptr_w(); 
+				std::cout << "  nord: " << scan_map->ptr_n();
+				std::cout << "  sud: " << scan_map->ptr_s(); 
+				std::cout << "  est: " << scan_map->ptr_e(); 
+				std::cout << "  west: " << scan_map->ptr_w(); 
 			}
 			std::cout << "\n";
 		}
