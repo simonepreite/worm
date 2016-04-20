@@ -43,13 +43,15 @@ REALIZZATO:
 	- scelta del primo giocatore con funzione random,
 	- loop turni,
 	- stampa mappa,
-	
-DA FARE:
-
+	- creazione dei nuovi nodi,
 	- metodi player per le azioni,
 	- metodi node di supporto alle azioni,
-	- creazione dei nuovi nodi,
 	
+DA FARE:
+	
+	- loop turni da modificare per eseguire azione di movimento e stampa nello stesso turno,
+	- stampa grafica mappa in base al giocatore in turno,
+
 
 MIGLIORABILI:
 
