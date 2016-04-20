@@ -8,7 +8,7 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 	int spostato = 0;
 	if(app != NULL){
 		if (app->busy()) {
-			// ATTACCO
+			//SPOSTAMENTO CASUALE
 			if(cur_player->n_worms() <= p->n_worms()){
 				while(spostato != 1){
 					int x_offset = random(20);
@@ -32,6 +32,7 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 					}
 				}
 			}
+			// ATTACCO
 			else{
 				std::cout << "\n FASE DI ATTACCO \n";
 				cur_player->attack((player*)app->busy());
