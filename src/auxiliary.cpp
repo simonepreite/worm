@@ -10,6 +10,16 @@ void dig(node* cur_pos, player* cur_player, node* app){
 	}
 }
 
+void print_map(node* appoggio, const char* dir){
+	int print_x = 0; 
+	int print_y = 0;
+	if((appoggio)!=NULL){
+		print_x = appoggio->read_x();
+		print_y = appoggio->read_y();
+		std::cout << dir << "(" << print_x << ", " << print_y << ")";
+	}
+	else std::cout << dir << 0;
+}
 player* enqueue_player(player* tail, char name[], int id, node* p){
 	player* tmp;
 	if(tail == NULL){
