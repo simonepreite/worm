@@ -26,13 +26,8 @@ int main(){
 	foreach(tail, scan, tmp){
 		std::cout << "id: " << scan->print_id() << "	nome: ";
 		scan->print_name();
-		std::cout << "\n";
-		std::cout << "posizione: (" << scan->lan() << ", " << scan->lon() << ")" << "\n";
-		std::cout << "pointer cur_pos: " << scan->cur_pos() << "\n";
-		std::cout << "this:  " << scan << "  next:  " << scan->next;
-		std::cout << "\n";
+		info_giocatore(scan);
 	}
-	std::cout << "\n";
 	if(num_players > 1){
 		//estrazione del primo giocatore
 		primo = random(num_players - 1);
@@ -57,13 +52,9 @@ int main(){
 		int scelta = 0;
 		char dir;
 		foreach(tail, scan, tmp){
-		std::cout << "è il turno di: "; scan->print_name();
-		std::cout << "\n";
-		std::cout << "Posizione: (" << scan->lan() << ", " << scan->lon() << ")" << "\n";
-		std::cout << "pointer cur_pos: " << scan->cur_pos() << "\n";
-		std::cout << "vermi: " << scan->n_worms() << "\n";
-		std::cout << "this:  " << scan << "  next:  " << scan->next;
-		std::cout << "\n";
+		std::cout << "è il turno di: "; 
+		scan->print_name();
+		info_giocatore(scan);
 		do{
 			std::cout << "scegli azione: \n" << "1 - muovi \n" << "2 - stampa mappa \n";
 			std::cin >> scelta;

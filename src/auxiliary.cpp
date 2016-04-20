@@ -20,6 +20,16 @@ void print_map(node* appoggio, const char* dir){
 	}
 	else std::cout << dir << 0;
 }
+
+void info_giocatore(player* scan){
+	std::cout << "\n";
+	std::cout << "Posizione: (" << scan->lan() << ", " << scan->lon() << ")" << "\n";
+	std::cout << "pointer cur_pos: " << scan->cur_pos() << "\n";
+	std::cout << "vermi: " << scan->n_worms() << "\n";
+	std::cout << "this:  " << scan << "  next:  " << scan->next;
+	std::cout << "\n\n";
+}
+
 player* enqueue_player(player* tail, char name[], int id, node* p){
 	player* tmp;
 	if(tail == NULL){
