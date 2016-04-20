@@ -1,13 +1,27 @@
 #include "header.hpp"
 
-void dig(node* cur_pos, player* cur_player, node* app){
-	cur_pos->set_wih(NULL);
-	app->set_wih(cur_player);
-	cur_pos = app;
-	if (!cur_pos->is_dug()) {
-		cur_player->increase_worms(random(MAX_WORMS));
-		cur_pos->dig();
+node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x, int y){
+	if(app != NULL){
+		if (app->busy()) {
+			// ATTACCO
+			std::cout << "\n FASE DI ATTACCO \n";
+			cur_player->attack((player*)app->busy());
+		}
+		else {
+			// MI MUOVO
+			std::cout << "\n FASE DI MOVIMENTO \n";
+			cur_player->set_pos(cur_pos->read_x() + x, cur_pos->read_y() + y, app);
+			cur_pos->set_wih(NULL);
+			app->set_wih(cur_player);
+			cur_pos = app;
+			if (!cur_pos->is_dug()) {
+				cur_player->increase_worms(random(MAX_WORMS));
+				cur_pos->dig();
+			}
+		}
 	}
+	else tail = set_new_node(x, y, tail, cur_pos, cur_player);
+return tail;
 }
 
 void print_map(node* appoggio, const char* dir){
@@ -77,13 +91,13 @@ node* set_new_node(int x_offset, int y_offset, node* tail, node* cur_pos, player
 		}
 		if(scan->read_x() == tmp->read_x()+1 && scan->read_y() == tmp->read_y()){
 			//c'è un nodo a est
-           		std::cout << "est\n";
+           	std::cout << "est\n";
 			tmp->e(scan);
 			scan->w(tmp);
 		}
 		if(scan->read_x() == tmp->read_x()-1 && scan->read_y() == tmp->read_y()){
 			//c'è un nodo a ovest
-            		std::cout << "ovest\n";
+            std::cout << "ovest\n";
 			tmp->w(scan);
 			scan->e(tmp);
 		}
@@ -98,72 +112,16 @@ node* move(node* tail, node* cur_pos, char direzione, player* cur_player){
 	node* app;
 	switch (direzione){
 		case 's' : 
-			app = cur_pos->ptr_s();
-			if(cur_pos->ptr_s() != NULL){
-				if (app->busy()) {
-					// ATTACCO
-					std::cout << "\n FASE DI ATTACCO \n";
-					cur_player->attack((player*)app->busy());
-				}
-				else {
-					// MI MUOVO
-					std::cout << "\n FASE DI MOVIMENTO \n";
-					cur_player->set_pos(cur_pos->read_x() + 0, cur_pos->read_y() - 1, cur_pos->ptr_s());
-					dig(cur_pos, cur_player, app);
-				}
-			}
-			else tail = set_new_node(0, -1, tail, cur_pos, cur_player);
+			tail = direction(tail, cur_pos->ptr_s(), cur_pos, cur_player, 0, -1);
 			break;
 		case 'd' :
-			app = cur_pos->ptr_e();
-			if(cur_pos->ptr_e() != NULL){
-				if (app->busy()) {
-					// ATTACCO
-					std::cout << "\n FASE DI ATTACCO \n";
-					cur_player->attack((player*)app->busy());
-				}
-				else {
-					// MI MUOVO
-					std::cout << "\n FASE DI MOVIMENTO \n";
-					cur_player->set_pos(cur_pos->read_x() + 1, cur_pos->read_y() + 0, cur_pos->ptr_e());
-					dig(cur_pos, cur_player, app);
-				}
-			}
-			else tail = set_new_node(1, 0, tail, cur_pos, cur_player);
+			tail = direction(tail, cur_pos->ptr_e(), cur_pos, cur_player, 1, 0);
 			break;
 		case 'a' :
-			app = cur_pos->ptr_w();
-			if(cur_pos->ptr_w() != NULL){
-				if (app->busy()) {
-					// ATTACCO
-					std::cout << "\n FASE DI ATTACCO \n";
-					cur_player->attack((player*)app->busy());
-				}
-				else {
-					// MI MUOVO
-					std::cout << "\n FASE DI MOVIMENTO \n";
-					cur_player->set_pos(cur_pos->read_x() - 1, cur_pos->read_y() + 0, cur_pos->ptr_w());
-					dig(cur_pos, cur_player,app);
-				}			
-			}
-			else tail = set_new_node(-1, 0, tail, cur_pos, cur_player);
+			tail = direction(tail, cur_pos->ptr_w(), cur_pos, cur_player, -1, 0);
 			break;
 		default ://va a nord
-			app = cur_pos->ptr_n();
-			if(cur_pos->ptr_n() != NULL){
-				if (app->busy()) {
-					// ATTACCO
-					std::cout << "\n FASE DI ATTACCO \n";
-					cur_player->attack((player*)app->busy());
-				}
-				else {
-					// MI MUOVO
-					std::cout << "\n FASE DI MOVIMENTO \n";
-					cur_player->set_pos(cur_pos->read_x() + 0, cur_pos->read_y() + 1, cur_pos->ptr_n());
-					dig(cur_pos, cur_player, app);
-				}
-			}
-			else tail = set_new_node(0, 1, tail, cur_pos, cur_player);
+			tail = direction(tail, cur_pos->ptr_n(), cur_pos, cur_player, 0, 1);
 			break;
 	}
 	return tail;

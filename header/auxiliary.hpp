@@ -1,6 +1,7 @@
 #ifndef AUXILIARY_HPP_
 #define AUXILIARY_HPP_
 
+extern node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x, int y);
 extern void dig(node* cur_pos, player* cur_player, node* app);
 extern void print_map(node* appoggio, const char* dir);
 extern void info_giocatore(player* scan);
