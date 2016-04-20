@@ -70,5 +70,6 @@
 	}
 
 	void node::set_wih(void *p) {
-		who_is_here = p;
+		if(p == NULL) who_is_here = NULL;
+		else who_is_here = p;
 	}

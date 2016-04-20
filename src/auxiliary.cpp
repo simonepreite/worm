@@ -36,6 +36,7 @@ node* set_new_node(int x_offset, int y_offset, node* tail, node* cur_pos, player
 	tmp->set(x + x_offset, y + y_offset);
 	tail = enqueue_map(tail, tmp);
 	cur_player->set_pos(x + x_offset, y + y_offset, tmp);
+	cur_pos->set_wih(NULL);
 	tmp->set_wih(cur_player);
 	//scavo il nuovo nodo dove si sta spostando il giocatore
 	cur_player->increase_worms(random(MAX_WORMS));
@@ -93,7 +94,7 @@ node* move(node* tail, node* cur_pos, char direzione, player* cur_player){
 			}
 			else tail = set_new_node(0, -1, tail, cur_pos, cur_player);
 			break;
-		case 'e' :
+		case 'd' :
 			app = cur_pos->ptr_e();
 			if(cur_pos->ptr_e() != NULL){
 				if (app->busy()) {
@@ -110,7 +111,7 @@ node* move(node* tail, node* cur_pos, char direzione, player* cur_player){
 			}
 			else tail = set_new_node(1, 0, tail, cur_pos, cur_player);
 			break;
-		case 'w' :
+		case 'a' :
 			app = cur_pos->ptr_w();
 			if(cur_pos->ptr_w() != NULL){
 				if (app->busy()) {
