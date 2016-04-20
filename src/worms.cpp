@@ -80,12 +80,34 @@ int main(){
 		}
 		else if(scelta == 2){
 			foreach(map_tail, scan_map, tmp_map) {
+				node* appoggio = NULL;
+				int print_x = 0; 
+				int print_y = 0;
 				std::cout << "\n(" << scan_map->read_x() << ", " << scan_map->read_y() << ")";
-				std::cout << "this:  " << scan_map << "  next:  " << scan_map->next;
-				std::cout << "  nord: " << scan_map->ptr_n();
-				std::cout << "  sud: " << scan_map->ptr_s(); 
-				std::cout << "  est: " << scan_map->ptr_e(); 
-				std::cout << "  west: " << scan_map->ptr_w(); 
+				if((appoggio = scan_map->ptr_n())!=NULL){
+					print_x = appoggio->read_x();
+					print_y = appoggio->read_y();
+					std::cout << "  nord: " << "(" << print_x << ", " << print_y << ")";
+				}
+				else std::cout << "  nord: " << 0;
+				if((appoggio = scan_map->ptr_s())!=NULL){
+					print_x = appoggio->read_x();
+					print_y = appoggio->read_y();
+					std::cout << "  sud: " << "(" << print_x << ", " << print_y << ")";
+				}
+				else std::cout << "  sud: " << 0;
+				if((appoggio = scan_map->ptr_e())!=NULL){
+					print_x = appoggio->read_x();
+					print_y = appoggio->read_y();
+					std::cout << "  est: " << "(" << print_x << ", " << print_y << ")";
+				}
+				else std::cout << "  est: " << 0;
+				if((appoggio = scan_map->ptr_w())!=NULL){
+					print_x = appoggio->read_x();
+					print_y = appoggio->read_y();
+					std::cout << "  ovest: " << "(" << print_x << ", " << print_y << ")";
+				}
+				else std::cout << "  ovest: " << 0;
 			}
 			std::cout << "\n";
 		}
