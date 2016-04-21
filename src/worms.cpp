@@ -52,44 +52,45 @@ int main(){
 		char scelta;
 		char dir;
 		foreach(tail, scan, tmp){
-		int giocato = 1;
-		std::cout << "è il turno di: "; 
-		scan->print_name();
-		info_giocatore(scan);
-		do{
-			std::cout << "scegli azione: \n" << "1 - muovi \n2 - stampa mappa \ne - termina turno\n";
-			std::cin >> scelta;
-		if(giocato != 0){
-			if(scelta == '1') {//servono solo a provare che la new_node funziona 
-				std::cout << "inserisci direzione:  ";
-				std::cin >> dir;
-				map_tail = move(map_tail, scan->cur_pos(), dir, scan);
-				giocato = 0;
-				//situazioni
-				//scelta della direzione
-				//controllo se la casella esiste ed è occupata implica attacco
-				//se non è occupata implica spostamento con check della casella se scavabile o no e scava all'occorrenza
-				//se il nodo non esesite viene creato avviene lo spostamento e viene scavato
-			}
-		}
-		else std::cout << "non puoi più muovere!!\n";
-		if(scelta == '2'){
-			foreach(map_tail, scan_map, tmp_map) {
-				int print_x = 0; 
-				int print_y = 0;		
-				node* appoggio = NULL;
-				std::cout << "\n(" << scan_map->read_x() << ", " << scan_map->read_y() << ")" << " occuped: "; 
-				if((player*)scan_map->busy()!=NULL) ((player*)scan_map->busy())->print_name();
-				else std::cout << 0;
-				print_map(scan_map->ptr_n(), "  nord: ");
-				print_map(scan_map->ptr_s(), "  sud: ");
-				print_map(scan_map->ptr_e(), "  est: ");
-				print_map(scan_map->ptr_w(), "  ovest: ");
-			}
-			std::cout << "\n";
-		}
-		std::cout << "\n";
-		}while(scelta != 'e');
+			int giocato = 1;
+			std::cout << "è il turno di: "; 
+			scan->print_name();
+			info_giocatore(scan);
+			do{
+				std::cout << "scegli azione: \n" << "1 - muovi \n2 - stampa mappa \ne - termina turno\n";
+				std::cin >> scelta;
+				if(scelta == '1') {
+					if(giocato != 0){
+					std::cout << "inserisci direzione:  ";
+					std::cin >> dir;
+					map_tail = move(map_tail, scan->cur_pos(), dir, scan);
+					giocato = 0;
+					//situazioni
+					//scelta della direzione
+					//controllo se la casella esiste ed è occupata implica attacco
+					//se non è occupata implica spostamento con check della casella se scavabile o no e scava all'occorrenza
+					//se il nodo non esesite viene creato avviene lo spostamento e viene scavato
+					}
+					else std::cout << "non puoi più muovere!!\n";
+				}
+				else if(scelta == '2'){
+					foreach(map_tail, scan_map, tmp_map) {
+						int print_x = 0; 
+						int print_y = 0;		
+						node* appoggio = NULL;
+						std::cout << "\n(" << scan_map->read_x() << ", " << scan_map->read_y() << ")" << " occuped: "; 
+						if((player*)scan_map->busy()!=NULL) ((player*)scan_map->busy())->print_name();
+						else std::cout << 0;
+						print_map(scan_map->ptr_n(), "  nord: ");
+						print_map(scan_map->ptr_s(), "  sud: ");
+						print_map(scan_map->ptr_e(), "  est: ");
+						print_map(scan_map->ptr_w(), "  ovest: ");
+					}
+					std::cout << "\n";
+				}
+				else if(scelta != 'e') std::cout << "scelta non consentita\n";
+				std::cout << "\n";
+			}while(giocato != 0 && scelta != 'e');
 		}
 		if(i <= 5){
 			std::cout << "ATTENZIONE MANCANO  " << i << "  TURNI ALLA CONCLUSIONE!!" << "\n";
