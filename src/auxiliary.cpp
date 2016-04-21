@@ -1,58 +1,14 @@
 #include "header.hpp"
 
-node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x, int y){
-	player* p;
-	node* scan;
-	node* tmp;
-	int found = 0;
-	int spostato = 0;
-	if(app != NULL){
-		if (app->busy()) {
-			//SPOSTAMENTO CASUALE
-			if(cur_player->n_worms() <= p->n_worms()){
-				while(spostato != 1){
-					int x_offset = random(20);
-					int y_offset = random(20);
-					foreach(tail, scan, tmp){
-						if((scan->read_x() == (x_offset + x)) && (scan->read_y() == (y_offset + y))){
-							if(scan->busy() == NULL){
-								cur_player->set_pos(cur_pos->read_x() + x_offset, cur_pos->read_y() + y_offset, scan);
-								cur_pos->set_wih(NULL);
-								scan->set_wih(cur_player);
-								cur_pos = scan;
-								spostato = 1;
-							}
-							found = 1;
-							break;
-						}
-					}
-					if(!found){
-						tail = set_new_node(x_offset, y_offset, tail, cur_pos, cur_player);	
-						spostato = 1;
-					}
-				}
-			}
-			// ATTACCO
-			else{
-				std::cout << "\n FASE DI ATTACCO \n";
-				cur_player->attack((player*)app->busy());
-			}
-		}
-		else {
-			// MI MUOVO
-			std::cout << "\n FASE DI MOVIMENTO \n";
-			cur_player->set_pos(cur_pos->read_x() + x, cur_pos->read_y() + y, app);
-			cur_pos->set_wih(NULL);
-			app->set_wih(cur_player);
-			cur_pos = app;
-			if (!cur_pos->is_dug()) {
-				cur_player->increase_worms(random(MAX_WORMS));
-				cur_pos->dig();
-			}
-		}
+void movement(player* cur_player, node* cur_pos, node* scan, int x_offset, int y_offset){
+	cur_player->set_pos(cur_pos->read_x() + x_offset, cur_pos->read_y() + y_offset, scan);
+	cur_pos->set_wih(NULL);
+	scan->set_wih(cur_player);
+	cur_pos = scan;
+	if (!cur_pos->is_dug()) {
+		cur_player->increase_worms(random(MAX_WORMS));
+		cur_pos->dig();
 	}
-	else tail = set_new_node(x, y, tail, cur_pos, cur_player);
-return tail;
 }
 
 void print_map(node* appoggio, const char* dir){
@@ -75,20 +31,87 @@ void info_giocatore(player* scan){
 	std::cout << "\n\n";
 }
 
-player* enqueue_player(player* tail, char name[], int id, node* p){
+void kill(player* tail, int id){
+//utilizzo tail_copy in modo da lasciare inalterato il turno
 	player* tmp;
-	if(tail == NULL){
-		tail = new player;
-		tail->next = tail;
-		tail->set(id, name, p);
-	} else {
-		tmp = new player;
-		tmp->next = tail->next;
-		tail->next = tmp;
-		tail = tmp;
-		tmp->set(id, name, p);
-	}	
+	player* tail_copy;
+	tail_copy = tail;
+//mi posiziono sull'elemento precedente all'elemento da eliminare
+	while (tail_copy->next->print_id() != id){
+		tail_copy = tail_copy->next;
+	}
+
+//eliminazione dell'elemento in questiione
+	tmp = tail_copy->next;
+	tail_copy->next = tmp->next;
+	delete tmp;
+}
+
+/*  direzione w: nord, s: sud, d: est, a: ovest questa funzione viene
+	chiamata solo se ci si è accertati che il nodo non esiste
+*/
+node* move(node* tail, node* cur_pos, char direzione, player* cur_player){
+	node* app;
+	switch (direzione){
+		case 's' : 
+			tail = direction(tail, cur_pos->ptr_s(), cur_pos, cur_player, 0, -1);
+			break;
+		case 'd' :
+			tail = direction(tail, cur_pos->ptr_e(), cur_pos, cur_player, 1, 0);
+			break;
+		case 'a' :
+			tail = direction(tail, cur_pos->ptr_w(), cur_pos, cur_player, -1, 0);
+			break;
+		default ://va a nord
+			tail = direction(tail, cur_pos->ptr_n(), cur_pos, cur_player, 0, 1);
+			break;
+	}
 	return tail;
+}
+
+node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x, int y){
+	player* p;
+	node* scan;
+	node* tmp;
+	int found = 0;
+	int spostato = 0;
+	if(app != NULL){
+		if (app->busy()) {
+			//SPOSTAMENTO CASUALE
+			if(cur_player->n_worms() <= p->n_worms()){
+				while(spostato != 1){
+					int x_offset = random(20);
+					int y_offset = random(20);
+					foreach(tail, scan, tmp){
+						if((scan->read_x() == (x_offset + x)) && (scan->read_y() == (y_offset + y))){
+							if(scan->busy() == NULL){
+								movement(cur_player, cur_pos, scan, x_offset, y_offset);
+								spostato = 1;
+							}
+							found = 1;
+							break;
+						}
+					}
+					if(!found){
+						tail = set_new_node(x_offset, y_offset, tail, cur_pos, cur_player);	
+						spostato = 1;
+					}
+				}
+			}
+			// ATTACCO
+			else{
+				std::cout << "\n FASE DI ATTACCO \n";
+				cur_player->attack((player*)app->busy());
+			}
+		}
+		else {
+			// MI MUOVO
+			std::cout << "\n FASE DI MOVIMENTO \n";
+			movement(cur_player, cur_pos, app, x, y);
+		}
+	}
+	else tail = set_new_node(x, y, tail, cur_pos, cur_player);
+return tail;
 }
 
 node* set_new_node(int x_offset, int y_offset, node* tail, node* cur_pos, player* cur_player){
@@ -136,34 +159,32 @@ node* set_new_node(int x_offset, int y_offset, node* tail, node* cur_pos, player
 	return tail;
 }
 
-/*  direzione n: nord, s: sud, e: est, w: ovest questa funzione viene
-	chiamata solo se ci si è accertati che il nodo non esiste
-*/
-node* move(node* tail, node* cur_pos, char direzione, player* cur_player){
-	node* app;
-	switch (direzione){
-		case 's' : 
-			tail = direction(tail, cur_pos->ptr_s(), cur_pos, cur_player, 0, -1);
-			break;
-		case 'd' :
-			tail = direction(tail, cur_pos->ptr_e(), cur_pos, cur_player, 1, 0);
-			break;
-		case 'a' :
-			tail = direction(tail, cur_pos->ptr_w(), cur_pos, cur_player, -1, 0);
-			break;
-		default ://va a nord
-			tail = direction(tail, cur_pos->ptr_n(), cur_pos, cur_player, 0, 1);
-			break;
-	}
-	return tail;
-}
-
 node* enqueue_map(node* tail, node* p){
 		p->next = tail->next;
 		tail->next = p;
 		tail = p;
 	return tail;
 }
+
+
+
+player* enqueue_player(player* tail, char name[], int id, node* p){
+	player* tmp;
+	if(tail == NULL){
+		tail = new player;
+		tail->next = tail;
+		tail->set(id, name, p);
+	} else {
+		tmp = new player;
+		tmp->next = tail->next;
+		tail->next = tmp;
+		tail = tmp;
+		tmp->set(id, name, p);
+	}	
+	return tail;
+}
+
+
 
 int random(int n){
 	int x=0;
@@ -172,18 +193,4 @@ int random(int n){
 	return x;
 }
 
-void kill(player* tail, int id){
-//utilizzo tail_copy in modo da lasciare inalterato il turno
-	player* tmp;
-	player* tail_copy;
-	tail_copy = tail;
-//mi posiziono sull'elemento precedente all'elemento da eliminare
-	while (tail_copy->next->print_id() != id){
-		tail_copy = tail_copy->next;
-	}
 
-//eliminazione dell'elemento in questiione
-	tmp = tail_copy->next;
-	tail_copy->next = tmp->next;
-	delete tmp;
-}

@@ -49,27 +49,31 @@ int main(){
 	std::cout << "\n\n";
 	n = 1;
 	for(i = MAXTURNI; i >= 0; i--){//loop turni
-		int scelta = 0;
+		char scelta;
 		char dir;
 		foreach(tail, scan, tmp){
+		int giocato = 1;
 		std::cout << "è il turno di: "; 
 		scan->print_name();
 		info_giocatore(scan);
 		do{
-			std::cout << "scegli azione: \n" << "1 - muovi \n" << "2 - stampa mappa \n";
+			std::cout << "scegli azione: \n" << "1 - muovi \n2 - stampa mappa \ne - termina turno\n";
 			std::cin >> scelta;
-		}while(scelta != 1 && scelta != 2);
-		if(scelta == 1) {//servono solo a provare che la new_node funziona 
-			std::cout << "inserisci direzione:  ";
-			std::cin >> dir;
-			map_tail = move(map_tail, scan->cur_pos(), dir, scan);
-			//situazioni
-			//scelta della direzione
-			//controllo se la casella esiste ed è occupata implica attacco
-			//se non è occupata implica spostamento con check della casella se scavabile o no e scava all'occorrenza
-			//se il nodo non esesite viene creato avviene lo spostamento e viene scavato
+		if(giocato != 0){
+			if(scelta == '1') {//servono solo a provare che la new_node funziona 
+				std::cout << "inserisci direzione:  ";
+				std::cin >> dir;
+				map_tail = move(map_tail, scan->cur_pos(), dir, scan);
+				giocato = 0;
+				//situazioni
+				//scelta della direzione
+				//controllo se la casella esiste ed è occupata implica attacco
+				//se non è occupata implica spostamento con check della casella se scavabile o no e scava all'occorrenza
+				//se il nodo non esesite viene creato avviene lo spostamento e viene scavato
+			}
 		}
-		else if(scelta == 2){
+		else std::cout << "non puoi più muovere!!\n";
+		if(scelta == '2'){
 			foreach(map_tail, scan_map, tmp_map) {
 				int print_x = 0; 
 				int print_y = 0;		
@@ -85,6 +89,7 @@ int main(){
 			std::cout << "\n";
 		}
 		std::cout << "\n";
+		}while(scelta != 'e');
 		}
 		if(i <= 5){
 			std::cout << "ATTENZIONE MANCANO  " << i << "  TURNI ALLA CONCLUSIONE!!" << "\n";
