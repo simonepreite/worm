@@ -89,6 +89,7 @@ int main(){
 					std::cout << "\n";
 				}
 				else if(scelta != 'e') std::cout << "scelta non consentita\n";
+				else if(giocato != 0) std::cout << "non hai ancora giocato!\n";
 				std::cout << "\n";
 			}while(giocato != 0 && scelta != 'e');
 		}
