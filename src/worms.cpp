@@ -52,19 +52,19 @@ int main(){
 		char scelta;
 		char dir;
 		foreach(tail, scan, tmp){
-			int giocato = 1;
+			int giocato = 0;
 			std::cout << "è il turno di: "; 
 			scan->print_name();
 			info_giocatore(scan);
 			do{
-				std::cout << "scegli azione: \n" << "1 - muovi \n2 - stampa mappa \ne - termina turno\n";
+				std::cout << "scegli azione: \n" << "1 - muovi (implica la fine del turno)\n2 - stampa mappa \n";
 				std::cin >> scelta;
 				if(scelta == '1') {
-					if(giocato != 0){
+					if(giocato != 1){
 					std::cout << "inserisci direzione:  ";
 					std::cin >> dir;
 					map_tail = move(map_tail, scan->cur_pos(), dir, scan);
-					giocato = 0;
+					giocato = 1;
 					//situazioni
 					//scelta della direzione
 					//controllo se la casella esiste ed è occupata implica attacco
@@ -88,10 +88,10 @@ int main(){
 					}
 					std::cout << "\n";
 				}
-				else if(scelta != 'e') std::cout << "scelta non consentita\n";
-				else if(giocato != 0) std::cout << "non hai ancora giocato!\n";
+				else if(!giocato) std::cout << "non hai ancora giocato!\n";
+				else  std::cout << "scelta non consentita\n";
 				std::cout << "\n";
-			}while(giocato != 0 && scelta != 'e');
+			}while(giocato != 1);
 		}
 		if(i <= 5){
 			std::cout << "ATTENZIONE MANCANO  " << i << "  TURNI ALLA CONCLUSIONE!!" << "\n";
