@@ -14,24 +14,27 @@ protected:
 public:
 	//lista
 	player* next;
-
+	
+	//constructor 
 	player();
 
-	void set(int id_user, char player[], node* place);
-
-	void set_pos(int lat, int lon, node* pos);
-
-	int print_id();
-
-	void print_name();
-
-	int n_worms();
-
+	//actions
 	void decrease_worms(int n);
 
 	void increase_worms(int n);
 
 	void attack(player *p);
+
+	void set(int id_user, char player[], node* place);
+
+	void set_pos(int lat, int lon, node* pos);
+
+	//information
+	int print_id();
+
+	void print_name();
+
+	int n_worms();
 
 	int lan();
 

@@ -35,7 +35,15 @@
 
 	node* node::ptr_w(){
 		return west;
-	} 
+	}
+
+	bool node::is_dug() {
+		return dug;
+	}
+
+	void* node::busy() {
+		return who_is_here;
+	}
 
 	void node::n(node *p){
 		nord = p;
@@ -59,14 +67,6 @@
 
 	void node::reactivate(){
 		dug = false;
-	}
-
-	bool node::is_dug() {
-		return dug;
-	}
-
-	void* node::busy() {
-		return who_is_here;
 	}
 
 	void node::set_wih(void *p) {

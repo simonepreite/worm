@@ -20,11 +20,13 @@ protected:
 public:
 	//lista
 	node* next;
-
+	
+	//constructor
 	node();
 
 	void set(int lat, int lon);
 
+	//information
 	int read_x();
 
 	int read_y();
@@ -37,6 +39,11 @@ public:
 
 	node* ptr_w();
 
+	bool is_dug() ;
+
+	void* busy() ;
+
+	//set node
 	void n(node *p);
 
 	void s(node *p);
@@ -45,13 +52,10 @@ public:
 
 	void w(node *p);
 
+	//action
 	void dig() ;
 
 	void reactivate();
-
-	bool is_dug() ;
-
-	void* busy() ;
 
 	void set_wih(void *p) ;
 
