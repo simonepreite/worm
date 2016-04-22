@@ -39,7 +39,7 @@ void kill(player* tail, int id){
 //mi posiziono sull'elemento precedente all'elemento da eliminare
 	while (tail_copy->next->print_id() != id){
 		tail_copy = tail_copy->next;
-	}
+}
 
 //eliminazione dell'elemento in questiione
 	tmp = tail_copy->next;
