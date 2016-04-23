@@ -45,6 +45,10 @@
 		return who_is_here;
 	}
 
+	node* node::get_next(){
+		return next;
+	}
+
 	void node::n(node *p){
 		nord = p;
 	} 
@@ -60,6 +64,10 @@
 	void node::w(node *p){
 		west = p;
 	} 
+
+	void node::set_list(node* p){
+		next = p;
+	}
 
 	void node::dig() {
 		dug = true;

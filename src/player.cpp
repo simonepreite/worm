@@ -20,6 +20,11 @@
 		cur = pos; 
 	}
 
+	void player::set_list(player *p){
+		next = p;
+	}
+
+
 	int player::print_id(){
 		return id;
 	}
@@ -62,3 +67,8 @@
 	node* player::cur_pos(){
 		return cur;
 	}
+
+	player* player::get_next(){
+		return next;
+	}
+

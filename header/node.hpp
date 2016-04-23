@@ -15,11 +15,10 @@ protected:
 	bool dug;
 	//puntatore al player che occupa il nodo. Se a NULL il nodo è libero
 	void *who_is_here;
-	
+	//lista
+	node *next;
 
 public:
-	//lista
-	node* next;
 	
 	//constructor
 	node();
@@ -43,6 +42,8 @@ public:
 
 	void* busy() ;
 
+	node* get_next();
+
 	//set node
 	void n(node *p);
 
@@ -51,6 +52,8 @@ public:
 	void e(node *p);
 
 	void w(node *p);
+
+	void set_list(node* p);
 
 	//action
 	void dig() ;

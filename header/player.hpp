@@ -10,10 +10,10 @@ protected:
 	int y;
 	int worms;
 	node* cur;
+	//lista
+	player *next;
 
 public:
-	//lista
-	player* next;
 	
 	//constructor 
 	player();
@@ -29,6 +29,8 @@ public:
 
 	void set_pos(int lat, int lon, node* pos);
 
+	void set_list(player *p);
+
 	//information
 	int print_id();
 
@@ -41,6 +43,8 @@ public:
 	int lon();
 
 	node* cur_pos();
+
+	player* get_next();
 
 };
 

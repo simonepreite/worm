@@ -27,7 +27,7 @@ void info_giocatore(player* scan){
 	std::cout << "Posizione: (" << scan->lan() << ", " << scan->lon() << ")" << "\n";
 	std::cout << "pointer cur_pos: " << scan->cur_pos() << "\n";
 	std::cout << "vermi: " << scan->n_worms() << "\n";
-	std::cout << "this:  " << scan << "  next:  " << scan->next;
+	std::cout << "this:  " << scan << "  next:  " << scan->get_next();
 	std::cout << "\n\n";
 }
 
@@ -37,13 +37,13 @@ void kill(player* tail, int id){
 	player* tail_copy;
 	tail_copy = tail;
 //mi posiziono sull'elemento precedente all'elemento da eliminare
-	while (tail_copy->next->print_id() != id){
-		tail_copy = tail_copy->next;
+	while (tail_copy->get_next()->print_id() != id){
+		tail_copy = tail_copy->get_next();
 }
 
 //eliminazione dell'elemento in questiione
-	tmp = tail_copy->next;
-	tail_copy->next = tmp->next;
+	tmp = tail_copy->get_next();
+	tail_copy->set_list(tmp->get_next());
 	delete tmp;
 }
 
@@ -160,8 +160,8 @@ node* set_new_node(int x_offset, int y_offset, node* tail, node* cur_pos, player
 }
 
 node* enqueue_map(node* tail, node* p){
-		p->next = tail->next;
-		tail->next = p;
+		p->set_list(tail->get_next());
+		tail->set_list(p);
 		tail = p;
 	return tail;
 }
@@ -172,12 +172,12 @@ player* enqueue_player(player* tail, char name[], int id, node* p){
 	player* tmp;
 	if(tail == NULL){
 		tail = new player;
-		tail->next = tail;
+		tail->set_list(tail);
 		tail->set(id, name, p);
 	} else {
 		tmp = new player;
-		tmp->next = tail->next;
-		tail->next = tmp;
+		tmp->set_list(tail->get_next());
+		tail->set_list(tmp);
 		tail = tmp;
 		tmp->set(id, name, p);
 	}	
