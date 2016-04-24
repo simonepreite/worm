@@ -89,15 +89,22 @@ int main(){
 							print_map(scan_map->ptr_w(), "  ovest: ");
 						}
 						std::cout << "\n";*/
-						for(y = scan->lan() + 5; y >= scan->lan() - 5; y--){
-							for(x = scan->lon() - 5; x <= scan->lon() + 5; x++){
+						
+						for(y = scan->lon() + 5; y >= scan->lon() - 5; y--){
+							for(x = scan->lan() - 5; x <= scan->lan() + 5; x++){
 								//std::cout << x << "   " << y <<"\n";
 								foreach(map_tail, scan_map, tmp_map){
 									if(x == scan_map->read_x() && y == scan_map->read_y()){
+										//matrice[y][x] = 1;
 										std::cout << " (" << scan_map->read_x() << ", " << scan_map->read_y() << ") "; 
 										//std::cout << " 1 ";
+										break;
 									}
 									//else std::cout << "   0    ";
+								}
+								if(tmp_map == map_tail) {
+									std::cout << "   0    ";
+									//matrice[y][x] = 0;
 								}
 							}
 							std::cout << "\n";
