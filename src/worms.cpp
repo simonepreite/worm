@@ -89,8 +89,10 @@ int main(){
 							print_map(scan_map->ptr_w(), "  ovest: ");
 						}
 						std::cout << "\n";*/
-						
+						std::cout << "--------------------------------------------------------------------------------------\n";
+						std::cout << "|                                                                                     |\n";
 						for(y = scan->lon() + 3; y >= scan->lon() - 3; y--){
+							std::cout << "|    ";
 							for(x = scan->lan() - 3; x <= scan->lan() + 3; x++){
 								foreach(map_tail, scan_map, tmp_map){
 									if(x == scan_map->read_x() && y == scan_map->read_y()){
@@ -106,8 +108,11 @@ int main(){
 									std::cout << "    0      ";
 								}
 							}
-							std::cout << "\n";
+							std::cout << "    |\n";
+							std::cout << "|                                                                                     |\n";
 						}
+						std::cout << "|                                                                                     |\n";
+						std::cout << "--------------------------------------------------------------------------------------\n";
 						break;
 					default: 
 						std::cout << "scelta non consentita\n";
