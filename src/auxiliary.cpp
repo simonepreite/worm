@@ -12,7 +12,7 @@ void movement(player* cur_player, node* cur_pos, node* scan, int x_offset, int y
 }
 
 void print_map(node* appoggio, const char* dir){
-	int print_x = 0; 
+	int print_x = 0;
 	int print_y = 0;
 	if((appoggio)!=NULL){
 		print_x = appoggio->read_x();
@@ -23,12 +23,20 @@ void print_map(node* appoggio, const char* dir){
 }
 
 void info_giocatore(player* scan){
-	std::cout << "\n";
+
+	std::cout << "                                                          |\n";
+	std::cout << " gioca: ";
+	scan->print_name();
+	std::cout << "                                          |          |w|\n";
+	std::cout << " posizione attuale: " << " (" << scan->lan() << ", " << scan->lon() << ")" << "                               |        |a|s|d|\n";
+	std::cout << " vermi: " << scan->n_worms() << "                                                |\n";
+
+	/*std::cout << "\n";
 	std::cout << "Posizione: (" << scan->lan() << ", " << scan->lon() << ")" << "\n";
 	std::cout << "pointer cur_pos: " << scan->cur_pos() << "\n";
 	std::cout << "vermi: " << scan->n_worms() << "\n";
 	std::cout << "this:  " << scan << "  next:  " << scan->get_next();
-	std::cout << "\n\n";
+	std::cout << "\n\n";*/
 }
 
 void kill(player* tail, int id){
@@ -53,7 +61,7 @@ void kill(player* tail, int id){
 node* move(node* tail, node* cur_pos, char direzione, player* cur_player){
 	node* app;
 	switch (direzione){
-		case 's' : 
+		case 's' :
 			tail = direction(tail, cur_pos->ptr_s(), cur_pos, cur_player, 0, -1);
 			break;
 		case 'd' :
@@ -93,7 +101,7 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 						}
 					}
 					if(!found){
-						tail = set_new_node(x_offset, y_offset, tail, cur_pos, cur_player);	
+						tail = set_new_node(x_offset, y_offset, tail, cur_pos, cur_player);
 						spostato = 1;
 					}
 				}
@@ -180,7 +188,7 @@ player* enqueue_player(player* tail, char name[], int id, node* p){
 		tail->set_list(tmp);
 		tail = tmp;
 		tmp->set(id, name, p);
-	}	
+	}
 	return tail;
 }
 
@@ -192,5 +200,3 @@ int random(int n){
 	x = (rand() % n);
 	return x;
 }
-
-

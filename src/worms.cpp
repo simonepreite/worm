@@ -43,7 +43,7 @@ int main(){
 		std::cout << "Non puoi giocare da solo!\n";
 		return 0;
 	}
-	tail = tmp; 
+	tail = tmp;
 	std::cout << "La prima mossa è di ";
 	scan->print_name();
 	std::cout << "\n\n";
@@ -54,15 +54,45 @@ int main(){
 		int y = 0;
 		int x = 0;
 		foreach(tail, scan, tmp){
-			int giocato = 0;
-			std::cout << "è il turno di: "; 
-			scan->print_name();
+			system("clear");
+
+			// INIZIO STAMPA MAPPA
+			std::cout << "--------------------------------------------------------------------------------------\n";
+			std::cout << "|                                                                                     |\n";
+			for(y = scan->lon() + 3; y >= scan->lon() - 3; y--){
+				std::cout << "|    ";
+				for(x = scan->lan() - 3; x <= scan->lan() + 3; x++){
+					foreach(map_tail, scan_map, tmp_map){
+						if(x == scan_map->read_x() && y == scan_map->read_y()){
+							if (y == scan->lon() && x == scan->lan())
+								std::cout << "|(" << scan_map->read_x() << ", " << scan_map->read_y() << ")| ";
+							else if (scan_map->busy() != NULL)
+								std::cout << " (" << scan_map->read_x() << ", " << scan_map->read_y() << ")* ";
+							else std::cout << " (" << scan_map->read_x() << ", " << scan_map->read_y() << ")  ";
+							break;
+						}
+					}
+					if(tmp_map == map_tail) {
+						std::cout << "    0      ";
+					}
+				}
+				std::cout << "    |\n";
+				std::cout << "|                                                                                     |\n";
+			}
+			std::cout << "|                                                                                     |\n";
+			std::cout << "--------------------------------------------------------------------------------------\n";
+			//FINE STAMPA MAPPA
+
 			info_giocatore(scan);
+			std::cin >> dir;
+			map_tail = move(map_tail, scan->cur_pos(), dir, scan);
+
+			/*
 			do{
 				std::cout << "scegli azione: \n" << "1 - muovi (implica la fine del turno)\n2 - stampa mappa \n";
 				std::cin >> scelta;
 				switch (scelta){
-					case '1' : 
+					case '1' :
 						if(giocato != 1){
 						std::cout << "inserisci direzione:  ";
 						std::cin >> dir;
@@ -75,12 +105,12 @@ int main(){
 						//se il nodo non esesite viene creato avviene lo spostamento e viene scavato
 						}
 						break;
-					case '2' : 
+					case '2' :
 						/*foreach(map_tail, scan_map, tmp_map) {
-							int print_x = 0; 
-							int print_y = 0;		
+							int print_x = 0;
+							int print_y = 0;
 							node* appoggio = NULL;
-							std::cout << "\n(" << scan_map->read_x() << ", " << scan_map->read_y() << ")" << " occuped: "; 
+							std::cout << "\n(" << scan_map->read_x() << ", " << scan_map->read_y() << ")" << " occuped: ";
 							if((player*)scan_map->busy()!=NULL) ((player*)scan_map->busy())->print_name();
 							else std::cout << 0;
 							print_map(scan_map->ptr_n(), "  nord: ");
@@ -88,7 +118,9 @@ int main(){
 							print_map(scan_map->ptr_e(), "  est: ");
 							print_map(scan_map->ptr_w(), "  ovest: ");
 						}
-						std::cout << "\n";*/
+						std::cout << "\n";
+
+						// INIZIO STAMPA MAPPA
 						std::cout << "--------------------------------------------------------------------------------------\n";
 						std::cout << "|                                                                                     |\n";
 						for(y = scan->lon() + 3; y >= scan->lon() - 3; y--){
@@ -96,11 +128,11 @@ int main(){
 							for(x = scan->lan() - 3; x <= scan->lan() + 3; x++){
 								foreach(map_tail, scan_map, tmp_map){
 									if(x == scan_map->read_x() && y == scan_map->read_y()){
-										if (y == scan->lon() && x == scan->lan()) 
-											std::cout << "|(" << scan_map->read_x() << ", " << scan_map->read_y() << ")| "; 
-										else if (scan_map->busy() != NULL) 
-											std::cout << " (" << scan_map->read_x() << ", " << scan_map->read_y() << ")* "; 
-										else std::cout << " (" << scan_map->read_x() << ", " << scan_map->read_y() << ")  "; 
+										if (y == scan->lon() && x == scan->lan())
+											std::cout << "|(" << scan_map->read_x() << ", " << scan_map->read_y() << ")| ";
+										else if (scan_map->busy() != NULL)
+											std::cout << " (" << scan_map->read_x() << ", " << scan_map->read_y() << ")* ";
+										else std::cout << " (" << scan_map->read_x() << ", " << scan_map->read_y() << ")  ";
 										break;
 									}
 								}
@@ -113,8 +145,10 @@ int main(){
 						}
 						std::cout << "|                                                                                     |\n";
 						std::cout << "--------------------------------------------------------------------------------------\n";
+						//FINE STAMPA MAPPA
+
 						break;
-					default: 
+					default:
 						std::cout << "scelta non consentita\n";
 						break;
 				}
@@ -122,7 +156,7 @@ int main(){
 				//else  std::cout << "scelta non consentita\n";
 				std::cout << "\n";
 			}while(giocato != 1);
-			system("clear");
+			*/
 		}
 		if(i <= 5){
 			std::cout << "ATTENZIONE MANCANO  " << i << "  TURNI ALLA CONCLUSIONE!!" << "\n";
