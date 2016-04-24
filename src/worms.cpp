@@ -92,19 +92,18 @@ int main(){
 						
 						for(y = scan->lon() + 5; y >= scan->lon() - 5; y--){
 							for(x = scan->lan() - 5; x <= scan->lan() + 5; x++){
-								//std::cout << x << "   " << y <<"\n";
 								foreach(map_tail, scan_map, tmp_map){
 									if(x == scan_map->read_x() && y == scan_map->read_y()){
-										//matrice[y][x] = 1;
-										std::cout << " (" << scan_map->read_x() << ", " << scan_map->read_y() << ") "; 
-										//std::cout << " 1 ";
+										if (y == scan->lon() && x == scan->lan()) 
+											std::cout << " | (" << scan_map->read_x() << ", " << scan_map->read_y() << ") | "; 
+										else if (scan_map->busy() != NULL) 
+											std::cout << "  (" << scan_map->read_x() << ", " << scan_map->read_y() << ") * "; 
+										else std::cout << "  (" << scan_map->read_x() << ", " << scan_map->read_y() << ")   "; 
 										break;
 									}
-									//else std::cout << "   0    ";
 								}
 								if(tmp_map == map_tail) {
-									std::cout << "   0    ";
-									//matrice[y][x] = 0;
+									std::cout << "     0    ";
 								}
 							}
 							std::cout << "\n";
