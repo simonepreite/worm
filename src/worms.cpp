@@ -51,6 +51,8 @@ int main(){
 	for(i = MAXTURNI; i >= 0; i--){//loop turni
 		char scelta;
 		char dir;
+		int y = 0;
+		int x = 0;
 		foreach(tail, scan, tmp){
 			int giocato = 0;
 			std::cout << "è il turno di: "; 
@@ -74,7 +76,7 @@ int main(){
 						}
 						break;
 					case '2' : 
-						foreach(map_tail, scan_map, tmp_map) {
+						/*foreach(map_tail, scan_map, tmp_map) {
 							int print_x = 0; 
 							int print_y = 0;		
 							node* appoggio = NULL;
@@ -86,7 +88,20 @@ int main(){
 							print_map(scan_map->ptr_e(), "  est: ");
 							print_map(scan_map->ptr_w(), "  ovest: ");
 						}
-						std::cout << "\n";
+						std::cout << "\n";*/
+						for(y = scan->lan() + 5; y >= scan->lan() - 5; y--){
+							for(x = scan->lon() - 5; x <= scan->lon() + 5; x++){
+								//std::cout << x << "   " << y <<"\n";
+								foreach(map_tail, scan_map, tmp_map){
+									if(x == scan_map->read_x() && y == scan_map->read_y()){
+										std::cout << " (" << scan_map->read_x() << ", " << scan_map->read_y() << ") "; 
+										//std::cout << " 1 ";
+									}
+									//else std::cout << "   0    ";
+								}
+							}
+							std::cout << "\n";
+						}
 						break;
 					default: 
 						std::cout << "scelta non consentita\n";
