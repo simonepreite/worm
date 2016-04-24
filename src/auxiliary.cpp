@@ -80,8 +80,8 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 			//SPOSTAMENTO CASUALE
 			if(cur_player->n_worms() <= p->n_worms()){
 				while(spostato != 1){
-					int x_offset = random(20);
-					int y_offset = random(20);
+					int x_offset = random(5);
+					int y_offset = random(5);
 					foreach(tail, scan, tmp){
 						if((scan->read_x() == (x_offset + x)) && (scan->read_y() == (y_offset + y))){
 							if(scan->busy() == NULL){
