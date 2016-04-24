@@ -117,6 +117,7 @@ int main(){
 				//else  std::cout << "scelta non consentita\n";
 				std::cout << "\n";
 			}while(giocato != 1);
+			system("clear");
 		}
 		if(i <= 5){
 			std::cout << "ATTENZIONE MANCANO  " << i << "  TURNI ALLA CONCLUSIONE!!" << "\n";
