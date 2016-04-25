@@ -93,7 +93,7 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 	int found = 0;
 	int spostato = 0;
 	if(app != NULL){
-		if (app->busy()) {
+		if ((p=(player*)app->busy())!=NULL) {
 			//SPOSTAMENTO CASUALE
 			if(cur_player->n_worms() <= p->n_worms()){
 				while(spostato != 1){
