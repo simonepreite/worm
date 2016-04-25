@@ -3,7 +3,7 @@
 using namespace std;
 
 int main(){
-	int i, num_players, primo, n;
+	int i, num_players, primo, n, z;
 	char name_player[MAXNOME];
 	player* tail = NULL;
 	player* scan = NULL;
@@ -16,8 +16,16 @@ int main(){
 	std::cout << "Inserire numero di giocatori (almeno 2 giocatori): \n";
 	std::cin >> num_players;	//inserire il controllo che vengano inseriti soltanto numeri
 	for(i = 0; i < num_players; i++){
+		int len;
 		std::cout << "nome_giocatore " << i + 1 << "(max 8 caratteri): \n";
   		std::cin >> setw(MAXNOME) >> name_player;
+  		len = strlen(name_player);
+  		if(len < 8){
+  			for(z = len; z < MAXNOME - 1; z++){
+  				name_player[z] = ' ';
+  			}
+  			name_player[MAXNOME - 1] = '\0';
+  		}
 		tail = enqueue_player(tail, name_player, i, map_tail); // inizializza lista dei giocatori
 		cin.clear();
 		cin.ignore(1000,'\n');
@@ -49,7 +57,11 @@ int main(){
 	scan->print_name();
 	std::cout << "\n\n";
 	n = 1;
-	sleep(10);
+	for(z = 10; z > 0 ; z--){
+		std::cout << z << "\n";
+		if (z == 1) std::cout << "START\n";
+		sleep(1);
+	}
 	for(i = MAXTURNI; i >= 0; i--){//loop turni
 		char scelta;
 		char dir;
