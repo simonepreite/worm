@@ -1,6 +1,7 @@
 #ifndef AUXILIARY_HPP_
 #define AUXILIARY_HPP_
 
+extern void set_space(int n);
 extern void movement(player* cur_player, node* cur_pos, node* scan, int x_offset, int y_offset);
 extern void print_map(node* appoggio, const char* dir);
 extern void info_giocatore(player* scan);

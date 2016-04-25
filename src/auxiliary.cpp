@@ -35,7 +35,9 @@ void info_giocatore(player* scan){
 	else if(scan->lan() >= 0 && scan->lon() < 0)
 		std::cout << "| posizione attuale: " << " ( " << scan->lan() << ", " << scan->lon() << ")" << "                                       |        |a|s|d|           |\n";
 	else std::cout << "| posizione attuale: " << " (" << scan->lan() << ", " << scan->lon() << ")" << "                                       |        |a|s|d|           |\n";
-	std::cout << "| vermi: " << scan->n_worms() << "                                                           |                          |\n";
+	std::cout << "| vermi: " << scan->n_worms();
+	set_space(scan->n_worms());
+	std::cout << "                                                         |                          |\n";
 	std::cout << "|                                                                    |                          |\n";
 	std::cout << "-------------------------------------------------------------------------------------------------\n";
 	/*std::cout << "\n";
@@ -46,13 +48,13 @@ void info_giocatore(player* scan){
 	std::cout << "\n\n";*/
 }
 
-void kill(player* tail, int id){
+void kill(player* tail){
 //utilizzo tail_copy in modo da lasciare inalterato il turno
 	player* tmp;
 	player* tail_copy;
 	tail_copy = tail;
 //mi posiziono sull'elemento precedente all'elemento da eliminare
-	while (tail_copy->get_next()->print_id() != id){
+	while (tail_copy->get_next()->print_id() != tail->print_id()){
 		tail_copy = tail_copy->get_next();
 }
 
@@ -117,6 +119,12 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 			else{
 				std::cout << "\n FASE DI ATTACCO \n";
 				cur_player->attack((player*)app->busy());
+				if (cur_player->n_worms() < 0) {
+					kill(cur_player);
+				}
+				if (((player*)app->busy())->n_worms() < 0) {
+					kill((player*)app->busy());
+				}
 			}
 		}
 		else {
@@ -199,7 +207,10 @@ player* enqueue_player(player* tail, char name[], int id, node* p){
 	return tail;
 }
 
-
+void set_space(int n) {
+	if(n < 10) std::cout << "  ";
+	else if(n < 100) std::cout << " ";
+}
 
 int random(int n){
 	int x=0;

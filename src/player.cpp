@@ -17,7 +17,7 @@
 	void player::set_pos(int lat, int lon, node* pos){
 		x = lat;
 		y = lon;
-		cur = pos; 
+		cur = pos;
 	}
 
 	void player::set_list(player *p){
@@ -71,4 +71,3 @@
 	player* player::get_next(){
 		return next;
 	}
-

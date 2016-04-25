@@ -1,5 +1,5 @@
 #include "header.hpp"
-	
+
 	node::node() {
 		nord = NULL;
 		sud = NULL;
@@ -23,15 +23,15 @@
 
 	node* node::ptr_n(){
 		return nord;
-	} 
+	}
 
 	node* node::ptr_s(){
 		return sud;
-	} 
+	}
 
 	node* node::ptr_e(){
 		return east;
-	} 
+	}
 
 	node* node::ptr_w(){
 		return west;
@@ -51,19 +51,19 @@
 
 	void node::n(node *p){
 		nord = p;
-	} 
+	}
 
 	void node::s(node *p){
 		sud = p;
-	} 
+	}
 
 	void node::e(node *p){
 		east = p;
-	} 
+	}
 
 	void node::w(node *p){
 		west = p;
-	} 
+	}
 
 	void node::set_list(node* p){
 		next = p;
