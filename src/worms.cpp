@@ -79,10 +79,10 @@ int main(){
 					foreach(map_tail, scan_map, tmp_map){
 						if(x == scan_map->read_x() && y == scan_map->read_y()){
 							if (y == scan->lon() && x == scan->lan())
-								std::cout << "|(" << scan_map->read_x() << ", " << scan_map->read_y() << ")| ";
+								std::cout << " |(" << scan_map->read_x() << ", " << scan_map->read_y() << ")|  ";
 							else if (scan_map->busy() != NULL)
-								std::cout << " (" << scan_map->read_x() << ", " << scan_map->read_y() << ")* ";
-							else std::cout << " (" << scan_map->read_x() << ", " << scan_map->read_y() << ")  ";
+								std::cout << "  (" << scan_map->read_x() << ", " << scan_map->read_y() << ")*  ";
+							else std::cout << "  (" << scan_map->read_x() << ", " << scan_map->read_y() << ")   ";
 							break;
 						}
 					}
