@@ -13,6 +13,18 @@ int main(){
 	node* map_tail = new node();
 	map_tail->set(0,0);
 	enqueue_map(map_tail, map_tail);
+	std::cout << "#######################################################################\n";
+	std::cout << "#                         BENVENUTI IN:                               #\n";
+	std::cout << "#                                                                     #\n";
+	std::cout << "#            ██╗    ██╗ ██████╗ ██████╗ ███╗   ███╗███████╗           #\n";
+	std::cout << "#            ██║    ██║██╔═══██╗██╔══██╗████╗ ████║██╔════╝           #\n";
+	std::cout << "#            ██║ █╗ ██║██║   ██║██████╔╝██╔████╔██║███████╗           #\n";
+	std::cout << "#            ██║███╗██║██║   ██║██╔══██╗██║╚██╔╝██║╚════██║           #\n";
+	std::cout << "#            ╚███╔███╔╝╚██████╔╝██║  ██║██║ ╚═╝ ██║███████║           #\n";
+	std::cout << "#             ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝           #\n";
+	std::cout << "#                                                                     #\n";
+	std::cout << "#                                                                     #\n";
+	std::cout << "#######################################################################\n";
 	std::cout << "Inserire numero di giocatori (almeno 2 giocatori): \n";
 	std::cin >> num_players;	//inserire il controllo che vengano inseriti soltanto numeri
 	for(i = 0; i < num_players; i++){
@@ -119,6 +131,12 @@ int main(){
 		}
 		std::cout << "fine turno: " << n << "\n\n";
 		n++;
+		if(scan->get_next() == scan) {
+			std::cout << "COMPLIMENTI ";
+			scan->print_name();
+			std::cout << "HAI VINTO!!";
+		break;
+		}
 	}
 	return 1;
 }
