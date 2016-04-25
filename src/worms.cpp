@@ -26,6 +26,7 @@ int main(){
 	foreach(tail, scan, tmp){
 		std::cout << "id: " << scan->print_id() << "	nome: ";
 		scan->print_name();
+		std::cout << "\n";
 		info_giocatore(scan);
 	}
 	if(num_players > 1){
@@ -48,6 +49,7 @@ int main(){
 	scan->print_name();
 	std::cout << "\n\n";
 	n = 1;
+	sleep(10);
 	for(i = MAXTURNI; i >= 0; i--){//loop turni
 		char scelta;
 		char dir;

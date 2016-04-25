@@ -23,11 +23,11 @@ void print_map(node* appoggio, const char* dir){
 }
 
 void info_giocatore(player* scan){
-
+	std::cout << "---------------------------------------------------------------------------------------\n";
 	std::cout << "|                                                          |                          |\n";
 	std::cout << "| gioca: ";
 	scan->print_name();
-	std::cout << "                                          |          |w|            |\n";
+	std::cout << "                                           |          |w|             |\n";
 	std::cout << "| posizione attuale: " << " (" << scan->lan() << ", " << scan->lon() << ")" << "                               |        |a|s|d|           |\n";
 	std::cout << "| vermi: " << scan->n_worms() << "                                                 |                          |\n";
 	std::cout << "|                                                          |                          |\n";

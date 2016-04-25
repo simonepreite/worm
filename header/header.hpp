@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <ctime>
 #include <cstdlib>
+#include <unistd.h>
 #include "macros.hpp"
 #include "node.hpp"
 #include "player.hpp"
