@@ -47,7 +47,7 @@ int main(){
 		std::cout << "id: " << scan->print_id() << "	nome: ";
 		scan->print_name();
 		std::cout << "\n";
-		info_giocatore(scan);
+		info_giocatore(scan, 100); //passo 100 per non far stampare l'alert dei turni mancanti
 	}
 	if(num_players > 1){
 		//estrazione del primo giocatore
@@ -129,20 +129,38 @@ int main(){
 			std::cout << "---------------------------------------------------------------------------------------------------------------\n";
 			//FINE STAMPA MAPPA
 
-			info_giocatore(scan);
+			info_giocatore(scan, i);
 			std::cin >> dir;
 			map_tail = move(map_tail, scan->cur_pos(), dir, scan);
 		}
-		if(i <= 5){
-			std::cout << "ATTENZIONE MANCANO  " << i << "  TURNI ALLA CONCLUSIONE!!" << "\n";
-		}
-		std::cout << "fine turno: " << n << "\n\n";
-		n++;
-		if(scan->get_next() == scan) {
-			std::cout << "COMPLIMENTI ";
-			scan->print_name();
-			std::cout << "HAI VINTO!!";
-		break;
+		if(i == 0) {
+		std::cout << "▄▄▄█████▓ ██░ ██ ▓█████    ▓█████  ███▄    █ ▓█████▄ \n";
+		std::cout << "▓  ██▒ ▓▒▓██░ ██▒▓█   ▀    ▓█   ▀  ██ ▀█   █ ▒██▀ ██▌\n";
+		std::cout << "▒ ▓██░ ▒░▒██▀▀██░▒███      ▒███   ▓██  ▀█ ██▒░██   █▌\n";
+		std::cout << "░ ▓██▓ ░ ░▓█ ░██ ▒▓█  ▄    ▒▓█  ▄ ▓██▒  ▐▌██▒░▓█▄   ▌\n";
+		std::cout << "  ▒██▒ ░ ░▓█▒░██▓░▒████▒   ░▒████▒▒██░   ▓██░░▒████▓ \n";
+		std::cout << "  ▒ ░░    ▒ ░░▒░▒░░ ▒░ ░   ░░ ▒░ ░░ ▒░   ▒ ▒  ▒▒▓  ▒ \n";
+		std::cout << "    ░     ▒ ░▒░ ░ ░ ░  ░    ░ ░  ░░ ░░   ░ ▒░ ░ ▒  ▒ \n";
+		std::cout << "  ░       ░  ░░ ░   ░         ░      ░   ░ ░  ░ ░  ░ \n";
+		std::cout << "          ░  ░  ░   ░  ░      ░  ░         ░    ░    \n";
+		std::cout << "                                              ░      \n";
+			std::cout << "WINNER:  ";
+			if(scan->get_next() == scan)
+				scan->print_name();	//il giocatore vincitore è l'ultimo rimasto
+			else {
+				//il giocatore non è l'ultimo rimasto. Il vincitore è un giocatore a caso tra coloro che hanno più vermi
+				int max = 0;
+				player* winner;
+
+				foreach(tail, scan, tmp) {
+					if(scan->n_worms() > max) {
+						max = scan->n_worms();
+						winner = scan;
+					}
+				}
+				winner->print_name();
+			}
+			std::cout << "\n";
 		}
 	}
 	return 1;

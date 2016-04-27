@@ -22,7 +22,7 @@ void print_map(node* appoggio, const char* dir){
 	else std::cout << dir << 0;
 }
 
-void info_giocatore(player* scan){
+void info_giocatore(player* scan, int turno){
 	std::cout << "---------------------------------------------------------------------------------------------------------------\n";
 	std::cout << "|                                                                              |                              |\n";
 	std::cout << "|      gioca: ";
@@ -43,8 +43,10 @@ void info_giocatore(player* scan){
 	else std::cout << "|      posizione attuale: " << " (" << scan->lan() << ", " << scan->lon() << ")" << "                                            |          |a|s|d|             |\n";*/
 	std::cout << "|      vermi: " << scan->n_worms();
 	set_space(scan->n_worms());
-	std::cout << "                                                             |                              |\n";
-	std::cout << "|                                                                              |                              |\n";
+	std::cout << "                                                             |                              |\n|      ";
+	if(turno <= 5) std::cout << "ATTENZIONE MANCANO  " << turno << "  TURNI ALLA CONCLUSIONE!!!";
+	else std::cout << "                                                ";
+	std::cout << "                        |                              |\n";
 	std::cout << "---------------------------------------------------------------------------------------------------------------\n";
 	/*std::cout << "\n";
 	std::cout << "Posizione: (" << scan->lan() << ", " << scan->lon() << ")" << "\n";
@@ -103,8 +105,8 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 			//SPOSTAMENTO CASUALE
 			if(cur_player->n_worms() <= p->n_worms()){
 				while(spostato != 1){
-					int x_offset = random(3);
-					int y_offset = random(3);
+					int x_offset = random(5);
+					int y_offset = random(4);
 					foreach(tail, scan, tmp){
 						if((scan->read_x() == (x_offset + x)) && (scan->read_y() == (y_offset + y))){
 							if(scan->busy() == NULL){
@@ -116,7 +118,7 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 						}
 					}
 					if(!found){
-						tail = set_new_node(x_offset, y_offset, tail, cur_pos, cur_player);
+						tail = set_new_node(x_offset + x, y_offset + y, tail, cur_pos, cur_player);
 						spostato = 1;
 					}
 				}
@@ -162,25 +164,25 @@ node* set_new_node(int x_offset, int y_offset, node* tail, node* cur_pos, player
 	foreach(tail, scan, tmp2){
 		if(scan->read_x() == tmp->read_x() && scan->read_y() == tmp->read_y()-1){
 			//c'è un nodo a sud
-			std::cout << "sud\n";
+			//std::cout << "sud\n";
 			tmp->s(scan);
 			scan->n(tmp);
 		}
 		if(scan->read_x() == tmp->read_x() && scan->read_y() == tmp->read_y()+1){
 			//c'è un nodo a nord
-			std::cout << "nord\n";
+			//std::cout << "nord\n";
 			tmp->n(scan);
 			scan->s(tmp);
 		}
 		if(scan->read_x() == tmp->read_x()+1 && scan->read_y() == tmp->read_y()){
 			//c'è un nodo a est
-           	std::cout << "est\n";
+      //std::cout << "est\n";
 			tmp->e(scan);
 			scan->w(tmp);
 		}
 		if(scan->read_x() == tmp->read_x()-1 && scan->read_y() == tmp->read_y()){
 			//c'è un nodo a ovest
-            std::cout << "ovest\n";
+      //std::cout << "ovest\n";
 			tmp->w(scan);
 			scan->e(tmp);
 		}
