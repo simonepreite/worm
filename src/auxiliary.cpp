@@ -23,12 +23,12 @@ void print_map(node* appoggio, const char* dir){
 }
 
 void info_giocatore(player* scan, int turno){
-	std::cout << "---------------------------------------------------------------------------------------------------------------\n";
-	std::cout << "|                                                                              |                              |\n";
-	std::cout << "|      gioca: ";
+	std::cout << "------------------------------------------------------------------------------------------------------------------\n";
+	std::cout << "|                                                                                 |                              |\n";
+	std::cout << "|         gioca: ";
 	scan->print_name();
 	std::cout << "                                                          |            |w|               |\n";
-	std::cout << "|      posizione attuale: " ;
+	std::cout << "|         posizione attuale: " ;
 	std::cout << "  (";
 	set_space(scan->lan());
 	std::cout << scan->lan() << ",";
@@ -41,13 +41,13 @@ void info_giocatore(player* scan, int turno){
 	else if(scan->lan() >= 0 && scan->lon() < 0)
 		std::cout << "|      posizione attuale: " << " ( " << scan->lan() << ", " << scan->lon() << ")" << "                                            |          |a|s|d|             |\n";
 	else std::cout << "|      posizione attuale: " << " (" << scan->lan() << ", " << scan->lon() << ")" << "                                            |          |a|s|d|             |\n";*/
-	std::cout << "|      vermi: " << scan->n_worms();
+	std::cout << "|         vermi: " << scan->n_worms();
 	set_space(scan->n_worms());
-	std::cout << "                                                             |                              |\n|      ";
+	std::cout << "                                                             |                              |\n|        ";
 	if(turno <= 5) std::cout << "ATTENZIONE MANCANO  " << turno << "  TURNI ALLA CONCLUSIONE!!!";
 	else std::cout << "                                                ";
-	std::cout << "                        |                              |\n";
-	std::cout << "---------------------------------------------------------------------------------------------------------------\n";
+	std::cout << "                         |                              |\n";
+	std::cout << "------------------------------------------------------------------------------------------------------------------\n";
 	/*std::cout << "\n";
 	std::cout << "Posizione: (" << scan->lan() << ", " << scan->lon() << ")" << "\n";
 	std::cout << "pointer cur_pos: " << scan->cur_pos() << "\n";
