@@ -23,23 +23,29 @@ void print_map(node* appoggio, const char* dir){
 }
 
 void info_giocatore(player* scan){
-	std::cout << "-------------------------------------------------------------------------------------------------\n";
-	std::cout << "|                                                                    |                          |\n";
-	std::cout << "| gioca: ";
+	std::cout << "---------------------------------------------------------------------------------------------------------------\n";
+	std::cout << "|                                                                              |                              |\n";
+	std::cout << "|      gioca: ";
 	scan->print_name();
-	std::cout << "                                                     |          |w|             |\n";
-	if(scan->lan() >= 0 && scan->lon() >= 0)
-		std::cout << "| posizione attuale: " << " ( " << scan->lan() << ",  " << scan->lon() << ")" << "                                       |        |a|s|d|           |\n";
+	std::cout << "                                                          |            |w|               |\n";
+	std::cout << "|      posizione attuale: " ;
+	std::cout << "  (";
+	set_space(scan->lan());
+	std::cout << scan->lan() << ",";
+	set_space(scan->lon());
+	std::cout << scan->lon() << ")                                        |          |a|s|d|             |\n";
+
+	/*	<< " ( " << scan->lan() << ",  " << scan->lon() << ")" << "                                            |          |a|s|d|             |\n";
 	else if(scan->lan() < 0 && scan-> lon() >= 0)
-		std::cout << "| posizione attuale: " << " (" << scan->lan() << ",  " << scan->lon() << ")" << "                                       |        |a|s|d|           |\n";
+		std::cout << "|      posizione attuale: " << " (" << scan->lan() << ",  " << scan->lon() << ")" << "                                            |          |a|s|d|             |\n";
 	else if(scan->lan() >= 0 && scan->lon() < 0)
-		std::cout << "| posizione attuale: " << " ( " << scan->lan() << ", " << scan->lon() << ")" << "                                       |        |a|s|d|           |\n";
-	else std::cout << "| posizione attuale: " << " (" << scan->lan() << ", " << scan->lon() << ")" << "                                       |        |a|s|d|           |\n";
-	std::cout << "| vermi: " << scan->n_worms();
+		std::cout << "|      posizione attuale: " << " ( " << scan->lan() << ", " << scan->lon() << ")" << "                                            |          |a|s|d|             |\n";
+	else std::cout << "|      posizione attuale: " << " (" << scan->lan() << ", " << scan->lon() << ")" << "                                            |          |a|s|d|             |\n";*/
+	std::cout << "|      vermi: " << scan->n_worms();
 	set_space(scan->n_worms());
-	std::cout << "                                                         |                          |\n";
-	std::cout << "|                                                                    |                          |\n";
-	std::cout << "-------------------------------------------------------------------------------------------------\n";
+	std::cout << "                                                             |                              |\n";
+	std::cout << "|                                                                              |                              |\n";
+	std::cout << "---------------------------------------------------------------------------------------------------------------\n";
 	/*std::cout << "\n";
 	std::cout << "Posizione: (" << scan->lan() << ", " << scan->lon() << ")" << "\n";
 	std::cout << "pointer cur_pos: " << scan->cur_pos() << "\n";
@@ -208,8 +214,9 @@ player* enqueue_player(player* tail, char name[], int id, node* p){
 }
 
 void set_space(int n) {
-	if(n < 10) std::cout << "  ";
-	else if(n < 100) std::cout << " ";
+	if((n > -1) && (n < 10)) std::cout << "   ";
+	else if(((n > 9) && (n < 100)) || ((n < 0) && (n > -10))) std::cout << "  ";
+	else if (((n > 99) && (n < 1000)) || ((n > -100) && (n < -9))) std::cout << " ";
 }
 
 int random(int n){

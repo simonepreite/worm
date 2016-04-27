@@ -84,42 +84,49 @@ int main(){
 			system("clear");
 
 			// INIZIO STAMPA MAPPA
-			std::cout << "-------------------------------------------------------------------------------------------------\n";
-			std::cout << "|                                                                                               |\n";
+			std::cout << "---------------------------------------------------------------------------------------------------------------\n";
+			std::cout << "|                                                                                                             |\n";
 			for(y = scan->lon() + 3; y >= scan->lon() - 3; y--){
 				std::cout << "| ";
 				for(x = scan->lan() - 3; x <= scan->lan() + 3; x++){
 					foreach(map_tail, scan_map, tmp_map){
 						if(x == scan_map->read_x() && y == scan_map->read_y()){
-							if (y == scan->lon() && x == scan->lan())
-								if(y >= 0 && x >= 0) std::cout << " |( " << scan_map->read_x() << ",  " << scan_map->read_y() << ")|  ";
-								else if (y < 0 && x >= 0) std::cout << " |( " << scan_map->read_x() << ", " << scan_map->read_y() << ")|  ";
-								else if (y >= 0 && x < 0) std::cout << " |(" << scan_map->read_x() << ",  " << scan_map->read_y() << ")|  ";
-								else std::cout << " |(" << scan_map->read_x() << ", " << scan_map->read_y() << ")|  ";
-							else if (scan_map->busy() != NULL){
-								if(y >= 0 && x >= 0) std::cout << "  ( " << scan_map->read_x() << ",  " << scan_map->read_y() << ")*  ";
-								else if(y < 0 && x >= 0) std::cout << "  ( " << scan_map->read_x() << ", " << scan_map->read_y() << ")*  ";
-								else if(y >= 0 && x < 0) std::cout << "  (" << scan_map->read_x() << ",  " << scan_map->read_y() << ")*  ";
-								else std::cout << "  (" << scan_map->read_x() << ", " << scan_map->read_y() << ")*  ";
+							//nodo corrente, dove si trova il player che sta giocando
+							if (y == scan->lon() && x == scan->lan()) {
+								std::cout << " |(";
+								set_space(scan_map->read_x());
+								std::cout << scan_map->read_x() << ",";
+								set_space(scan_map->read_y());
+								std::cout << scan_map->read_y() << ")| ";
+							}
+							else if (scan_map->busy() != NULL) {
+								//nodo nel quale è presente un altro giocatore
+								std::cout << " *(";
+								set_space(scan_map->read_x());
+								std::cout << scan_map->read_x() << ",";
+								set_space(scan_map->read_y());
+								std::cout << scan_map->read_y() << ")* ";
 							}
 							else {
-								if(y >= 0 && x >= 0) std::cout << "  ( " << scan_map->read_x() << ",  " << scan_map->read_y() << ")   ";
-								else if(y < 0 && x >= 0) std::cout << "  ( " << scan_map->read_x() << ", " << scan_map->read_y() << ")   ";
-								else if(y >= 0 && x < 0) std::cout << "  (" << scan_map->read_x() << ",  " << scan_map->read_y() << ")   ";
-								else std::cout << "  (" << scan_map->read_x() << ", " << scan_map->read_y() << ")   ";
+								//nodo già creato ma non busy
+								std::cout << "  (";
+								set_space(scan_map->read_x());
+								std::cout << scan_map->read_x() << ",";
+								set_space(scan_map->read_y());
+								std::cout << scan_map->read_y() << ")  ";
 							}
 							break;
 						}
 					}
 					if(tmp_map == map_tail) {
-						std::cout << "      0      ";
+						std::cout << "       0       ";
 					}
 				}
 				std::cout << "   |\n";
-				std::cout << "|                                                                                               |\n";
+				std::cout << "|                                                                                                             |\n";
 			}
-			std::cout << "|                                                                                               |\n";
-			std::cout << "-------------------------------------------------------------------------------------------------\n";
+			std::cout << "|                                                                                                             |\n";
+			std::cout << "---------------------------------------------------------------------------------------------------------------\n";
 			//FINE STAMPA MAPPA
 
 			info_giocatore(scan);
