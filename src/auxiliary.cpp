@@ -87,7 +87,7 @@ node* move(node* tail, node* cur_pos, char direzione, player* cur_player){
 		case 'a' :
 			tail = direction(tail, cur_pos->ptr_w(), cur_pos, cur_player, -1, 0);
 			break;
-		default ://va a nord
+		default ://va a nord anche nel caso in cui prema un qualsiasi tasto diverso da 'a', 's' o 'd'
 			tail = direction(tail, cur_pos->ptr_n(), cur_pos, cur_player, 0, 1);
 			break;
 	}
@@ -98,12 +98,29 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 	player* p;
 	node* scan;
 	node* tmp;
-	int found = 0;
 	int spostato = 0;
 	if(app != NULL){
+
+
+		/*
+			if (il nodo in cui mi voglio spostare è occupato) {
+				if (non siamo nei primi 3 turni) {
+					cur_player->attack();
+					spostamento_casuale(perdente);
+				}
+				else {
+					spostamento_casuale(cur_player);
+				}
+			}
+		*/
+
+
+
 		if ((p=(player*)app->busy())!=NULL) {
 			//SPOSTAMENTO CASUALE
+
 			if(cur_player->n_worms() <= p->n_worms()){
+				//inizio spostamento casuale DA METTERE IN UNA FUNZIONE!!!
 				while(spostato != 1){
 					int x_offset = random(5);
 					int y_offset = random(4);
@@ -113,15 +130,16 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 								movement(cur_player, cur_pos, scan, x_offset, y_offset);
 								spostato = 1;
 							}
-							found = 1;
 							break;
 						}
 					}
-					if(!found){
+					if(tmp == tail){
+						//non trovo il nodo estratto, ne creo uno nuovo
 						tail = set_new_node(x_offset + x, y_offset + y, tail, cur_pos, cur_player);
 						spostato = 1;
 					}
 				}
+				//fine spostamento casuale
 			}
 			// ATTACCO
 			else{
