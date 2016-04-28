@@ -22,6 +22,7 @@ void print_map(node* appoggio, const char* dir){
 	else std::cout << dir << 0;
 }
 
+//stampa del riquadro riguardante le informazioni del giocatore corrente e del turno in corso
 void info_giocatore(player* scan, int turno){
 	std::cout << "------------------------------------------------------------------------------------------------------------------\n";
 	std::cout << "|                                                                                 |                              |\n";
@@ -34,13 +35,6 @@ void info_giocatore(player* scan, int turno){
 	std::cout << scan->lan() << ",";
 	set_space(scan->lon());
 	std::cout << scan->lon() << ")                                        |          |a|s|d|             |\n";
-
-	/*	<< " ( " << scan->lan() << ",  " << scan->lon() << ")" << "                                            |          |a|s|d|             |\n";
-	else if(scan->lan() < 0 && scan-> lon() >= 0)
-		std::cout << "|      posizione attuale: " << " (" << scan->lan() << ",  " << scan->lon() << ")" << "                                            |          |a|s|d|             |\n";
-	else if(scan->lan() >= 0 && scan->lon() < 0)
-		std::cout << "|      posizione attuale: " << " ( " << scan->lan() << ", " << scan->lon() << ")" << "                                            |          |a|s|d|             |\n";
-	else std::cout << "|      posizione attuale: " << " (" << scan->lan() << ", " << scan->lon() << ")" << "                                            |          |a|s|d|             |\n";*/
 	std::cout << "|         vermi: " << scan->n_worms();
 	set_space(scan->n_worms());
 	std::cout << "                                                             |                              |\n|        ";
@@ -48,14 +42,9 @@ void info_giocatore(player* scan, int turno){
 	else std::cout << "                                                ";
 	std::cout << "                         |                              |\n";
 	std::cout << "------------------------------------------------------------------------------------------------------------------\n";
-	/*std::cout << "\n";
-	std::cout << "Posizione: (" << scan->lan() << ", " << scan->lon() << ")" << "\n";
-	std::cout << "pointer cur_pos: " << scan->cur_pos() << "\n";
-	std::cout << "vermi: " << scan->n_worms() << "\n";
-	std::cout << "this:  " << scan << "  next:  " << scan->get_next();
-	std::cout << "\n\n";*/
 }
 
+//funzione da richiamare quando, dopo un attacco, il numero di vermi di uno dei due giocatori è < 0
 void kill(player* tail){
 //utilizzo tail_copy in modo da lasciare inalterato il turno
 	player* tmp;
@@ -208,13 +197,13 @@ node* set_new_node(int x_offset, int y_offset, node* tail, node* cur_pos, player
 	return tail;
 }
 
+
 node* enqueue_map(node* tail, node* p){
 		p->set_list(tail->get_next());
 		tail->set_list(p);
 		tail = p;
 	return tail;
 }
-
 
 
 player* enqueue_player(player* tail, char name[], int id, node* p){
