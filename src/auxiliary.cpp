@@ -64,92 +64,88 @@ void kill(player* tail){
 /*  direzione w: nord, s: sud, d: est, a: ovest questa funzione viene
 	chiamata solo se ci si è accertati che il nodo non esiste
 */
-node* move(node* tail, node* cur_pos, char direzione, player* cur_player){
+node* move(node* tail, node* cur_pos, char direzione, player* cur_player, int i) {
 	node* app;
 	switch (direzione){
 		case 's' :
-			tail = direction(tail, cur_pos->ptr_s(), cur_pos, cur_player, 0, -1);
+			tail = direction(tail, cur_pos->ptr_s(), cur_pos, cur_player, 0, -1, i);
 			break;
 		case 'd' :
-			tail = direction(tail, cur_pos->ptr_e(), cur_pos, cur_player, 1, 0);
+			tail = direction(tail, cur_pos->ptr_e(), cur_pos, cur_player, 1, 0, i);
 			break;
 		case 'a' :
-			tail = direction(tail, cur_pos->ptr_w(), cur_pos, cur_player, -1, 0);
+			tail = direction(tail, cur_pos->ptr_w(), cur_pos, cur_player, -1, 0, i);
 			break;
 		default ://va a nord anche nel caso in cui prema un qualsiasi tasto diverso da 'a', 's' o 'd'
-			tail = direction(tail, cur_pos->ptr_n(), cur_pos, cur_player, 0, 1);
+			tail = direction(tail, cur_pos->ptr_n(), cur_pos, cur_player, 0, 1, i);
 			break;
 	}
 	return tail;
 }
 
-node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x, int y){
-	player* p;
-	node* scan;
+
+//sposta cur_player in un nodo casuale
+void random_movement(node* tail, node* cur_pos, player* cur_player, int x, int y) {
 	node* tmp;
-	int spostato = 0;
-	if(app != NULL){
+	node* scan;
+	int spostato = 0, x_offset, y_offset;
 
+	while(!spostato){
+		x_offset = random(5);
+		y_offset = random(4);
 
-		/*
-			if (il nodo in cui mi voglio spostare è occupato) {
-				if (non siamo nei primi 3 turni) {
-					cur_player->attack();
-					spostamento_casuale(perdente);
-				}
-				else {
-					spostamento_casuale(cur_player);
-				}
+		foreach(tail, scan, tmp){
+			if(((scan->read_x() == (x_offset + x)) && (scan->read_y() == (y_offset + y))) && (scan->busy() == NULL)) {
+				//se il nodo estratto esiste già e non è occupato eseguo lo spostamento
+				movement(cur_player, cur_pos, scan, x_offset, y_offset);
+				spostato = 1;
 			}
-		*/
-
-
-
-		if ((p=(player*)app->busy())!=NULL) {
-			//SPOSTAMENTO CASUALE
-
-			if(cur_player->n_worms() <= p->n_worms()){
-				//inizio spostamento casuale DA METTERE IN UNA FUNZIONE!!!
-				while(spostato != 1){
-					int x_offset = random(5);
-					int y_offset = random(4);
-					foreach(tail, scan, tmp){
-						if((scan->read_x() == (x_offset + x)) && (scan->read_y() == (y_offset + y))){
-							if(scan->busy() == NULL){
-								movement(cur_player, cur_pos, scan, x_offset, y_offset);
-								spostato = 1;
-							}
-							break;
-						}
-					}
-					if(tmp == tail){
-						//non trovo il nodo estratto, ne creo uno nuovo
-						tail = set_new_node(x_offset + x, y_offset + y, tail, cur_pos, cur_player);
-						spostato = 1;
-					}
-				}
-				//fine spostamento casuale
-			}
-			// ATTACCO
-			else{
-				std::cout << "\n FASE DI ATTACCO \n";
-				cur_player->attack((player*)app->busy());
-				if (cur_player->n_worms() < 0) {
-					kill(cur_player);
-				}
-				if (((player*)app->busy())->n_worms() < 0) {
-					kill((player*)app->busy());
-				}
-			}
+			break;
 		}
-		else {
-			// MI MUOVO
-			std::cout << "\n FASE DI MOVIMENTO \n";
-			movement(cur_player, cur_pos, app, x, y);
+		//non ho trovato nessun nodo libero già creato, ne creo uno nuovo e ci sposto cur_player
+		if(tmp == tail){
+			//non trovo il nodo estratto, ne creo uno nuovo
+			tail = set_new_node(x_offset + x, y_offset + y, tail, cur_pos, cur_player);
+			spostato = 1;
 		}
 	}
+}
+
+node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x, int y, int i) {
+	player* p;
+	if(app != NULL){
+		//se il nodo in cui mi voglio spostare è già stato istanziato
+		if ((p=(player*)app->busy())!=NULL) {
+			if ((MAXTURNI - i) < 4) {
+				//siamo nei primi 3 turni, non è ammesso l'attacco
+				random_movement(tail, cur_pos, cur_player, x, y);
+			}
+			else {
+				//non siamo nei primi 3 turni, attacco e sposto su un nodo a caso il perdente
+				cur_player->attack((player*)app->busy());
+				//controllo se devo eliminare qualche uno dei due giocatori
+				if (cur_player->n_worms() < ((player*)app->busy())->n_worms()) {
+					//cur_player ha perso
+					if (cur_player->n_worms() < 0) {
+						kill(cur_player);
+					}
+					else random_movement(tail, cur_pos, cur_player, x, y);
+				}
+				else if (cur_player->n_worms() > ((player*)app->busy())->n_worms()) {
+					//app ha perso
+					if (((player*)app->busy())->n_worms() < 0) {
+						kill((player*)app->busy());
+					}
+					else random_movement(tail, cur_pos, ((player*)app->busy()), x, y);
+				}
+			}
+		}
+		//mi sposto normalmente perchè il nodo esiste e non è occupato
+		else movement(cur_player, cur_pos, app, x, y);
+	}
+	//il nodo non è ancora stato istanziato, lo creo e ci sposto il giocatore
 	else tail = set_new_node(x, y, tail, cur_pos, cur_player);
-return tail;
+	return tail;
 }
 
 node* set_new_node(int x_offset, int y_offset, node* tail, node* cur_pos, player* cur_player){

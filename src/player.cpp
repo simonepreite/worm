@@ -48,11 +48,11 @@
 	void player::attack(player *p){
 		if (p->n_worms() > worms){
 			//defeat
-			worms = worms - p->n_worms();
+			worms = worms - (p->n_worms() - worms);
 		}
-		else {
+		else if (p->n_worms() < worms) {
 			//victory
-			p->decrease_worms(worms);
+			p->decrease_worms(worms - p->n_worms());
 		}
 	}
 

@@ -13,19 +13,25 @@ int main(){
 	node* map_tail = new node();
 	map_tail->set(0,0);
 	enqueue_map(map_tail, map_tail);
-	std::cout << "#######################################################################\n";
-	std::cout << "#                         BENVENUTI IN:                               #\n";
-	std::cout << "#                                                                     #\n";
-	std::cout << "#            ██╗    ██╗ ██████╗ ██████╗ ███╗   ███╗███████╗           #\n";
-	std::cout << "#            ██║    ██║██╔═══██╗██╔══██╗████╗ ████║██╔════╝           #\n";
-	std::cout << "#            ██║ █╗ ██║██║   ██║██████╔╝██╔████╔██║███████╗           #\n";
-	std::cout << "#            ██║███╗██║██║   ██║██╔══██╗██║╚██╔╝██║╚════██║           #\n";
-	std::cout << "#            ╚███╔███╔╝╚██████╔╝██║  ██║██║ ╚═╝ ██║███████║           #\n";
-	std::cout << "#             ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝           #\n";
-	std::cout << "#                                                                     #\n";
-	std::cout << "#                                                                     #\n";
-	std::cout << "#######################################################################\n";
-	std::cout << "Inserire numero di giocatori (almeno 2 giocatori): \n";
+	std::cout << "########################################################################\n";
+	std::cout << "#                         BENVENUTI IN:                                #\n";
+	std::cout << "#                                                                      #\n";
+	std::cout << "#            ██╗    ██╗ ██████╗ ██████╗ ███╗   ███╗███████╗            #\n";
+	std::cout << "#            ██║    ██║██╔═══██╗██╔══██╗████╗ ████║██╔════╝            #\n";
+	std::cout << "#            ██║ █╗ ██║██║   ██║██████╔╝██╔████╔██║███████╗            #\n";
+	std::cout << "#            ██║███╗██║██║   ██║██╔══██╗██║╚██╔╝██║╚════██║            #\n";
+	std::cout << "#            ╚███╔███╔╝╚██████╔╝██║  ██║██║ ╚═╝ ██║███████║            #\n";
+	std::cout << "#             ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝            #\n";
+	std::cout << "#                                                                      #\n";
+	std::cout << "#                                                                      #\n";
+	std::cout << "########################################################################\n";
+	std::cout << "#                                                                      #\n";
+	std::cout << "#               USE FULL SCREEN OR 115x34 TERMINAL SIZE                #\n";
+	std::cout << "#                                                                      #\n";
+	std::cout << "#             Per i movimenti utilizzare i tasti w-a-s-d               #\n";
+	std::cout << "#                                                                      #\n";
+	std::cout << "########################################################################\n\n";
+	std::cout << "Inserire numero di giocatori (almeno 2 giocatori): \n\n";
 	std::cin >> num_players;	//inserire il controllo che vengano inseriti soltanto numeri
 	for(i = 0; i < num_players; i++){
 		int len;
@@ -43,10 +49,7 @@ int main(){
 		cin.ignore(1000,'\n');
 	}
 	std::cout << "\n\n";
-	foreach(tail, scan, tmp){
-		std::cout << "id: " << scan->print_id() << "	nome: ";
-		scan->print_name();
-		std::cout << "\n";
+	foreach(tail, scan, tmp) {
 		info_giocatore(scan, 100); //passo 100 per non far stampare l'alert dei turni mancanti
 	}
 	if(num_players > 1){
@@ -74,7 +77,7 @@ int main(){
 		if (z == 1) std::cout << "START\n";
 		sleep(1);
 	}
-	for(i = MAXTURNI; i >= 0; i--){//loop turni
+	for(i = MAXTURNI; i > 0; i--){//loop turni
 		char scelta;
 		char dir;
 		int y = 0;
@@ -132,9 +135,11 @@ int main(){
 
 			info_giocatore(scan, i);
 			std::cin >> dir;
-			map_tail = move(map_tail, scan->cur_pos(), dir, scan);
+			map_tail = move(map_tail, scan->cur_pos(), dir, scan, i);
 		}
 		if(i == 0) {
+		system("clear");
+		std::cout << "\n\n";
 		std::cout << "▄▄▄█████▓ ██░ ██ ▓█████    ▓█████  ███▄    █ ▓█████▄ \n";
 		std::cout << "▓  ██▒ ▓▒▓██░ ██▒▓█   ▀    ▓█   ▀  ██ ▀█   █ ▒██▀ ██▌\n";
 		std::cout << "▒ ▓██░ ▒░▒██▀▀██░▒███      ▒███   ▓██  ▀█ ██▒░██   █▌\n";
