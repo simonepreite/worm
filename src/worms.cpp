@@ -137,7 +137,7 @@ int main(){
 			std::cin >> dir;
 			map_tail = move(map_tail, scan->cur_pos(), dir, scan, i);
 		}
-		if(i == 0 || scan->get_next() == scan) {
+		if(i == 1 || scan->get_next() == scan) {
 		system("clear");
 		std::cout << "\n\n";
 		std::cout << "▄▄▄█████▓ ██░ ██ ▓█████    ▓█████  ███▄    █ ▓█████▄ \n";

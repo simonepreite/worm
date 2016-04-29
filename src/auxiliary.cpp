@@ -53,13 +53,13 @@ void kill(player* tail){
 //mi posiziono sull'elemento precedente all'elemento da eliminare
 	//va in loop
 	while (tail_copy->get_next()->print_id() != tail->print_id()){
+		std::cout << "kill\n";
 		tail_copy = tail_copy->get_next();
 	}
 	/*do{
 		std::cout << "kill\n";
 		tail_copy = tail_copy->get_next();
-	} while (tail_copy->get_next()->print_id() != tail->print_id());
-*/
+	} while (tail_copy->get_next()->print_id() != tail->print_id());*/
 //eliminazione dell'elemento in questiione
 	tmp = tail_copy->get_next();
 	tail_copy->set_list(tmp->get_next());
@@ -141,6 +141,7 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 					std::cout << "cur_player perde\n";
 					//cur_player ha perso
 					if (cur_player->n_worms() < 0) {
+						cur_player->print_name();
 						std::cout << "cur_player muore\n";
 						kill(cur_player);
 					}
@@ -153,7 +154,8 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 					std::cout << "p perde\n";
 					//app ha perso
 					if (((player*)app->busy())->n_worms() < 0) {
-						std::cout << "p muore\n";
+						((player*)app->busy())->print_name();
+						std::cout <<" muore\n";
 						kill((player*)app->busy());
 					}
 					else {
