@@ -51,10 +51,15 @@ void kill(player* tail){
 	player* tail_copy;
 	tail_copy = tail;
 //mi posiziono sull'elemento precedente all'elemento da eliminare
+	//va in loop
 	while (tail_copy->get_next()->print_id() != tail->print_id()){
 		tail_copy = tail_copy->get_next();
-}
-
+	}
+	/*do{
+		std::cout << "kill\n";
+		tail_copy = tail_copy->get_next();
+	} while (tail_copy->get_next()->print_id() != tail->print_id());
+*/
 //eliminazione dell'elemento in questiione
 	tmp = tail_copy->get_next();
 	tail_copy->set_list(tmp->get_next());
@@ -89,21 +94,25 @@ void random_movement(node* tail, node* cur_pos, player* cur_player, int x, int y
 	node* tmp;
 	node* scan;
 	int spostato = 0, x_offset, y_offset;
-
+	bool found = 0;
 	while(!spostato){
+		std::cout << "random movement\n";
 		x_offset = random(5);
 		y_offset = random(4);
 
 		foreach(tail, scan, tmp){
-			if(((scan->read_x() == (x_offset + x)) && (scan->read_y() == (y_offset + y))) && (scan->busy() == NULL)) {
+			if(scan->read_x() == (x_offset + x) && scan->read_y() == (y_offset + y)) {
 				//se il nodo estratto esiste già e non è occupato eseguo lo spostamento
-				movement(cur_player, cur_pos, scan, x_offset, y_offset);
-				spostato = 1;
+				if(scan->busy() == NULL){
+					movement(cur_player, cur_pos, scan, x_offset, y_offset);
+					spostato = 1;
+				}
+				found = true;
 			}
 			break;
 		}
 		//non ho trovato nessun nodo libero già creato, ne creo uno nuovo e ci sposto cur_player
-		if(tmp == tail){
+		if(!found){
 			//non trovo il nodo estratto, ne creo uno nuovo
 			tail = set_new_node(x_offset + x, y_offset + y, tail, cur_pos, cur_player);
 			spostato = 1;
@@ -116,35 +125,54 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 	if(app != NULL){
 		//se il nodo in cui mi voglio spostare è già stato istanziato
 		if ((p=(player*)app->busy())!=NULL) {
+			std::cout << "node busy\n";
 			if ((MAXTURNI - i) < 4) {
+				std::cout << "primi 3 turni\n";
 				//siamo nei primi 3 turni, non è ammesso l'attacco
 				random_movement(tail, cur_pos, cur_player, x, y);
 			}
 			else {
+				std::cout << "attacco\n";
 				//non siamo nei primi 3 turni, attacco e sposto su un nodo a caso il perdente
 				cur_player->attack((player*)app->busy());
 				//controllo se devo eliminare qualche uno dei due giocatori
 				if (cur_player->n_worms() < ((player*)app->busy())->n_worms()) {
+					std::cout << "cur_player perde\n";
 					//cur_player ha perso
 					if (cur_player->n_worms() < 0) {
+						std::cout << "cur_player muore\n";
 						kill(cur_player);
 					}
-					else random_movement(tail, cur_pos, cur_player, x, y);
+					else {
+						std::cout << "cur_player perde random_movement\n";
+						random_movement(tail, cur_pos, cur_player, x, y);
+					}
 				}
 				else if (cur_player->n_worms() > ((player*)app->busy())->n_worms()) {
+					std::cout << "p perde\n";
 					//app ha perso
 					if (((player*)app->busy())->n_worms() < 0) {
+						std::cout << "p muore\n";
 						kill((player*)app->busy());
 					}
-					else random_movement(tail, cur_pos, ((player*)app->busy()), x, y);
+					else {
+						std::cout << "cur_player perde random_movement\n";
+						random_movement(tail, cur_pos, ((player*)app->busy()), x, y);
+					}
 				}
 			}
 		}
 		//mi sposto normalmente perchè il nodo esiste e non è occupato
-		else movement(cur_player, cur_pos, app, x, y);
+		else {
+			std::cout << "mi sposto normalmente\n";
+			movement(cur_player, cur_pos, app, x, y);
+		}
 	}
 	//il nodo non è ancora stato istanziato, lo creo e ci sposto il giocatore
-	else tail = set_new_node(x, y, tail, cur_pos, cur_player);
+	else {
+		std::cout << "nuovo nodo\n";
+		tail = set_new_node(x, y, tail, cur_pos, cur_player);
+	}
 	return tail;
 }
 
