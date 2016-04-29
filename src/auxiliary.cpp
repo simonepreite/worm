@@ -90,7 +90,7 @@ node* move(node* tail, node* cur_pos, char direzione, player* cur_player, int i)
 
 
 //sposta cur_player in un nodo casuale
-void random_movement(node* tail, node* cur_pos, player* cur_player, int x, int y) {
+node* random_movement(node* tail, node* cur_pos, player* cur_player, int x, int y) {
 	node* tmp;
 	node* scan;
 	int spostato = 0, x_offset, y_offset;
@@ -118,6 +118,7 @@ void random_movement(node* tail, node* cur_pos, player* cur_player, int x, int y
 			spostato = 1;
 		}
 	}
+	return tail;
 }
 
 node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x, int y, int i) {
@@ -129,7 +130,7 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 			if ((MAXTURNI - i) < 4) {
 				std::cout << "primi 3 turni\n";
 				//siamo nei primi 3 turni, non è ammesso l'attacco
-				random_movement(tail, cur_pos, cur_player, x, y);
+				tail = random_movement(tail, cur_pos, cur_player, x, y);
 			}
 			else {
 				std::cout << "attacco\n";
@@ -145,7 +146,7 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 					}
 					else {
 						std::cout << "cur_player perde random_movement\n";
-						random_movement(tail, cur_pos, cur_player, x, y);
+						tail = random_movement(tail, cur_pos, cur_player, x, y);
 					}
 				}
 				else if (cur_player->n_worms() > ((player*)app->busy())->n_worms()) {
@@ -157,7 +158,7 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 					}
 					else {
 						std::cout << "cur_player perde random_movement\n";
-						random_movement(tail, cur_pos, ((player*)app->busy()), x, y);
+						tail = random_movement(tail, cur_pos, ((player*)app->busy()), x, y);
 					}
 				}
 			}
