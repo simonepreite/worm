@@ -1,72 +1,5 @@
 #include "header.hpp"
 
-void movement(player* cur_player, node* cur_pos, node* scan, int x_offset, int y_offset){
-	cur_pos->set_wih(NULL);
-	cur_player->set_pos(cur_player->lon() + x_offset, cur_player->lon() + y_offset, scan);
-	scan->set_wih(cur_player);
-	cur_pos = scan;
-	if (!cur_pos->is_dug()) {
-		cur_player->increase_worms(random(MAX_WORMS, 0));
-		cur_pos->dig();
-	}
-}
-
-void print_map(node* appoggio, const char* dir){
-	int print_x = 0;
-	int print_y = 0;
-	if((appoggio)!=NULL){
-		print_x = appoggio->read_x();
-		print_y = appoggio->read_y();
-		std::cout << dir << "(" << print_x << ", " << print_y << ")";
-	}
-	else std::cout << dir << 0;
-}
-
-//stampa del riquadro riguardante le informazioni del giocatore corrente e del turno in corso
-void info_giocatore(player* scan, int turno){
-	std::cout << "------------------------------------------------------------------------------------------------------------------\n";
-	std::cout << "|                                                                                 |                              |\n";
-	std::cout << "|         gioca: ";
-	scan->print_name();
-	std::cout << "                                                          |            |w|               |\n";
-	std::cout << "|         posizione attuale: " ;
-	std::cout << "  (";
-	set_space(scan->lan());
-	std::cout << scan->lan() << ",";
-	set_space(scan->lon());
-	std::cout << scan->lon() << ")                                        |          |a|s|d|             |\n";
-	std::cout << "|         vermi: " << scan->n_worms();
-	set_space(scan->n_worms());
-	std::cout << "                                                             |                              |\n|        ";
-	if(turno <= 5) std::cout << "ATTENZIONE MANCANO  " << turno << "  TURNI ALLA CONCLUSIONE!!!";
-	else std::cout << "                                                ";
-	std::cout << "                         |                              |\n";
-	std::cout << "------------------------------------------------------------------------------------------------------------------\n";
-	std::cout << "posizione: " << scan->cur_pos() << " x: " << scan->cur_pos()->read_x() << " y: " << scan->cur_pos()->read_y() << "\n";
-}
-
-//funzione da richiamare quando, dopo un attacco, il numero di vermi di uno dei due giocatori è < 0
-void kill(player* tail){
-//utilizzo tail_copy in modo da lasciare inalterato il turno
-	player* tmp;
-	player* tail_copy;
-	tail_copy = tail;
-//mi posiziono sull'elemento precedente all'elemento da eliminare
-	//va in loop
-	while (tail_copy->get_next()->print_id() != tail->print_id()){
-		std::cout << "kill\n";
-		tail_copy = tail_copy->get_next();
-	}
-	/*do{
-		std::cout << "kill\n";
-		tail_copy = tail_copy->get_next();
-	} while (tail_copy->get_next()->print_id() != tail->print_id());*/
-//eliminazione dell'elemento in questiione
-	tmp = tail_copy->get_next();
-	tail_copy->set_list(tmp->get_next());
-	delete tmp;
-}
-
 /*  direzione w: nord, s: sud, d: est, a: ovest questa funzione viene
 	chiamata solo se ci si è accertati che il nodo non esiste
 */
@@ -85,42 +18,6 @@ node* move(node* tail, node* cur_pos, char direzione, player* cur_player, int i)
 		default ://va a nord anche nel caso in cui prema un qualsiasi tasto diverso da 'a', 's' o 'd'
 			tail = direction(tail, cur_pos->ptr_n(), cur_pos, cur_player, 0, 1, i);
 			break;
-	}
-	return tail;
-}
-
-
-//sposta cur_player in un nodo casuale
-node* random_movement(node* tail, node* cur_pos, player* cur_player) {
-	node* tmp;
-	node* scan;
-	int spostato = 0, x_offset, y_offset;
-	bool found = 0;
-	while(!spostato){
-		std::cout << "random movement\n";
-		x_offset = random(5, 1);
-		y_offset = random(4, 1);
-
-		foreach(tail, scan, tmp){
-			if((scan->read_x() == (x_offset + cur_player->lon())) && (scan->read_y() == (y_offset + cur_player->lan()))) {
-				found = true;
-				//se il nodo estratto esiste già e non è occupato eseguo lo spostamento
-				if(scan->busy() == NULL){
-					std::cout << "foreach movement\n";
-					movement(cur_player, cur_pos, scan, x_offset, y_offset);
-					spostato = 1;
-					break;
-				}
-			}
-		}
-		//non ho trovato nessun nodo libero già creato, ne creo uno nuovo e ci sposto cur_player
-		if(!found){
-			//non trovo il nodo estratto, ne creo uno nuovo
-			//x_offset += cur_player->lon();
-			//y_offset += cur_player->lan();
-			tail = set_new_node(x_offset, y_offset, tail, cur_pos, cur_player);
-			spostato = 1;
-		}
 	}
 	return tail;
 }
@@ -230,6 +127,107 @@ node* set_new_node(int x_offset, int y_offset, node* tail, node* cur_pos, player
 	return tail;
 }
 
+void movement(player* cur_player, node* cur_pos, node* scan, int x_offset, int y_offset){
+	cur_pos->set_wih(NULL);
+	cur_player->set_pos(cur_player->lon() + x_offset, cur_player->lon() + y_offset, scan);
+	scan->set_wih(cur_player);
+	cur_pos = scan;
+	if (!cur_pos->is_dug()) {
+		cur_player->increase_worms(random(MAX_WORMS, 0));
+		cur_pos->dig();
+	}
+}
+
+//sposta cur_player in un nodo casuale
+node* random_movement(node* tail, node* cur_pos, player* cur_player) {
+	node* tmp;
+	node* scan;
+	int spostato = 0, x_offset, y_offset;
+	bool found = 0;
+	while(!spostato){
+		std::cout << "random movement\n";
+		x_offset = random(5, 1);
+		y_offset = random(4, 1);
+
+		foreach(tail, scan, tmp){
+			if((scan->read_x() == (x_offset + cur_player->lon())) && (scan->read_y() == (y_offset + cur_player->lan()))) {
+				found = true;
+				//se il nodo estratto esiste già e non è occupato eseguo lo spostamento
+				if(scan->busy() == NULL){
+					std::cout << "foreach movement\n";
+					movement(cur_player, cur_pos, scan, x_offset, y_offset);
+					spostato = 1;
+					break;
+				}
+			}
+		}
+		//non ho trovato nessun nodo libero già creato, ne creo uno nuovo e ci sposto cur_player
+		if(!found){
+			//non trovo il nodo estratto, ne creo uno nuovo
+			x_offset += cur_player->lon();
+			y_offset += cur_player->lan();
+			tail = set_new_node(x_offset, y_offset, tail, cur_pos, cur_player);
+			spostato = 1;
+		}
+	}
+	return tail;
+}
+
+void print_map(node* appoggio, const char* dir){
+	int print_x = 0;
+	int print_y = 0;
+	if((appoggio)!=NULL){
+		print_x = appoggio->read_x();
+		print_y = appoggio->read_y();
+		std::cout << dir << "(" << print_x << ", " << print_y << ")";
+	}
+	else std::cout << dir << 0;
+}
+
+//stampa del riquadro riguardante le informazioni del giocatore corrente e del turno in corso
+void info_giocatore(player* scan, int turno){
+	std::cout << "------------------------------------------------------------------------------------------------------------------\n";
+	std::cout << "|                                                                                 |                              |\n";
+	std::cout << "|         gioca: ";
+	scan->print_name();
+	std::cout << "                                                          |            |w|               |\n";
+	std::cout << "|         posizione attuale: " ;
+	std::cout << "  (";
+	set_space(scan->lan());
+	std::cout << scan->lan() << ",";
+	set_space(scan->lon());
+	std::cout << scan->lon() << ")                                        |          |a|s|d|             |\n";
+	std::cout << "|         vermi: " << scan->n_worms();
+	set_space(scan->n_worms());
+	std::cout << "                                                             |                              |\n|        ";
+	if(turno <= 5) std::cout << "ATTENZIONE MANCANO  " << turno << "  TURNI ALLA CONCLUSIONE!!!";
+	else std::cout << "                                                ";
+	std::cout << "                         |                              |\n";
+	std::cout << "------------------------------------------------------------------------------------------------------------------\n";
+	std::cout << "posizione: " << scan->cur_pos() << " x: " << scan->cur_pos()->read_x() << " y: " << scan->cur_pos()->read_y() << "\n";
+}
+
+//funzione da richiamare quando, dopo un attacco, il numero di vermi di uno dei due giocatori è < 0
+void kill(player* tail){
+//utilizzo tail_copy in modo da lasciare inalterato il turno
+	player* tmp;
+	player* tail_copy;
+	tail_copy = tail;
+//mi posiziono sull'elemento precedente all'elemento da eliminare
+	//va in loop
+	while (tail_copy->get_next()->print_id() != tail->print_id()){
+		std::cout << "kill\n";
+		tail_copy = tail_copy->get_next();
+	}
+	/*do{
+		std::cout << "kill\n";
+		tail_copy = tail_copy->get_next();
+	} while (tail_copy->get_next()->print_id() != tail->print_id());*/
+//eliminazione dell'elemento in questiione
+	tmp = tail_copy->get_next();
+	tail_copy->set_list(tmp->get_next());
+	delete tmp;
+}
 
 node* enqueue_map(node* tail, node* p){
 		p->set_list(tail->get_next());
@@ -237,7 +235,6 @@ node* enqueue_map(node* tail, node* p){
 		tail = p;
 	return tail;
 }
-
 
 player* enqueue_player(player* tail, char name[], int id, node* p){
 	player* tmp;
