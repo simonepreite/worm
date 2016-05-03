@@ -42,6 +42,7 @@ void info_giocatore(player* scan, int turno){
 	else std::cout << "                                                ";
 	std::cout << "                         |                              |\n";
 	std::cout << "------------------------------------------------------------------------------------------------------------------\n";
+	std::cout << "posizione: " << scan->cur_pos() << " x: " << scan->cur_pos()->read_x() << " y: " << scan->cur_pos()->read_y() << "\n";
 }
 
 //funzione da richiamare quando, dopo un attacco, il numero di vermi di uno dei due giocatori è < 0
@@ -101,16 +102,16 @@ node* random_movement(node* tail, node* cur_pos, player* cur_player, int x, int 
 		y_offset = random(4);
 
 		foreach(tail, scan, tmp){
-			if(scan->read_x() == (x_offset + x) && scan->read_y() == (y_offset + y)) {
+			if((scan->read_x() == (x_offset + x)) && (scan->read_y() == (y_offset + y))) {
+				found = true;
 				//se il nodo estratto esiste già e non è occupato eseguo lo spostamento
 				if(scan->busy() == NULL){
 					std::cout << "foreach movement\n";
 					movement(cur_player, cur_pos, scan, x_offset, y_offset);
 					spostato = 1;
+					break;
 				}
-				found = true;
 			}
-			break;
 		}
 		//non ho trovato nessun nodo libero già creato, ne creo uno nuovo e ci sposto cur_player
 		if(!found){

@@ -82,6 +82,7 @@ int main(){
 		char dir;
 		int y = 0;
 		int x = 0;
+		node* pam;
 
 		foreach(tail, scan, tmp){
 			system("clear");
@@ -102,6 +103,7 @@ int main(){
 								std::cout << scan_map->read_x() << ",";
 								set_space(scan_map->read_y());
 								std::cout << scan_map->read_y() << ")| ";
+								pam = scan_map;
 							}
 							else if (scan_map->busy() != NULL) {
 								//nodo nel quale è presente un altro giocatore
@@ -131,6 +133,7 @@ int main(){
 				std::cout << "|                |               |               |               |               |               |               |";
 			}
 			std::cout << "\n------------------------------------------------------------------------------------------------------------------\n";
+			std::cout << "centro: " << pam << "\n";
 			//FINE STAMPA MAPPA
 
 			info_giocatore(scan, i);
