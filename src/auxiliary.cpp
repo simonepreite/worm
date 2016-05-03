@@ -2,7 +2,7 @@
 
 void movement(player* cur_player, node* cur_pos, node* scan, int x_offset, int y_offset){
 	cur_pos->set_wih(NULL);
-	cur_player->set_pos(cur_pos->read_x() + x_offset, cur_pos->read_y() + y_offset, scan);
+	cur_player->set_pos(cur_player->lon() + x_offset, cur_player->lon() + y_offset, scan);
 	scan->set_wih(cur_player);
 	cur_pos = scan;
 	if (!cur_pos->is_dug()) {
@@ -116,8 +116,8 @@ node* random_movement(node* tail, node* cur_pos, player* cur_player) {
 		//non ho trovato nessun nodo libero già creato, ne creo uno nuovo e ci sposto cur_player
 		if(!found){
 			//non trovo il nodo estratto, ne creo uno nuovo
-			x_offset += cur_player->lon();
-			y_offset += scan->read_y();
+			//x_offset += cur_player->lon();
+			//y_offset += cur_player->lan();
 			tail = set_new_node(x_offset, y_offset, tail, cur_pos, cur_player);
 			spostato = 1;
 		}

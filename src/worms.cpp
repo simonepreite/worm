@@ -141,6 +141,8 @@ int main(){
 			//FINE STAMPA MAPPA
 
 			info_giocatore(scan, i);
+			std::cout << "cur player: " << scan << "\n";
+			std::cout << "next player: " << scan->get_next() << "\n";
 			std::cin >> dir;
 			map_tail = move(map_tail, scan->cur_pos(), dir, scan, i);
 		}
@@ -157,7 +159,7 @@ int main(){
 		std::cout << "  ░       ░  ░░ ░   ░         ░      ░   ░ ░  ░ ░  ░ \n";
 		std::cout << "          ░  ░  ░   ░  ░      ░  ░         ░    ░    \n";
 		std::cout << "                                              ░      \n";
-			std::cout << "WINNER:  ";
+		std::cout << "WINNER:  ";
 			if(scan->get_next() == scan)
 				scan->print_name();	//il giocatore vincitore è l'ultimo rimasto
 			else {
