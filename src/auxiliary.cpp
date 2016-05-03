@@ -91,7 +91,7 @@ node* move(node* tail, node* cur_pos, char direzione, player* cur_player, int i)
 
 
 //sposta cur_player in un nodo casuale
-node* random_movement(node* tail, node* cur_pos, player* cur_player, int x, int y) {
+node* random_movement(node* tail, node* cur_pos, player* cur_player) {
 	node* tmp;
 	node* scan;
 	int spostato = 0, x_offset, y_offset;
@@ -102,7 +102,7 @@ node* random_movement(node* tail, node* cur_pos, player* cur_player, int x, int 
 		y_offset = random(4);
 
 		foreach(tail, scan, tmp){
-			if((scan->read_x() == (x_offset + x)) && (scan->read_y() == (y_offset + y))) {
+			if((scan->read_x() == (x_offset + cur_player->lon())) && (scan->read_y() == (y_offset + cur_player->lan()))) {
 				found = true;
 				//se il nodo estratto esiste già e non è occupato eseguo lo spostamento
 				if(scan->busy() == NULL){
@@ -116,8 +116,8 @@ node* random_movement(node* tail, node* cur_pos, player* cur_player, int x, int 
 		//non ho trovato nessun nodo libero già creato, ne creo uno nuovo e ci sposto cur_player
 		if(!found){
 			//non trovo il nodo estratto, ne creo uno nuovo
-			x_offset += x;
-			y_offset += y;
+			x_offset += cur_player->lon();
+			y_offset += scan->read_y();
 			tail = set_new_node(x_offset, y_offset, tail, cur_pos, cur_player);
 			spostato = 1;
 		}
@@ -134,7 +134,7 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 			if ((MAXTURNI - i) < 4) {
 				std::cout << "primi 3 turni\n";
 				//siamo nei primi 3 turni, non è ammesso l'attacco
-				tail = random_movement(tail, cur_pos, cur_player, x, y);
+				tail = random_movement(tail, cur_pos, cur_player);
 			}
 			else {
 				std::cout << "attacco\n";
@@ -152,7 +152,7 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 					}
 					else {
 						std::cout << "cur_player perde random_movement\n";
-						tail = random_movement(tail, cur_pos, cur_player, x, y);
+						tail = random_movement(tail, cur_pos, cur_player);
 					}
 				}
 				else if (cur_player->n_worms() > p->n_worms()) {
@@ -166,7 +166,7 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 					}
 					else {
 						std::cout << "p perde random_movement\n";
-						tail = random_movement(tail, app, p, x, y);
+						tail = random_movement(tail, app, p);
 					}
 				}
 			}
