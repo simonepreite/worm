@@ -166,7 +166,8 @@ int main(){
 				}
 				winner->print_name();
 			}
-			std::cout << "\n";
+		std::cout << "\n";
+		return 1;
 		}
 	}
 	return 1;
