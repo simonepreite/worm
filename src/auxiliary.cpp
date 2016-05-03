@@ -116,7 +116,9 @@ node* random_movement(node* tail, node* cur_pos, player* cur_player, int x, int 
 		//non ho trovato nessun nodo libero già creato, ne creo uno nuovo e ci sposto cur_player
 		if(!found){
 			//non trovo il nodo estratto, ne creo uno nuovo
-			tail = set_new_node(x_offset + x, y_offset + y, tail, cur_pos, cur_player);
+			x_offset += x;
+			y_offset += y;
+			tail = set_new_node(x_offset, y_offset, tail, cur_pos, cur_player);
 			spostato = 1;
 		}
 	}
@@ -143,9 +145,9 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 					std::cout << "cur_player perde\n";
 					//cur_player ha perso
 					if (cur_player->n_worms() < 0) {
-						cur_player->print_name();
 						cur_pos->set_wih(NULL);
-						std::cout << "cur_player muore\n";
+						cur_player->print_name();
+						std::cout << " muore\n";
 						kill(cur_player);
 					}
 					else {
@@ -157,14 +159,14 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 					std::cout << "p perde\n";
 					//app ha perso
 					if (p->n_worms() < 0) {
-						p->print_name();
 						app->set_wih(NULL);
+						p->print_name();
 						std::cout <<" muore\n";
 						kill(p);
 					}
 					else {
 						std::cout << "p perde random_movement\n";
-						tail = random_movement(tail, cur_pos, p, x, y);
+						tail = random_movement(tail, app, p, x, y);
 					}
 				}
 			}
