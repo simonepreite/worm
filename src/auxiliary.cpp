@@ -104,6 +104,7 @@ node* random_movement(node* tail, node* cur_pos, player* cur_player, int x, int 
 			if(scan->read_x() == (x_offset + x) && scan->read_y() == (y_offset + y)) {
 				//se il nodo estratto esiste già e non è occupato eseguo lo spostamento
 				if(scan->busy() == NULL){
+					std::cout << "foreach movement\n";
 					movement(cur_player, cur_pos, scan, x_offset, y_offset);
 					spostato = 1;
 				}
@@ -135,13 +136,14 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 			else {
 				std::cout << "attacco\n";
 				//non siamo nei primi 3 turni, attacco e sposto su un nodo a caso il perdente
-				cur_player->attack((player*)app->busy());
+				cur_player->attack(p);
 				//controllo se devo eliminare qualche uno dei due giocatori
-				if (cur_player->n_worms() < ((player*)app->busy())->n_worms()) {
+				if (cur_player->n_worms() < p->n_worms()) {
 					std::cout << "cur_player perde\n";
 					//cur_player ha perso
 					if (cur_player->n_worms() < 0) {
 						cur_player->print_name();
+						cur_pos->set_wih(NULL);
 						std::cout << "cur_player muore\n";
 						kill(cur_player);
 					}
@@ -150,17 +152,18 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 						tail = random_movement(tail, cur_pos, cur_player, x, y);
 					}
 				}
-				else if (cur_player->n_worms() > ((player*)app->busy())->n_worms()) {
+				else if (cur_player->n_worms() > p->n_worms()) {
 					std::cout << "p perde\n";
 					//app ha perso
-					if (((player*)app->busy())->n_worms() < 0) {
-						((player*)app->busy())->print_name();
+					if (p->n_worms() < 0) {
+						p->print_name();
+						app->set_wih(NULL);
 						std::cout <<" muore\n";
-						kill((player*)app->busy());
+						kill(p);
 					}
 					else {
-						std::cout << "cur_player perde random_movement\n";
-						tail = random_movement(tail, cur_pos, ((player*)app->busy()), x, y);
+						std::cout << "p perde random_movement\n";
+						tail = random_movement(tail, cur_pos, p, x, y);
 					}
 				}
 			}
