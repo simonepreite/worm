@@ -54,7 +54,7 @@ int main(){
 	}
 	if(num_players > 1){
 		//estrazione del primo giocatore
-		primo = random(num_players - 1);
+		primo = random(num_players - 1, 0);
 		std::cout << "numero estratto: " << primo << "\n";
 		//posizionamento della tail su quel giocatore con scan
 		foreach(tail, scan, tmp){
@@ -83,7 +83,11 @@ int main(){
 		int y = 0;
 		int x = 0;
 		node* pam;
-
+		if(!(i%5)){
+			foreach(map_tail, scan_map, tmp_map){
+				scan_map->reactivate();
+			}
+		}
 		foreach(tail, scan, tmp){
 			system("clear");
 

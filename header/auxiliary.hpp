@@ -12,6 +12,6 @@ extern node* direction(node* tail, node* app, node* cur_pos, player* cur_player,
 extern node* set_new_node(int x_offset, int y_offset, node* tail, node* cur_pos, player* cur_player);
 extern node* enqueue_map(node* tail, node* p);
 extern player* enqueue_player(player* tail, char name[], int id, node* p);
-extern int random(int n);
+extern int random(int n, bool segno);
 
 #endif

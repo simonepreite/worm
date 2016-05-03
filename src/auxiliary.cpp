@@ -6,7 +6,7 @@ void movement(player* cur_player, node* cur_pos, node* scan, int x_offset, int y
 	scan->set_wih(cur_player);
 	cur_pos = scan;
 	if (!cur_pos->is_dug()) {
-		cur_player->increase_worms(random(MAX_WORMS));
+		cur_player->increase_worms(random(MAX_WORMS, 0));
 		cur_pos->dig();
 	}
 }
@@ -98,8 +98,8 @@ node* random_movement(node* tail, node* cur_pos, player* cur_player) {
 	bool found = 0;
 	while(!spostato){
 		std::cout << "random movement\n";
-		x_offset = random(5);
-		y_offset = random(4);
+		x_offset = random(5, 1);
+		y_offset = random(4, 1);
 
 		foreach(tail, scan, tmp){
 			if((scan->read_x() == (x_offset + cur_player->lon())) && (scan->read_y() == (y_offset + cur_player->lan()))) {
@@ -198,7 +198,7 @@ node* set_new_node(int x_offset, int y_offset, node* tail, node* cur_pos, player
 	cur_pos->set_wih(NULL);
 	tmp->set_wih(cur_player);
 	//scavo il nuovo nodo dove si sta spostando il giocatore
-	cur_player->increase_worms(random(MAX_WORMS));
+	cur_player->increase_worms(random(MAX_WORMS, 0));
 	tmp->dig();
 	//RICOLLEGAMENTO NODI ADIACENTI A QUELLO APPENA CREATO
 	foreach(tail, scan, tmp2){
@@ -261,9 +261,10 @@ void set_space(int n) {
 	else if (((n > 99) && (n < 1000)) || ((n > -100) && (n < -9))) std::cout << " ";
 }
 
-int random(int n){
+int random(int n, bool segno){
 	int x=0;
 	srand(time(0));
-	x = (rand() % n);
+	if(segno) x = rand() % n - n/2;
+	else x = (rand() % n);
 	return x;
 }
