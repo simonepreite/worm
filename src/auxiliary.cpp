@@ -1,8 +1,8 @@
 #include "header.hpp"
 
 void movement(player* cur_player, node* cur_pos, node* scan, int x_offset, int y_offset){
-	cur_player->set_pos(cur_pos->read_x() + x_offset, cur_pos->read_y() + y_offset, scan);
 	cur_pos->set_wih(NULL);
+	cur_player->set_pos(cur_pos->read_x() + x_offset, cur_pos->read_y() + y_offset, scan);
 	scan->set_wih(cur_player);
 	cur_pos = scan;
 	if (!cur_pos->is_dug()) {
