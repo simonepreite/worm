@@ -242,7 +242,8 @@ player* enqueue_player(player* tail, char name[], int id, node* p){
 		tail = new player;
 		tail->set_list(tail);
 		tail->set(id, name, p);
-	} else {
+	}
+	else {
 		tmp = new player;
 		tmp->set_list(tail->get_next());
 		tail->set_list(tmp);
