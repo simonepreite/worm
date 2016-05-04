@@ -142,11 +142,14 @@ int main(){
 
 			info_giocatore(scan, i);
 			std::cout << "cur player: " << scan << "\n";
+						std::cout << "i: " << i << "\n";
+
 			std::cout << "next player: " << scan->get_next() << "\n";
 			std::cin >> dir;
 			map_tail = move(map_tail, scan->cur_pos(), dir, scan, i);
+			if(scan == scan->get_next()) break;
 		}
-		if(i == 1 || scan->get_next() == scan) {
+		if(i == 1 || scan == scan->get_next()) {
 		system("clear");
 		std::cout << "\n\n";
 		std::cout << "▄▄▄█████▓ ██░ ██ ▓█████    ▓█████  ███▄    █ ▓█████▄ \n";
