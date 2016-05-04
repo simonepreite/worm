@@ -176,8 +176,8 @@ int main(){
 				winner->print_name();
 			}
 		std::cout << "\n";
-		return 1;
+		return 0;
 		}
 	}
-	return 1;
+	return 0;
 }
