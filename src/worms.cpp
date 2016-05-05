@@ -93,15 +93,15 @@ int main(){
 
 			// INIZIO STAMPA MAPPA
 
-			for(y = scan->lon() + 3; y >= scan->lon() - 3; y--){
+			for(y = scan->lat() + 3; y >= scan->lat() - 3; y--){
 				std::cout << "\n------------------------------------------------------------------------------------------------------------------\n";
 				std::cout << "|                |               |               |               |               |               |               |\n";
 				std::cout << "| ";
-				for(x = scan->lan() - 3; x <= scan->lan() + 3; x++){
+				for(x = scan->lon() - 3; x <= scan->lon() + 3; x++){
 					foreach(map_tail, scan_map, tmp_map){
 						if(x == scan_map->read_x() && y == scan_map->read_y()){
 							//nodo corrente, dove si trova il player che sta giocando
-							if (y == scan->lon() && x == scan->lan()) {
+							if (y == scan->lat() && x == scan->lon()) {
 								std::cout << " |(";
 								set_space(scan_map->read_x());
 								std::cout << scan_map->read_x() << ",";

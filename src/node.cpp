@@ -8,9 +8,9 @@
 		dug = false;
 	}
 
-	void node::set(int lat, int lon){
-		x = lat;
-		y = lon;
+	void node::set(int lon, int lat){
+		x = lon;
+		y = lat;
 	}
 
 	int node::read_x() {

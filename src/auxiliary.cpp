@@ -129,7 +129,7 @@ node* set_new_node(int x_offset, int y_offset, node* tail, node* cur_pos, player
 
 void movement(player* cur_player, node* cur_pos, node* scan, int x_offset, int y_offset){
 	cur_pos->set_wih(NULL);
-	cur_player->set_pos(cur_player->lon() + x_offset, cur_player->lan() + y_offset, scan);
+	cur_player->set_pos(cur_player->lon() + x_offset, cur_player->lat() + y_offset, scan);
 	scan->set_wih(cur_player);
 	cur_pos = scan;
 	if (!cur_pos->is_dug()) {
@@ -150,7 +150,7 @@ node* random_movement(node* tail, node* cur_pos, player* cur_player) {
 		y_offset = random(4, 1);
 
 		foreach(tail, scan, tmp){
-			if((scan->read_x() == (x_offset + cur_player->lon())) && (scan->read_y() == (y_offset + cur_player->lan()))) {
+			if((scan->read_x() == (x_offset + cur_player->lon())) && (scan->read_y() == (y_offset + cur_player->lat()))) {
 				found = true;
 				//se il nodo estratto esiste già e non è occupato eseguo lo spostamento
 				if(scan->busy() == NULL){
@@ -165,7 +165,7 @@ node* random_movement(node* tail, node* cur_pos, player* cur_player) {
 		if(!found){
 			//non trovo il nodo estratto, ne creo uno nuovo
 			x_offset += cur_player->lon();
-			y_offset += cur_player->lan();
+			y_offset += cur_player->lat();
 			tail = set_new_node(x_offset, y_offset, tail, cur_pos, cur_player);
 			spostato = 1;
 		}
@@ -193,10 +193,10 @@ void info_giocatore(player* scan, int turno){
 	std::cout << "                                                          |            |w|               |\n";
 	std::cout << "|         posizione attuale: " ;
 	std::cout << "  (";
-	set_space(scan->lan());
-	std::cout << scan->lan() << ",";
 	set_space(scan->lon());
-	std::cout << scan->lon() << ")                                        |          |a|s|d|             |\n";
+	std::cout << scan->lon() << ",";
+	set_space(scan->lat());
+	std::cout << scan->lat() << ")                                        |          |a|s|d|             |\n";
 	std::cout << "|         vermi: " << scan->n_worms();
 	set_space(scan->n_worms());
 	std::cout << "                                                             |                              |\n|        ";

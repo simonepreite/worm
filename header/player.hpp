@@ -27,7 +27,7 @@ public:
 
 	void set(int id_user, char player[], node* place);
 
-	void set_pos(int lat, int lon, node* pos);
+	void set_pos(int lon, int lat, node* pos);
 
 	void set_list(player *p);
 
@@ -38,9 +38,9 @@ public:
 
 	int n_worms();
 
-	int lan();
-
 	int lon();
+
+	int lat();
 
 	node* cur_pos();
 

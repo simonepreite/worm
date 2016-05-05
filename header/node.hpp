@@ -23,7 +23,7 @@ public:
 	//constructor
 	node();
 
-	void set(int lat, int lon);
+	void set(int lon, int lat);
 
 	//information
 	int read_x();

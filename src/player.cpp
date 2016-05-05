@@ -14,9 +14,9 @@
 		cur = place;
 	}
 
-	void player::set_pos(int lat, int lon, node* pos){
-		x = lat;
-		y = lon;
+	void player::set_pos(int lon, int lat, node* pos){
+		x = lon;
+		y = lat;
 		cur = pos;
 	}
 
@@ -56,11 +56,11 @@
 		}
 	}
 
-	int player::lan(){
+	int player::lon(){
 		return x;
 	}
 
-	int player::lon(){
+	int player::lat(){
 		return y;
 	}
 
