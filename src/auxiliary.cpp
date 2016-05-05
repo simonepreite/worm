@@ -129,7 +129,7 @@ node* set_new_node(int x_offset, int y_offset, node* tail, node* cur_pos, player
 
 void movement(player* cur_player, node* cur_pos, node* scan, int x_offset, int y_offset){
 	cur_pos->set_wih(NULL);
-	cur_player->set_pos(cur_player->lon() + x_offset, cur_player->lon() + y_offset, scan);
+	cur_player->set_pos(cur_player->lon() + x_offset, cur_player->lan() + y_offset, scan);
 	scan->set_wih(cur_player);
 	cur_pos = scan;
 	if (!cur_pos->is_dug()) {
@@ -157,8 +157,8 @@ node* random_movement(node* tail, node* cur_pos, player* cur_player) {
 					std::cout << "foreach movement\n";
 					movement(cur_player, cur_pos, scan, x_offset, y_offset);
 					spostato = 1;
-					break;
 				}
+				break;
 			}
 		}
 		//non ho trovato nessun nodo libero già creato, ne creo uno nuovo e ci sposto cur_player

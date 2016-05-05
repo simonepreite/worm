@@ -82,7 +82,7 @@ int main(){
 		char dir;
 		int y = 0;
 		int x = 0;
-		node* pam;
+		node* pam = NULL;
 		if(!(i%5)){
 			foreach(map_tail, scan_map, tmp_map){
 				scan_map->reactivate();
@@ -142,8 +142,7 @@ int main(){
 
 			info_giocatore(scan, i);
 			std::cout << "cur player: " << scan << "\n";
-						std::cout << "i: " << i << "\n";
-
+			std::cout << "i: " << i << "\n";
 			std::cout << "next player: " << scan->get_next() << "\n";
 			std::cin >> dir;
 			map_tail = move(map_tail, scan->cur_pos(), dir, scan, i);

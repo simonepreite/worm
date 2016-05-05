@@ -3,7 +3,7 @@
 
 #define MAXNOME 8
 
-#define MAXTURNI 20
+#define MAXTURNI 30
 
 #define MAX_WORMS 4
 
