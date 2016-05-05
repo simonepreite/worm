@@ -145,7 +145,7 @@ node* random_movement(node* tail, node* cur_pos, player* cur_player) {
 	int spostato = 0, x_offset, y_offset;
 	bool found = 0;
 	while(!spostato){
-		std::cout << "random movement\n";
+		//std::cout << "random movement\n";
 		x_offset = random(5, 1);
 		y_offset = random(4, 1);
 
@@ -154,7 +154,7 @@ node* random_movement(node* tail, node* cur_pos, player* cur_player) {
 				found = true;
 				//se il nodo estratto esiste già e non è occupato eseguo lo spostamento
 				if(scan->busy() == NULL){
-					std::cout << "foreach movement\n";
+					//std::cout << "foreach movement\n";
 					movement(cur_player, cur_pos, scan, x_offset, y_offset);
 					spostato = 1;
 				}
