@@ -28,7 +28,7 @@ void stampa_mappa(node* map_tail, player* play){
 		}
 		else map[scan_map->read_y()+3][scan_map->read_x()+3] = 0;
 	}
-	for(i=0; i<7; i++){
+	for(i=6; i>=0; i--){
 		for(j=0; j<7; j++){
 			std::cout << " " << map[i][j] << " ";
 		}
