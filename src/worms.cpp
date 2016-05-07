@@ -24,9 +24,9 @@ void stampa_mappa(node* map_tail, player* play){
 
 	foreach(map_tail, scan_map, tmp_map){
 		if(scan_map->read_x() >= min_lon && scan_map->read_x() <= max_lon && scan_map->read_y() >= min_lat && scan_map->read_y() <= max_lat){
-			map[scan_map->read_x()+3][scan_map->read_y()+3] = 1;
+			map[scan_map->read_y()+3][scan_map->read_x()+3] = 1;
 		}
-		else map[scan_map->read_x()+3][scan_map->read_y()+3] = 0;
+		else map[scan_map->read_y()+3][scan_map->read_x()+3] = 0;
 	}
 	for(i=0; i<7; i++){
 		for(j=0; j<7; j++){
