@@ -11,5 +11,6 @@
 #include "node.hpp"
 #include "player.hpp"
 #include "auxiliary.hpp"
+using namespace std;
 
 #endif

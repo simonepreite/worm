@@ -30,7 +30,7 @@
 	}
 
 	void player::print_name(){
-		std::cout << name;
+		cout << name;
 	}
 
 	int player::n_worms(){

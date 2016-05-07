@@ -27,42 +27,33 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 	if(app != NULL){
 		//se il nodo in cui mi voglio spostare è già stato istanziato
 		if ((p=(player*)app->busy())!=NULL) {
-			std::cout << "node busy\n";
 			if ((MAXTURNI - i) < 4) {
-				std::cout << "primi 3 turni\n";
 				//siamo nei primi 3 turni, non è ammesso l'attacco
 				tail = random_movement(tail, cur_pos, cur_player);
 			}
 			else {
-				std::cout << "attacco\n";
 				//non siamo nei primi 3 turni, attacco e sposto su un nodo a caso il perdente
 				cur_player->attack(p);
 				//controllo se devo eliminare qualche uno dei due giocatori
 				if (cur_player->n_worms() < p->n_worms()) {
-					std::cout << "cur_player perde\n";
 					//cur_player ha perso
 					if (cur_player->n_worms() < 0) {
 						cur_pos->set_wih(NULL);
 						cur_player->print_name();
-						std::cout << " muore\n";
 						kill(cur_player);
 					}
 					else {
-						std::cout << "cur_player perde random_movement\n";
 						tail = random_movement(tail, cur_pos, cur_player);
 					}
 				}
 				else if (cur_player->n_worms() > p->n_worms()) {
-					std::cout << "p perde\n";
 					//app ha perso
 					if (p->n_worms() < 0) {
 						app->set_wih(NULL);
 						p->print_name();
-						std::cout <<" muore\n";
 						kill(p);
 					}
 					else {
-						std::cout << "p perde random_movement\n";
 						tail = random_movement(tail, app, p);
 					}
 				}
@@ -70,13 +61,11 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 		}
 		//mi sposto normalmente perchè il nodo esiste e non è occupato
 		else {
-			std::cout << "mi sposto normalmente\n";
 			movement(cur_player, cur_pos, app, x, y);
 		}
 	}
 	//il nodo non è ancora stato istanziato, lo creo e ci sposto il giocatore
 	else {
-		std::cout << "nuovo nodo\n";
 		tail = set_new_node(x, y, tail, cur_pos, cur_player);
 	}
 	return tail;
@@ -101,25 +90,21 @@ node* set_new_node(int x_offset, int y_offset, node* tail, node* cur_pos, player
 	foreach(tail, scan, tmp2){
 		if(scan->read_x() == tmp->read_x() && scan->read_y() == tmp->read_y()-1){
 			//c'è un nodo a sud
-			//std::cout << "sud\n";
 			tmp->s(scan);
 			scan->n(tmp);
 		}
 		if(scan->read_x() == tmp->read_x() && scan->read_y() == tmp->read_y()+1){
 			//c'è un nodo a nord
-			//std::cout << "nord\n";
 			tmp->n(scan);
 			scan->s(tmp);
 		}
 		if(scan->read_x() == tmp->read_x()+1 && scan->read_y() == tmp->read_y()){
 			//c'è un nodo a est
-      //std::cout << "est\n";
 			tmp->e(scan);
 			scan->w(tmp);
 		}
 		if(scan->read_x() == tmp->read_x()-1 && scan->read_y() == tmp->read_y()){
 			//c'è un nodo a ovest
-      //std::cout << "ovest\n";
 			tmp->w(scan);
 			scan->e(tmp);
 		}
@@ -145,7 +130,7 @@ node* random_movement(node* tail, node* cur_pos, player* cur_player) {
 	int spostato = 0, x_offset, y_offset;
 	bool found = 0;
 	while(!spostato){
-		//std::cout << "random movement\n";
+		//cout << "random movement\n";
 		x_offset = random(5, 1);
 		y_offset = random(4, 1);
 
@@ -154,7 +139,7 @@ node* random_movement(node* tail, node* cur_pos, player* cur_player) {
 				found = true;
 				//se il nodo estratto esiste già e non è occupato eseguo lo spostamento
 				if(scan->busy() == NULL){
-					//std::cout << "foreach movement\n";
+					//cout << "foreach movement\n";
 					movement(cur_player, cur_pos, scan, x_offset, y_offset);
 					spostato = 1;
 				}
@@ -179,32 +164,82 @@ void print_map(node* appoggio, const char* dir){
 	if((appoggio)!=NULL){
 		print_x = appoggio->read_x();
 		print_y = appoggio->read_y();
-		std::cout << dir << "(" << print_x << ", " << print_y << ")";
+		cout << dir << "(" << print_x << ", " << print_y << ")";
 	}
-	else std::cout << dir << 0;
+	else cout << dir << 0;
 }
 
 //stampa del riquadro riguardante le informazioni del giocatore corrente e del turno in corso
 void info_giocatore(player* scan, int turno){
-	std::cout << "------------------------------------------------------------------------------------------------------------------\n";
-	std::cout << "|                                                                                 |                              |\n";
-	std::cout << "|         gioca: ";
+	cout << "------------------------------------------------------------------------------------------------------------------\n";
+	cout << "|                                                                                 |                              |\n";
+	cout << "|         gioca: ";
 	scan->print_name();
-	std::cout << "                                                          |            |w|               |\n";
-	std::cout << "|         posizione attuale: " ;
-	std::cout << "  (";
+	cout << "                                                          |            |w|               |\n";
+	cout << "|         posizione attuale: " ;
+	cout << "  (";
 	set_space(scan->lon());
-	std::cout << scan->lon() << ",";
+	cout << scan->lon() << ",";
 	set_space(scan->lat());
-	std::cout << scan->lat() << ")                                        |          |a|s|d|             |\n";
-	std::cout << "|         vermi: " << scan->n_worms();
+	cout << scan->lat() << ")                                        |          |a|s|d|             |\n";
+	cout << "|         vermi: " << scan->n_worms();
 	set_space(scan->n_worms());
-	std::cout << "                                                             |                              |\n|        ";
-	if(turno <= 5) std::cout << "ATTENZIONE MANCANO  " << turno << "  TURNI ALLA CONCLUSIONE!!!";
-	else std::cout << "                                                ";
-	std::cout << "                         |                              |\n";
-	std::cout << "------------------------------------------------------------------------------------------------------------------\n";
-	std::cout << "posizione: " << scan->cur_pos() << " x: " << scan->cur_pos()->read_x() << " y: " << scan->cur_pos()->read_y() << "\n";
+	cout << "                                                             |                              |\n|        ";
+	if(turno <= 5) cout << "ATTENZIONE MANCANO  " << turno << "  TURNI ALLA CONCLUSIONE!!!";
+	else cout << " turno: "<< turno <<"                                      ";
+	cout << "                         |                              |\n";
+	cout << "------------------------------------------------------------------------------------------------------------------\n";
+	//cout << "posizione: " << scan->cur_pos() << " x: " << scan->cur_pos()->read_x() << " y: " << scan->cur_pos()->read_y() << "\n";
+}
+
+void stampa_mappa(player* scan, node* map_tail){
+	int y = 0;
+	int x = 0;
+	node* scan_map = NULL;
+	node* tmp_map = NULL;
+	for(y = scan->lat() + 3; y >= scan->lat() - 3; y--){
+				cout << "\n------------------------------------------------------------------------------------------------------------------\n";
+				cout << "|                |               |               |               |               |               |               |\n";
+				cout << "| ";
+				for(x = scan->lon() - 3; x <= scan->lon() + 3; x++){
+					foreach(map_tail, scan_map, tmp_map){
+						if(x == scan_map->read_x() && y == scan_map->read_y()){
+							//nodo corrente, dove si trova il player che sta giocando
+							if (y == scan->lat() && x == scan->lon()) {
+								cout << " |(";
+								set_space(scan_map->read_x());
+								cout << scan_map->read_x() << ",";
+								set_space(scan_map->read_y());
+								cout << scan_map->read_y() << ")| ";
+							}
+							else if (scan_map->busy() != NULL) {
+								//nodo nel quale è presente un altro giocatore
+								cout << " *(";
+								set_space(scan_map->read_x());
+								cout << scan_map->read_x() << ",";
+								set_space(scan_map->read_y());
+								cout << scan_map->read_y() << ")* ";
+							}
+							else {
+								//nodo già creato ma non busy
+								cout << "  (";
+								set_space(scan_map->read_x());
+								cout << scan_map->read_x() << ",";
+								set_space(scan_map->read_y());
+								cout << scan_map->read_y() << ")  ";
+							}
+							break;
+						}
+					}
+					if(tmp_map == map_tail) {
+						cout << "       0       ";
+					}
+					cout << "|";
+				}
+				cout << "\n";
+				cout << "|                |               |               |               |               |               |               |";
+			}
+			cout << "\n------------------------------------------------------------------------------------------------------------------\n";
 }
 
 //funzione da richiamare quando, dopo un attacco, il numero di vermi di uno dei due giocatori è < 0
@@ -214,15 +249,9 @@ void kill(player* tail){
 	player* tail_copy;
 	tail_copy = tail;
 //mi posiziono sull'elemento precedente all'elemento da eliminare
-	//va in loop
 	while (tail_copy->get_next()->print_id() != tail->print_id()){
-		std::cout << "kill\n";
 		tail_copy = tail_copy->get_next();
 	}
-	/*do{
-		std::cout << "kill\n";
-		tail_copy = tail_copy->get_next();
-	} while (tail_copy->get_next()->print_id() != tail->print_id());*/
 //eliminazione dell'elemento in questiione
 	tmp = tail_copy->get_next();
 	tail_copy->set_list(tmp->get_next());
@@ -254,9 +283,9 @@ player* enqueue_player(player* tail, char name[], int id, node* p){
 }
 
 void set_space(int n) {
-	if((n > -1) && (n < 10)) std::cout << "   ";
-	else if(((n > 9) && (n < 100)) || ((n < 0) && (n > -10))) std::cout << "  ";
-	else if (((n > 99) && (n < 1000)) || ((n > -100) && (n < -9))) std::cout << " ";
+	if((n > -1) && (n < 10)) cout << "   ";
+	else if(((n > 9) && (n < 100)) || ((n < 0) && (n > -10))) cout << "  ";
+	else if (((n > 99) && (n < 1000)) || ((n > -100) && (n < -9))) cout << " ";
 }
 
 int random(int n, bool segno){
