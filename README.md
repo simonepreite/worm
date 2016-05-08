@@ -24,11 +24,9 @@
 #                                                                     #
 #  COMPILAZIONE:                                                      #
 #                                                                     #
-#          cd /percorso/cartella/worm                                 #
+#          cd /percorso/cartella/worms                                #
 #                                                                     #
-#          make                                                       #
-#                                                                     #
-#          ./worms                                                    #
+#          ./init.sh                                                  #
 #                                                                     #
 #          enjoy                                                      #
 #                                                                     #

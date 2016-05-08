@@ -133,7 +133,7 @@ int main(){
 				winner->print_name();
 			}
 		cout << "\n";
-		while(count < 10){
+		while(count < 7){
 			sleep(1);
 			count ++;
 		}
