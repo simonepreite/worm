@@ -188,6 +188,7 @@ void info_giocatore(player* scan, int turno){
 	if(turno <= 5) cout << "ATTENZIONE MANCANO  " << turno << "  TURNI ALLA CONCLUSIONE!!!";
 	else cout << " turno: "<< turno <<"                                      ";
 	cout << "                         |                              |\n";
+	cout << "|                                                                                 |                              |\n";
 	cout << "------------------------------------------------------------------------------------------------------------------\n";
 	//cout << "posizione: " << scan->cur_pos() << " x: " << scan->cur_pos()->read_x() << " y: " << scan->cur_pos()->read_y() << "\n";
 }
