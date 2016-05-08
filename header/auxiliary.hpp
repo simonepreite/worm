@@ -8,7 +8,7 @@ extern void movement(player* cur_player, node* cur_pos, node* scan, int x_offset
 extern node* random_movement(node* tail, node* cur_pos, player* cur_player);
 extern void print_map(node* appoggio, const char* dir);
 extern void info_giocatore(player* scan, int turno);
-extern void stampa_mappa(player* scan, node* map_tail);
+extern void stampa_mappa(node* map_tail, player* play);
 extern void kill(player* tail);
 extern node* enqueue_map(node* tail, node* p);
 extern player* enqueue_player(player* tail, char name[], int id, node* p);

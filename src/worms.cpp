@@ -93,7 +93,8 @@ int main(){
 
 		foreach(tail, scan, tmp){
 			system("clear");
-			stampa_mappa(scan, map_tail);
+			//stampa_mappa(scan, map_tail);
+			stampa_mappa(map_tail, scan);
 			info_giocatore(scan, i);
 			cout << "inserire direzione: ";
 			cin >> dir;
