@@ -24,7 +24,7 @@
 #                                                                     #
 #  COMPILAZIONE:                                                      #
 #                                                                     #
-#          cd /percorso/cartella/worms                                #
+#          cd /percorso/cartella/worm                                 #
 #                                                                     #
 #          ./init.sh                                                  #
 #                                                                     #
