@@ -103,6 +103,7 @@ int main(){
 		}
 
 		if(i == 1 || scan == scan->get_next()) {
+		int count = 0;
 		system("clear");
 		cout << "\n\n";
 		cout << "▄▄▄█████▓ ██░ ██ ▓█████    ▓█████  ███▄    █ ▓█████▄ \n";
@@ -132,6 +133,10 @@ int main(){
 				winner->print_name();
 			}
 		cout << "\n";
+		while(count < 10){
+			sleep(1);
+			count ++;
+		}
 		return 0;
 		}
 	}

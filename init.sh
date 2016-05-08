@@ -3,13 +3,13 @@ case "$(uname -s)" in
 
    Darwin)
      echo 'Mac OS X'
-	 open -a Terminal.app ./worms
+	 open -a Terminal.app ./worms; ccf
      ;;
 
    Linux)
      echo 'Linux'
-     #xterm -geometry 800x600 -e ./worms
-     mate-terminal --geometry=150x50 -e ./worms
+	
+     lxterminal --geometry=180x100 -e ./worms ||konsole --fullscreen -e ./worms || xfce4-terminal --fullscreen -e ./worms || mate-terminal --full-screen -e ./worms || xterm -max -e ./worms
      ;;
 
 
