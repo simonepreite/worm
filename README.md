@@ -43,7 +43,7 @@
 #     - Successivamente a turno vengono inseriti da tastiera i nomi.  #
 #     - l'unica azione consentita è lo spostamento che comprende      #
 #       alcune azioni automatiche a seconda della situazione:         #
-# 		   1 - Per i primi tre turni non è consentito l'attacco per     #
+# 		   1 - Per i primi tre turni non è consentito l'attacco per   #
 #              permettere a tutti i giocatori di ottenere vermi,      #
 #              se la casella è occupata quindi il giocatore che cerca #
 #              di spostarsi su di essa viene sbalzato in una casella  #
