@@ -30,16 +30,19 @@
 #                                                                     #
 #          enjoy                                                      #
 #                                                                     #
+#  PULIZIA:                                                           #
+#          make clean                                                 #
+#                                                                     #
 #######################################################################
 #######################################################################
 #                                                                     #
 #  REGOLE DEL GIOCO:                                                  #
 #                                                                     #
 #     - Il gioco inizia con l'inserimento del numero di giocatori.    #
-#     - successivamente a turno vengono inseriti da tastiera i nomi.  #
+#     - Successivamente a turno vengono inseriti da tastiera i nomi.  #
 #     - l'unica azione consentita è lo spostamento che comprende      #
 #       alcune azioni automatiche a seconda della situazione:         #
-# 		   1 - Per i primi tre turni non è consentito l'attacco per   #
+# 		   1 - Per i primi tre turni non è consentito l'attacco per     #
 #              permettere a tutti i giocatori di ottenere vermi,      #
 #              se la casella è occupata quindi il giocatore che cerca #
 #              di spostarsi su di essa viene sbalzato in una casella  #
@@ -55,13 +58,7 @@
 #          3 - I giocatori che presentano un numero pari a 0 o        #
 #              o negativo di vermi vengono eliminati e sono fuori dal #
 #              gioco.                                                 #
-#          4 - Il gioco termina quando resta un solo giocatoro o al   #
+#          4 - Il gioco termina quando resta un solo giocatore o al   #
 #              termine dei turni di gioco (che sono settati a 30)     #
 #                                                                     #
 #######################################################################
-
-
-
-
-
-

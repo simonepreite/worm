@@ -1,8 +1,8 @@
 #include "header.hpp"
 
-/*  direzione w: nord, s: sud, d: est, a: ovest questa funzione viene
-	chiamata solo se ci si è accertati che il nodo non esiste
-*/
+/*  direzione w: nord, s: sud, d: est, a: ovest questa funzione viene */
+
+//richiama la funione di spostamento (direction) a seconda dell'input di spostamento dell'utente
 node* move(node* tail, node* cur_pos, char direzione, player* cur_player, int i) {
 	node* app;
 	switch (direzione){
@@ -22,6 +22,8 @@ node* move(node* tail, node* cur_pos, char direzione, player* cur_player, int i)
 	return tail;
 }
 
+//analizza lo spostamento controllando se ci troviamo in una situazione di attacco o di spostamento normale
+//Se abbiamo uno spostamento normale richiamma la movement, altrimenti richiama la random_movement
 node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x, int y, int i) {
 	player* p;
 	if(app != NULL){
@@ -39,6 +41,7 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 					//cur_player ha perso
 					if (cur_player->n_worms() < 0) {
 						cur_pos->set_wih(NULL);
+						cout << "Giocatore eliminato: ";
 						cur_player->print_name();
 						kill(cur_player);
 					}
@@ -50,6 +53,7 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 					//app ha perso
 					if (p->n_worms() < 0) {
 						app->set_wih(NULL);
+						cout << "Giocatore eliminato: ";
 						p->print_name();
 						kill(p);
 					}
@@ -71,6 +75,7 @@ node* direction(node* tail, node* app, node* cur_pos, player* cur_player, int x,
 	return tail;
 }
 
+//instanzia un nuovo nodo della mappa e lo ricongiunge con nodi già creati limitrofi (nel caso questi siano già stati istanziati)
 node* set_new_node(int x_offset, int y_offset, node* tail, node* cur_pos, player* cur_player){
 	int x = cur_pos->read_x();
 	int y = cur_pos->read_y();
@@ -123,7 +128,7 @@ void movement(player* cur_player, node* cur_pos, node* scan, int x_offset, int y
 	}
 }
 
-//sposta cur_player in un nodo casuale
+//sposta cur_player in un nodo casuale. Richiamata sul perdente di uno scontro o nei primi 3 turni iniziali
 node* random_movement(node* tail, node* cur_pos, player* cur_player) {
 	node* tmp;
 	node* scan;
@@ -156,17 +161,6 @@ node* random_movement(node* tail, node* cur_pos, player* cur_player) {
 		}
 	}
 	return tail;
-}
-
-void print_map(node* appoggio, const char* dir){
-	int print_x = 0;
-	int print_y = 0;
-	if((appoggio)!=NULL){
-		print_x = appoggio->read_x();
-		print_y = appoggio->read_y();
-		cout << dir << "(" << print_x << ", " << print_y << ")";
-	}
-	else cout << dir << 0;
 }
 
 //stampa del riquadro riguardante le informazioni del giocatore corrente e del turno in corso
@@ -203,7 +197,7 @@ void stampa_mappa(node* map_tail, player* play){
 	int max_lat = play->lat() + 3;
 	node* map[7][7];
 
-	
+
 	for(i=0; i<7; i++){
 		for(j=0; j<7; j++){
 			map[i][j]=NULL;
@@ -216,7 +210,7 @@ void stampa_mappa(node* map_tail, player* play){
 		}
 	}
 
-	
+
 	for(i=6; i>=0; i--){
 		cout << "\n------------------------------------------------------------------------------------------------------------------\n";
 		cout << "|                |               |               |               |               |               |               |\n";
@@ -281,6 +275,7 @@ node* enqueue_map(node* tail, node* p){
 	return tail;
 }
 
+//aggiunge un giocatore sulla lista circolare
 player* enqueue_player(player* tail, char name[], int id, node* p){
 	player* tmp;
 	if(tail == NULL){
@@ -298,12 +293,14 @@ player* enqueue_player(player* tail, char name[], int id, node* p){
 	return tail;
 }
 
+//serve per controlllare gli spazi all'interno della casella
 void set_space(int n) {
 	if((n > -1) && (n < 10)) cout << "   ";
 	else if(((n > 9) && (n < 100)) || ((n < 0) && (n > -10))) cout << "  ";
 	else if (((n > 99) && (n < 1000)) || ((n > -100) && (n < -9))) cout << " ";
 }
 
+//estrattore di numeri casuali. n rappresenta il numero max estraibile mentre segno permette l'estrazione di numeri anche negativi
 int random(int n, bool segno){
 	int x=0;
 	srand(time(0));

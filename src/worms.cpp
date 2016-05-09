@@ -51,7 +51,7 @@ int main(){
 	cout << "\n\n";
 
 	foreach(tail, scan, tmp) {
-		info_giocatore(scan, MAXTURNI); 
+		info_giocatore(scan, MAXTURNI);
 	}
 
 	if(num_players > 1){
@@ -68,7 +68,7 @@ int main(){
 		cout << "Non puoi giocare da solo!\n";
 		return 0;
 	}
-	
+
 	tail = tmp;
 	cout << "La prima mossa è di ";
 	scan->print_name();
@@ -133,7 +133,7 @@ int main(){
 				winner->print_name();
 			}
 		cout << "\n";
-		while(count < 7){
+		while(count < 5){
 			sleep(1);
 			count ++;
 		}
